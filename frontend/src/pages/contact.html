@@ -1,68 +1,545 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  <title>Your Startup | Contact</title>
-  <link rel="icon" href="../../public/favicon.ico" >
-  <link rel="stylesheet" href="../css/main.css" >
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact — Akrasia</title>
+    <meta
+      name="description"
+      content="Contact Team Akrasia — six developers based in Bangladesh. Reach us by email or start a project enquiry."
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      /* ── GitHub avatar for team cards ── */
+      .team-avatar-wrap {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 1.25rem;
+        position: relative;
+        flex-shrink: 0;
+      }
+      .team-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid var(--gold-rule);
+        display: block;
+        background: var(--gold-dim);
+      }
+      .team-initial-fallback {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 1px solid var(--gold-rule);
+        background: var(--gold-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--serif);
+        font-size: 1.4rem;
+        font-style: italic;
+        color: var(--gold);
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      /* Hide fallback when image loads, show when it fails */
+      .team-avatar-wrap .team-initial-fallback {
+        display: none;
+      }
+      .team-avatar-wrap .team-avatar.errored {
+        display: none;
+      }
+      .team-avatar-wrap .team-avatar.errored + .team-initial-fallback {
+        display: flex;
+      }
 
-  <nav class="navbar">
-    <div class="container navbar__inner">
-      <a href="index.html" class="navbar__logo">Akrasia</a>
-      <button type="button" class="navbar__hamburger" aria-label="Toggle menu" aria-expanded="false">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
-      <ul class="navbar__links">
-        <li><a href="index.html"   class="navbar__link">Home</a></li>
-        <li><a href="about.html"   class="navbar__link">About</a></li>
-        <li><a href="contact.html" class="navbar__link active">Contact</a></li>
-        <li><a href="#" class="btn btn-primary btn-sm">Get Started</a></li>
-      </ul>
+      /* Tighter team grid on this simplified page */
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border: 1px solid var(--rule-md);
+        background: var(--rule-md);
+        gap: 1px;
+      }
+      .team-card {
+        background: var(--surface);
+        padding: 2.25rem;
+        display: flex;
+        flex-direction: column;
+        transition: background 0.2s;
+      }
+      .team-card:hover {
+        background: var(--bg-2);
+      }
+      .team-name {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: var(--text);
+        margin-bottom: 0.15rem;
+      }
+      .team-role {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--gold);
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+      .team-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin-top: auto;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--rule);
+      }
+      .team-link {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 12.5px;
+        color: var(--text-3);
+        padding: 0.45rem 0;
+        border-bottom: 1px solid var(--rule);
+        transition: color 0.2s;
+        word-break: break-all;
+        text-decoration: none;
+      }
+      .team-link:last-child {
+        border-bottom: none;
+      }
+      .team-link:hover {
+        color: var(--text);
+      }
+      .team-link-icon {
+        flex-shrink: 0;
+        font-size: 13px;
+        color: var(--text-4);
+      }
+      .team-tbd {
+        font-size: 12px;
+        color: var(--text-4);
+        font-style: italic;
+      }
+
+      @media (max-width: 860px) {
+        .team-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 600px) {
+        .team-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── NAV ─────────────────────────────────────────── -->
+    <nav class="nav">
+      <div class="container">
+        <a href="index.html" class="nav-logo">Akrasia<span>.</span></a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="contact.html" class="active">Contact</a>
+          <a href="start.html" class="nav-cta">Start a Project</a>
+        </div>
+        <button class="nav-hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="nav-mobile">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="start.html" class="nav-cta">Start a Project</a>
     </div>
-  </nav>
 
-  <main>
-    <section style="padding:var(--space-24) 0;background:var(--color-bg-alt);">
-      <div class="container" style="max-width:600px;">
-        <h1 style="margin-bottom:var(--space-2);">Get in Touch</h1>
-        <p style="margin-bottom:var(--space-8);">We'd love to hear from you. Fill out the form and we'll get back to you shortly.</p>
+    <!-- ── PAGE HERO ─────────────────────────────────────── -->
+    <div class="page-hero">
+      <div class="container">
+        <p class="page-eyebrow">Contact</p>
+        <h1>Simple ways to<br /><em>reach us.</em></h1>
+        <p class="lead">
+          Email us directly, or use the project form to get a formal itemised
+          proposal within 24 hours. Every message is answered personally — never
+          by automation.
+        </p>
+      </div>
+    </div>
 
-        <div style="background:var(--color-bg);padding:var(--space-8);border-radius:var(--radius-lg);border:1px solid var(--color-border);">
-          <!-- form data sent to backend API when ready -->
-          <div id="contact-form">
-            <div style="margin-bottom:var(--space-4);">
-              <label for="name" style="display:block;font-weight:var(--font-medium);margin-bottom:var(--space-1);">Full Name</label>
-              <input id="name" type="text" placeholder="Jane Doe" style="width:100%;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-base);" >
+    <!-- ── CONTACT INFO ──────────────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <p class="section-eyebrow">Get in Touch</p>
+        <h2 class="section-heading">We're one email <em>away.</em></h2>
+
+        <div class="contact-split">
+          <div class="contact-intro">
+            <h3>A six-person team based in Bangladesh.</h3>
+            <p>
+              We work with clients across all industries — from solo founders
+              building their first site to established businesses needing a
+              complete digital overhaul. Every enquiry is answered personally,
+              not by automation.
+            </p>
+            <div class="availability-badge">Available for new projects</div>
+
+            <div style="margin-top: 2rem">
+              <a
+                href="start.html"
+                class="btn btn-primary"
+                style="display: inline-flex"
+              >
+                Start a Project
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  style="width: 14px; height: 14px"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
-            <div style="margin-bottom:var(--space-4);">
-              <label for="email" style="display:block;font-weight:var(--font-medium);margin-bottom:var(--space-1);">Email</label>
-              <input id="email" type="email" placeholder="jane@example.com" style="width:100%;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-base);" >
+          </div>
+
+          <div class="contact-details">
+            <div class="contact-row">
+              <span class="contact-row-label">Email</span>
+              <span class="contact-row-value">
+                <a href="mailto:teamtheakrasia@gmail.com"
+                  >teamtheakrasia@gmail.com</a
+                >
+              </span>
             </div>
-            <div style="margin-bottom:var(--space-6);">
-              <label for="message" style="display:block;font-weight:var(--font-medium);margin-bottom:var(--space-1);">Message</label>
-              <textarea id="message" rows="5" placeholder="Tell us how we can help..." style="width:100%;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-base);resize:vertical;"></textarea>
+            <div class="contact-row">
+              <span class="contact-row-label">Response</span>
+              <span class="contact-row-value"
+                >Within 24 hours on business days</span
+              >
             </div>
-            <button type="button" id="submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message</button>
-            <p id="form-status" style="margin-top:var(--space-3);text-align:center;color:var(--color-success);display:none;">✅ Message sent! We'll be in touch.</p>
+            <div class="contact-row">
+              <span class="contact-row-label">Location</span>
+              <span class="contact-row-value"
+                >Bangladesh — remote-first, available nationally</span
+              >
+            </div>
+            <div class="contact-row">
+              <span class="contact-row-label">GitHub</span>
+              <span class="contact-row-value">
+                <a href="https://github.com" target="_blank" rel="noopener"
+                  >github.com/akrasia-team</a
+                >
+              </span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-row-label">Quotes</span>
+              <span class="contact-row-value"
+                >Formal, itemised, in BDT — always in writing</span
+              >
+            </div>
+            <div class="contact-row">
+              <span class="contact-row-label">Languages</span>
+              <span class="contact-row-value">Bengali &amp; English</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__bottom">&copy; <span id="year"></span> Akrasia. All rights reserved.</div>
+    <!-- ── TEAM ──────────────────────────────────────────── -->
+    <section class="section section--alt" id="team">
+      <div class="container">
+        <p class="section-eyebrow">The Team</p>
+        <h2 class="section-heading">Team <em>Akrasia.</em></h2>
+        <p class="section-sub">
+          Six developers. One shared standard: write clean code, give honest
+          advice, and deliver work that actually performs for the businesses
+          that commission it.
+        </p>
+
+        <div class="team-grid reveal">
+          <!-- Hisham -->
+          <div class="team-card">
+            <div class="team-avatar-wrap">
+              <img
+                class="team-avatar"
+                src="https://github.com/Hishamwalid.png?size=128"
+                alt="Hisham"
+                loading="lazy"
+                onerror="this.classList.add('errored')"
+              />
+              <div class="team-initial-fallback">H</div>
+            </div>
+            <p class="team-name">Hisham</p>
+            <p class="team-role">Developer</p>
+            <div class="team-links">
+              <a href="mailto:hishamwalid666555@gmail.com" class="team-link">
+                <span class="team-link-icon">✉</span>
+                hishamwalid666555@gmail.com
+              </a>
+              <a
+                href="https://github.com/Hishamwalid"
+                target="_blank"
+                rel="noopener"
+                class="team-link"
+              >
+                <span class="team-link-icon">⌥</span>
+                github.com/Hishamwalid
+              </a>
+            </div>
+          </div>
+
+          <!-- Apurbo -->
+          <div class="team-card">
+            <div class="team-avatar-wrap">
+              <img
+                class="team-avatar"
+                src="https://github.com/ApurboAbir17.png?size=128"
+                alt="Apurbo"
+                loading="lazy"
+                onerror="this.classList.add('errored')"
+              />
+              <div class="team-initial-fallback">A</div>
+            </div>
+            <p class="team-name">Apurbo</p>
+            <p class="team-role">Developer</p>
+            <div class="team-links">
+              <a href="mailto:abirulalamapurbo@gmail.com" class="team-link">
+                <span class="team-link-icon">✉</span>
+                abirulalamapurbo@gmail.com
+              </a>
+              <a
+                href="https://github.com/ApurboAbir17"
+                target="_blank"
+                rel="noopener"
+                class="team-link"
+              >
+                <span class="team-link-icon">⌥</span>
+                github.com/ApurboAbir17
+              </a>
+            </div>
+          </div>
+
+          <!-- Jim -->
+          <div class="team-card">
+            <div class="team-avatar-wrap">
+              <img
+                class="team-avatar"
+                src="https://github.com/aa-jim.png?size=128"
+                alt="Jim"
+                loading="lazy"
+                onerror="this.classList.add('errored')"
+              />
+              <div class="team-initial-fallback">J</div>
+            </div>
+            <p class="team-name">Jim</p>
+            <p class="team-role">Developer</p>
+            <div class="team-links">
+              <a href="mailto:abdullahaljim2@gmail.com" class="team-link">
+                <span class="team-link-icon">✉</span>
+                abdullahaljim2@gmail.com
+              </a>
+              <a
+                href="https://github.com/aa-jim"
+                target="_blank"
+                rel="noopener"
+                class="team-link"
+              >
+                <span class="team-link-icon">⌥</span>
+                github.com/aa-jim
+              </a>
+            </div>
+          </div>
+
+          <!-- Shabab -->
+          <div class="team-card">
+            <div class="team-avatar-wrap">
+              <img
+                class="team-avatar"
+                src="https://github.com/Shabab47.png?size=128"
+                alt="Shabab"
+                loading="lazy"
+                onerror="this.classList.add('errored')"
+              />
+              <div class="team-initial-fallback">S</div>
+            </div>
+            <p class="team-name">Shabab</p>
+            <p class="team-role">Developer</p>
+            <div class="team-links">
+              <a href="mailto:shababnandigram28@gmail.com" class="team-link">
+                <span class="team-link-icon">✉</span>
+                shababnandigram28@gmail.com
+              </a>
+              <a
+                href="https://github.com/Shabab47"
+                target="_blank"
+                rel="noopener"
+                class="team-link"
+              >
+                <span class="team-link-icon">⌥</span>
+                github.com/Shabab47
+              </a>
+            </div>
+          </div>
+
+          <!-- Labib -->
+          <div class="team-card">
+            <div class="team-avatar-wrap">
+              <img
+                class="team-avatar"
+                src="https://github.com/L-hsn103.png?size=128"
+                alt="Labib"
+                loading="lazy"
+                onerror="this.classList.add('errored')"
+              />
+              <div class="team-initial-fallback">L</div>
+            </div>
+            <p class="team-name">Labib</p>
+            <p class="team-role">Developer</p>
+            <div class="team-links">
+              <a href="mailto:labibh048@gmail.com" class="team-link">
+                <span class="team-link-icon">✉</span>
+                labibh048@gmail.com
+              </a>
+              <a
+                href="https://github.com/L-hsn103"
+                target="_blank"
+                rel="noopener"
+                class="team-link"
+              >
+                <span class="team-link-icon">⌥</span>
+                github.com/L-hsn103
+              </a>
+            </div>
+          </div>
+
+          <!-- Rasek -->
+          <div class="team-card">
+            <div class="team-avatar-wrap">
+              <img
+                class="team-avatar"
+                src="https://github.com/MdRasB.png?size=128"
+                alt="Rasek"
+                loading="lazy"
+                onerror="this.classList.add('errored')"
+              />
+              <div class="team-initial-fallback">R</div>
+            </div>
+            <p class="team-name">Rasek</p>
+            <p class="team-role">Developer</p>
+            <div class="team-links">
+              <a href="mailto:Muhammadrasekb@gmail.com" class="team-link">
+                <span class="team-link-icon">✉</span>
+                Muhammadrasekb@gmail.com
+              </a>
+              <a
+                href="https://github.com/MdRasB"
+                target="_blank"
+                rel="noopener"
+                class="team-link"
+              >
+                <span class="team-link-icon">⌥</span>
+                github.com/MdRasB
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top: 2rem">
+          <strong>Reach the whole team:</strong> For general enquiries, use
+          <a href="mailto:teamtheakrasia@gmail.com" style="color: var(--gold)"
+            >teamtheakrasia@gmail.com</a
+          >
+          — it reaches everyone and guarantees the fastest response.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────── -->
+    <div class="cta-banner">
+      <div class="container">
+        <h2>Ready to start?<br /><em>Tell us about your project.</em></h2>
+        <p>
+          Use the project form to get a formal, itemised proposal within 24
+          hours.
+        </p>
+        <div class="btn-row" style="justify-content: center">
+          <a href="start.html" class="btn btn-primary">
+            Start a Project
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="pricing.html" class="btn btn-outline">View Pricing</a>
+        </div>
+      </div>
     </div>
-  </footer>
 
-  <script type="module" src="../js/main.js"></script>
-  <script type="module" src="../js/pages/contact.js"></script>
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-</body>
+    <!-- ── FOOTER ────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <p class="footer-brand-name">Akrasia<span>.</span></p>
+            <p>
+              Custom web development for businesses across Bangladesh. Built
+              with care, priced with integrity.
+            </p>
+            <span class="footer-tag">Team Akrasia &ensp;·&ensp; BD</span>
+          </div>
+          <div class="footer-col">
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="services.html#static">Static Websites</a></li>
+              <li><a href="services.html#semi">Semi-Dynamic</a></li>
+              <li><a href="services.html#dynamic">Dynamic + CMS</a></li>
+              <li><a href="services.html#ecommerce">E-commerce</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Get in Touch</h4>
+            <ul>
+              <li><a href="start.html">Start a Project</a></li>
+              <li><a href="start.html#faq">FAQ</a></li>
+              <li><a href="contact.html#team">The Team</a></li>
+              <li>
+                <a href="mailto:teamtheakrasia@gmail.com"
+                  >teamtheakrasia@gmail.com</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 Akrasia. All prices in BDT.</p>
+          <p>Crafted in <a href="contact.html#team">Bangladesh</a>.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

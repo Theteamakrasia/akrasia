@@ -1,0 +1,2964 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services — Akrasia</title>
+    <meta
+      name="description"
+      content="Akrasia web development services: Static, Semi-Dynamic, and Dynamic websites. Every feature explained in plain business language."
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      /* ── Feature visual SVG previews ── */
+      .feature-visual {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 1.25rem 0 1rem;
+        border: 1px solid var(--rule-md);
+        background: var(--bg-2);
+        border-radius: 2px;
+      }
+      .feature-card {
+        position: relative;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── NAV ─────────────────────────────────────────── -->
+    <nav class="nav">
+      <div class="container">
+        <a href="index.html" class="nav-logo">Akrasia<span>.</span></a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="services.html" class="active">Services</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="contact.html">Contact</a>
+          <a href="start.html" class="nav-cta">Start a Project</a>
+        </div>
+        <button class="nav-hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="nav-mobile">
+      <a href="index.html">Home</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+      <a href="start.html" class="nav-cta">Start a Project</a>
+    </div>
+
+    <!-- ── PAGE HERO ─────────────────────────────────────── -->
+    <div class="page-hero">
+      <div class="container">
+        <p class="page-eyebrow">Services</p>
+        <h1>What we build,<br />and <em>why it matters.</em></h1>
+        <p class="lead">
+          Every feature in our catalogue exists for a business reason. This page
+          explains what each one does for you — not just what it is technically.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── TIER ONE: STATIC ──────────────────────────────── -->
+    <section class="section" id="static">
+      <div class="container">
+        <p class="section-eyebrow">Tier One</p>
+        <h2 class="section-heading"><em>Static</em> Websites</h2>
+        <p class="section-sub">
+          Pure hand-coded HTML, CSS, and JavaScript. No database, no server-side
+          code. Content changes require a developer edit. The simplest, fastest,
+          and most affordable option — from 4,000 BDT.
+        </p>
+        <div class="callout" style="margin-bottom: 2.5rem">
+          <strong>Best for:</strong> Portfolios, landing pages, event sites,
+          business brochures, and any project where content is fixed and you do
+          not need to log in and make changes yourself.
+        </div>
+        <div class="steps reveal" style="grid-template-columns: repeat(3, 1fr)">
+          <div class="step">
+            <span class="step-num">Strengths</span>
+            <h4>Why it works well</h4>
+            <p>
+              Extremely fast load times. Very low hosting cost — deployable to
+              GitHub Pages for free. No backend means no security attack
+              surface. Simple and reliable in the long term.
+            </p>
+          </div>
+          <div class="step step--alt">
+            <span class="step-num">Limitations</span>
+            <h4>What to be aware of</h4>
+            <p>
+              Cannot auto-pull live content such as social feeds or news. No
+              user accounts or e-commerce. A developer must edit HTML files to
+              change any text or image after handover.
+            </p>
+          </div>
+          <div class="step">
+            <span class="step-num">Capabilities</span>
+            <h4>What is possible</h4>
+            <p>
+              Contact forms via Formspree, image galleries, testimonial sliders,
+              manually-updated blog sections, client-side search, animations,
+              and all UI components in our catalogue.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TIER TWO: SEMI-DYNAMIC ────────────────────────── -->
+    <section class="section section--alt" id="semi">
+      <div class="container">
+        <p class="section-eyebrow">Tier Two</p>
+        <h2 class="section-heading"><em>Semi-Dynamic</em> Websites</h2>
+        <p class="section-sub">
+          Client-side API calls, third-party form services, and lightweight
+          integrations — without the cost of a custom backend or database. Live
+          features at a fraction of a full dynamic build. From 6,000 BDT.
+        </p>
+        <div class="callout" style="margin-bottom: 2.5rem">
+          <strong>Best for:</strong> Small businesses that post on Instagram or
+          YouTube regularly, service providers who need contact form email
+          notifications, and startups that want a modern connected presence
+          without a high development budget.
+        </div>
+        <div class="steps reveal" style="grid-template-columns: repeat(3, 1fr)">
+          <div class="step">
+            <span class="step-num">Strengths</span>
+            <h4>Why it works well</h4>
+            <p>
+              Live social media feeds, YouTube embeds, and contact form
+              notifications without server costs. Faster and cheaper than a full
+              dynamic build while feeling genuinely alive and current.
+            </p>
+          </div>
+          <div class="step step--alt">
+            <span class="step-num">Limitations</span>
+            <h4>What to be aware of</h4>
+            <p>
+              No user accounts, e-commerce, or custom admin panels. Social API
+              keys are exposed client-side — this is communicated to all clients
+              upfront with clear explanation and options.
+            </p>
+          </div>
+          <div class="step">
+            <span class="step-num">Capabilities</span>
+            <h4>What is possible</h4>
+            <p>
+              Instagram and Twitter feeds, YouTube latest-video embed, contact
+              forms with email delivery, headless CMS blog (add-on), client-side
+              search, and all UI components in the catalogue.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TIER THREE: DYNAMIC ───────────────────────────── -->
+    <section class="section" id="dynamic">
+      <div class="container">
+        <p class="section-eyebrow">Tier Three</p>
+        <h2 class="section-heading"><em>Dynamic</em> Websites</h2>
+        <p class="section-sub">
+          A real backend, database, and admin panel. Content is managed through
+          a CMS so you — or anyone on your team — can update the site without
+          touching code. The most powerful tier for growing businesses. From
+          8,000 BDT.
+        </p>
+        <div class="callout" style="margin-bottom: 2.5rem">
+          <strong>Best for:</strong> Businesses that publish content regularly,
+          manage users or members, sell products online, or operate a site that
+          needs to evolve constantly. If you want full autonomy over your
+          content, this is your tier.
+        </div>
+        <div
+          class="steps reveal"
+          style="grid-template-columns: repeat(3, 1fr)"
+          id="ecommerce"
+        >
+          <div class="step">
+            <span class="step-num">Strengths</span>
+            <h4>Why it works well</h4>
+            <p>
+              Self-managed content, user accounts, e-commerce, multi-language
+              support, scheduled publishing, custom admin dashboards, and full
+              server-side search capability.
+            </p>
+          </div>
+          <div class="step step--alt">
+            <span class="step-num">Considerations</span>
+            <h4>What to be aware of</h4>
+            <p>
+              Higher development cost and requires a paid server for hosting.
+              More power also means more to manage — our maintenance plans are
+              strongly recommended for dynamic sites.
+            </p>
+          </div>
+          <div class="step">
+            <span class="step-num">Exclusive Features</span>
+            <h4>Dynamic-only capabilities</h4>
+            <p>
+              User registration &amp; login (8,000 BDT), E-commerce cart &amp;
+              checkout (from 15,000 BDT), Custom admin dashboard (10,000 BDT),
+              Multi-language / i18n support (5,000 BDT).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CAPABILITY TABLE ──────────────────────────────── -->
+    <section class="section section--alt">
+      <div class="container">
+        <p class="section-eyebrow">Capability Comparison</p>
+        <h2 class="section-heading">
+          What is available<br />on <em>each tier?</em>
+        </h2>
+        <p class="section-sub">
+          Some features are only technically possible with a backend database.
+          This table shows exactly what works — and what does not — before any
+          quote is produced.
+        </p>
+        <div class="data-table-wrap reveal" style="margin-bottom: 2rem">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 35%">Feature</th>
+                <th>Static</th>
+                <th>Semi-Dynamic</th>
+                <th>Dynamic</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Contact form with email notification</td>
+                <td><span class="yes">✓ via Formspree</span></td>
+                <td><span class="yes">✓ via Formspree</span></td>
+                <td><span class="yes">✓ custom backend</span></td>
+              </tr>
+              <tr>
+                <td>YouTube latest video (auto-update)</td>
+                <td><span class="no">✗ manual only</span></td>
+                <td><span class="yes">✓ API embed</span></td>
+                <td><span class="yes">✓ API embed</span></td>
+              </tr>
+              <tr>
+                <td>Instagram / social feed (live)</td>
+                <td><span class="no">✗ not possible</span></td>
+                <td><span class="yes">✓ client-side API</span></td>
+                <td><span class="yes">✓ server-side</span></td>
+              </tr>
+              <tr>
+                <td>Image gallery with lightbox</td>
+                <td><span class="yes">✓ all tiers</span></td>
+                <td><span class="yes">✓ all tiers</span></td>
+                <td><span class="yes">✓ all tiers</span></td>
+              </tr>
+              <tr>
+                <td>User registration &amp; login</td>
+                <td><span class="no">✗ not possible</span></td>
+                <td><span class="no">✗ not possible</span></td>
+                <td><span class="yes">✓ 8,000 BDT</span></td>
+              </tr>
+              <tr>
+                <td>E-commerce cart &amp; checkout</td>
+                <td><span class="no">✗ not possible</span></td>
+                <td><span class="no">✗ not possible</span></td>
+                <td><span class="yes">✓ from 15,000 BDT</span></td>
+              </tr>
+              <tr>
+                <td>Custom admin dashboard</td>
+                <td><span class="no">✗ not possible</span></td>
+                <td><span class="no">✗ not possible</span></td>
+                <td><span class="yes">✓ 10,000 BDT</span></td>
+              </tr>
+              <tr>
+                <td>Blog / news section</td>
+                <td><span class="note-cell">Manual HTML — 1,500 BDT</span></td>
+                <td>
+                  <span class="note-cell">Headless CMS — add 3,000 BDT</span>
+                </td>
+                <td><span class="yes">✓ full CMS included</span></td>
+              </tr>
+              <tr>
+                <td>Site-wide search</td>
+                <td><span class="note-cell">Client-side — 2,000 BDT</span></td>
+                <td><span class="note-cell">Client-side — 2,500 BDT</span></td>
+                <td><span class="yes">✓ server search — 3,000 BDT</span></td>
+              </tr>
+              <tr>
+                <td>Multi-language support</td>
+                <td><span class="no">✗ not possible</span></td>
+                <td><span class="no">✗ not practical</span></td>
+                <td><span class="yes">✓ 5,000 BDT</span></td>
+              </tr>
+              <tr>
+                <td>Real-time chat widget</td>
+                <td><span class="yes">✓ 4,000 BDT</span></td>
+                <td><span class="yes">✓ 4,000 BDT</span></td>
+                <td><span class="yes">✓ 4,000 BDT</span></td>
+              </tr>
+              <tr>
+                <td>Cookie consent banner</td>
+                <td><span class="yes">✓ 1,500 BDT</span></td>
+                <td><span class="yes">✓ 1,500 BDT</span></td>
+                <td><span class="yes">✓ 1,500 BDT</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FEATURE CATALOGUE (with visual examples) ─────── -->
+    <section class="section">
+      <div class="container">
+        <p class="section-eyebrow">Feature Catalogue</p>
+        <h2 class="section-heading">Every add-on, <em>explained.</em></h2>
+        <p class="section-sub">
+          Individual components we build and price separately. Each one is
+          designed to solve a specific business problem — not to pad a quote.
+        </p>
+
+        <!-- Navigation & Layout -->
+        <div style="margin-bottom: 3rem">
+          <p class="feature-section-label">Navigation &amp; Layout</p>
+          <div class="feature-grid reveal">
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">
+                  Responsive Header with Mega Menu
+                </p>
+                <p class="feature-card-price">from 4,000 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: navigation bar mockup -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Header bar -->
+                <rect y="0" width="320" height="36" fill="#1c1814" />
+                <!-- Logo mark -->
+                <rect
+                  x="16"
+                  y="13"
+                  width="32"
+                  height="10"
+                  rx="1"
+                  fill="#9a7c3c"
+                />
+                <!-- Nav links -->
+                <rect
+                  x="110"
+                  y="15"
+                  width="22"
+                  height="6"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.45"
+                />
+                <rect
+                  x="140"
+                  y="15"
+                  width="28"
+                  height="6"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.45"
+                />
+                <rect
+                  x="176"
+                  y="15"
+                  width="20"
+                  height="6"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.45"
+                />
+                <rect
+                  x="204"
+                  y="15"
+                  width="26"
+                  height="6"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.45"
+                />
+                <!-- CTA -->
+                <rect
+                  x="256"
+                  y="10"
+                  width="50"
+                  height="16"
+                  rx="1"
+                  fill="#9a7c3c"
+                />
+                <rect
+                  x="262"
+                  y="15"
+                  width="38"
+                  height="6"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.8"
+                />
+                <!-- Dropdown -->
+                <rect x="110" y="36" width="90" height="52" fill="#1c1814" />
+                <rect
+                  x="120"
+                  y="46"
+                  width="60"
+                  height="5"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.3"
+                />
+                <rect
+                  x="120"
+                  y="57"
+                  width="50"
+                  height="5"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.3"
+                />
+                <rect
+                  x="120"
+                  y="68"
+                  width="55"
+                  height="5"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.3"
+                />
+                <rect
+                  x="120"
+                  y="79"
+                  width="45"
+                  height="5"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.6"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Full-width navigation bar that collapses into a hamburger menu
+                on mobile. Mega menus expand on hover to show sub-pages or
+                service categories. Includes logo, links, and optional CTA
+                button.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Mobile Navigation Panel</p>
+                <p class="feature-card-price">from 3,000 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: mobile phone with slide-in menu -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Phone outline -->
+                <rect
+                  x="90"
+                  y="8"
+                  width="64"
+                  height="84"
+                  rx="6"
+                  fill="#e8e1d4"
+                  stroke="#c4b89a"
+                  stroke-width="1.5"
+                />
+                <rect
+                  x="90"
+                  y="8"
+                  width="64"
+                  height="22"
+                  rx="6"
+                  fill="#1c1814"
+                />
+                <rect
+                  y="8"
+                  x="90"
+                  width="64"
+                  height="10"
+                  rx="0"
+                  fill="#1c1814"
+                />
+                <!-- Hamburger on phone -->
+                <rect
+                  x="98"
+                  y="13"
+                  width="14"
+                  height="1.5"
+                  rx="0.75"
+                  fill="#f7f4ef"
+                  opacity="0.7"
+                />
+                <rect
+                  x="98"
+                  y="17"
+                  width="10"
+                  height="1.5"
+                  rx="0.75"
+                  fill="#f7f4ef"
+                  opacity="0.7"
+                />
+                <rect
+                  x="98"
+                  y="21"
+                  width="12"
+                  height="1.5"
+                  rx="0.75"
+                  fill="#f7f4ef"
+                  opacity="0.7"
+                />
+                <!-- Phone content -->
+                <rect
+                  x="98"
+                  y="38"
+                  width="48"
+                  height="6"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <rect
+                  x="98"
+                  y="50"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.1"
+                />
+                <!-- Slide-in panel (right side of screen) -->
+                <rect
+                  x="154"
+                  y="8"
+                  width="74"
+                  height="84"
+                  rx="3"
+                  fill="#1c1814"
+                />
+                <rect
+                  x="162"
+                  y="22"
+                  width="50"
+                  height="6"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.5"
+                />
+                <rect
+                  x="162"
+                  y="34"
+                  width="44"
+                  height="6"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.35"
+                />
+                <rect
+                  x="162"
+                  y="46"
+                  width="48"
+                  height="6"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.35"
+                />
+                <rect
+                  x="162"
+                  y="58"
+                  width="40"
+                  height="6"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.35"
+                />
+                <rect
+                  x="162"
+                  y="72"
+                  width="50"
+                  height="14"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.8"
+                />
+                <!-- Arrow indicating slide -->
+                <path
+                  d="M144 50 L152 50"
+                  stroke="#9a7c3c"
+                  stroke-width="1.5"
+                  stroke-dasharray="3 2"
+                />
+                <path
+                  d="M149 47 L152 50 L149 53"
+                  stroke="#9a7c3c"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                A slide-in or drop-down panel for mobile users with smooth
+                animation. Priced separately because mobile layout is a
+                completely different engineering problem from the desktop
+                header.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Multi-column Footer</p>
+                <p class="feature-card-price">from 2,500 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: footer layout -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Footer bg -->
+                <rect y="0" width="320" height="82" fill="#1c1814" />
+                <!-- Brand column -->
+                <rect
+                  x="16"
+                  y="14"
+                  width="36"
+                  height="8"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.9"
+                />
+                <rect
+                  x="16"
+                  y="27"
+                  width="52"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.2"
+                />
+                <rect
+                  x="16"
+                  y="34"
+                  width="46"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.2"
+                />
+                <rect
+                  x="16"
+                  y="41"
+                  width="50"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.2"
+                />
+                <!-- Col 2 -->
+                <rect
+                  x="100"
+                  y="14"
+                  width="30"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.5"
+                />
+                <rect
+                  x="100"
+                  y="24"
+                  width="24"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <rect
+                  x="100"
+                  y="31"
+                  width="28"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <rect
+                  x="100"
+                  y="38"
+                  width="22"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <rect
+                  x="100"
+                  y="45"
+                  width="26"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <!-- Col 3 -->
+                <rect
+                  x="180"
+                  y="14"
+                  width="28"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.5"
+                />
+                <rect
+                  x="180"
+                  y="24"
+                  width="32"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <rect
+                  x="180"
+                  y="31"
+                  width="24"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <rect
+                  x="180"
+                  y="38"
+                  width="30"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <!-- Col 4 -->
+                <rect
+                  x="254"
+                  y="14"
+                  width="32"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.5"
+                />
+                <rect
+                  x="254"
+                  y="24"
+                  width="44"
+                  height="3"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.6"
+                />
+                <rect
+                  x="254"
+                  y="31"
+                  width="38"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <rect
+                  x="254"
+                  y="38"
+                  width="42"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <!-- Bottom bar -->
+                <rect y="82" width="320" height="18" fill="#0e0b09" />
+                <rect
+                  x="16"
+                  y="87"
+                  width="80"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.15"
+                />
+                <rect
+                  x="224"
+                  y="87"
+                  width="80"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.15"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Structured footer with columns for pages, services, contact
+                details, and social links. Reinforces navigation and builds
+                trust. Fully responsive with graceful column stacking on small
+                screens.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">
+                  Hero Section with Lazy Background
+                </p>
+                <p class="feature-card-price">from 1,800 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: full-width hero banner -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#1c1814" />
+                <!-- Background gradient suggestion -->
+                <rect
+                  width="320"
+                  height="100"
+                  fill="url(#heroGrad)"
+                  opacity="0.3"
+                />
+                <defs>
+                  <linearGradient
+                    id="heroGrad"
+                    x1="0"
+                    y1="0"
+                    x2="320"
+                    y2="100"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop offset="0%" stop-color="#9a7c3c" stop-opacity="0.4" />
+                    <stop offset="100%" stop-color="#1c1814" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <!-- Headline text -->
+                <rect
+                  x="32"
+                  y="24"
+                  width="120"
+                  height="10"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.85"
+                />
+                <rect
+                  x="32"
+                  y="38"
+                  width="96"
+                  height="10"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.8"
+                />
+                <!-- Sub text -->
+                <rect
+                  x="32"
+                  y="56"
+                  width="148"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.3"
+                />
+                <rect
+                  x="32"
+                  y="63"
+                  width="130"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.3"
+                />
+                <!-- CTA button -->
+                <rect
+                  x="32"
+                  y="76"
+                  width="60"
+                  height="16"
+                  rx="1"
+                  fill="#9a7c3c"
+                />
+                <rect
+                  x="100"
+                  y="76"
+                  width="60"
+                  height="16"
+                  rx="1"
+                  fill="none"
+                  stroke="#f7f4ef"
+                  stroke-width="1"
+                  stroke-opacity="0.35"
+                />
+                <!-- Right side decorative panel -->
+                <rect
+                  x="210"
+                  y="0"
+                  width="110"
+                  height="100"
+                  fill="#f7f4ef"
+                  opacity="0.04"
+                  clip-path="polygon(20% 0,100% 0,100% 100%,0% 100%)"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                The large top section visitors see first: headline, subtext, CTA
+                button, and a background image or gradient. "Lazy" means the
+                background loads only when in view — never slowing the initial
+                render.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Design & UX -->
+        <div style="margin-bottom: 3rem">
+          <p class="feature-section-label">Design &amp; UX</p>
+          <div class="feature-grid reveal">
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">
+                  Custom Design System &amp; Theme
+                </p>
+                <p class="feature-card-price">from 3,500 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: color swatches + typography -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Color palette swatches -->
+                <rect
+                  x="16"
+                  y="14"
+                  width="36"
+                  height="36"
+                  rx="2"
+                  fill="#1c1814"
+                />
+                <rect
+                  x="58"
+                  y="14"
+                  width="36"
+                  height="36"
+                  rx="2"
+                  fill="#9a7c3c"
+                />
+                <rect
+                  x="100"
+                  y="14"
+                  width="36"
+                  height="36"
+                  rx="2"
+                  fill="#f7f4ef"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <rect
+                  x="142"
+                  y="14"
+                  width="36"
+                  height="36"
+                  rx="2"
+                  fill="#e8e1d4"
+                />
+                <rect
+                  x="184"
+                  y="14"
+                  width="36"
+                  height="36"
+                  rx="2"
+                  fill="#3a6e50"
+                />
+                <!-- Swatch labels -->
+                <rect
+                  x="16"
+                  y="54"
+                  width="36"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="58"
+                  y="54"
+                  width="36"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="100"
+                  y="54"
+                  width="36"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="142"
+                  y="54"
+                  width="36"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="184"
+                  y="54"
+                  width="36"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <!-- Typography specimens -->
+                <rect
+                  x="16"
+                  y="70"
+                  width="80"
+                  height="9"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.7"
+                />
+                <rect
+                  x="104"
+                  y="72"
+                  width="60"
+                  height="5"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.4"
+                />
+                <rect
+                  x="172"
+                  y="72"
+                  width="48"
+                  height="5"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.6"
+                />
+                <rect
+                  x="16"
+                  y="84"
+                  width="130"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <rect
+                  x="154"
+                  y="84"
+                  width="100"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.1"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Defines your brand's colours, fonts, buttons, and spacing
+                consistently across every page. Without this, pages feel
+                inconsistent. With it, every element forms a unified,
+                professional identity.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Transitions &amp; Animations</p>
+                <p class="feature-card-price">from 2,500 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: scroll reveal + hover animation -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Cards appearing at different stages (scroll reveal) -->
+                <rect
+                  x="16"
+                  y="20"
+                  width="72"
+                  height="60"
+                  rx="2"
+                  fill="#e8e1d4"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <rect
+                  x="16"
+                  y="20"
+                  width="72"
+                  height="60"
+                  rx="2"
+                  fill="#1c1814"
+                  opacity="0.06"
+                />
+                <rect
+                  x="24"
+                  y="32"
+                  width="48"
+                  height="6"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.3"
+                />
+                <rect
+                  x="24"
+                  y="44"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <rect
+                  x="24"
+                  y="52"
+                  width="44"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.1"
+                />
+                <!-- Second card — partially faded (mid-reveal) -->
+                <rect
+                  x="102"
+                  y="28"
+                  width="72"
+                  height="60"
+                  rx="2"
+                  fill="#e8e1d4"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                  opacity="0.7"
+                />
+                <rect
+                  x="110"
+                  y="40"
+                  width="48"
+                  height="6"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="110"
+                  y="52"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.1"
+                />
+                <!-- Third card — ghost (not yet revealed) -->
+                <rect
+                  x="188"
+                  y="36"
+                  width="72"
+                  height="60"
+                  rx="2"
+                  fill="#e8e1d4"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                  opacity="0.3"
+                />
+                <rect
+                  x="196"
+                  y="48"
+                  width="48"
+                  height="6"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.1"
+                />
+                <!-- Arrows showing reveal direction -->
+                <path
+                  d="M100 68 L88 68"
+                  stroke="#9a7c3c"
+                  stroke-width="1"
+                  stroke-dasharray="3 2"
+                />
+                <path
+                  d="M186 68 L174 68"
+                  stroke="#9a7c3c"
+                  stroke-width="1"
+                  stroke-dasharray="3 2"
+                />
+                <!-- Hover state glow on first card -->
+                <rect
+                  x="14"
+                  y="18"
+                  width="76"
+                  height="64"
+                  rx="3"
+                  fill="none"
+                  stroke="#9a7c3c"
+                  stroke-width="1.5"
+                  stroke-dasharray="4 3"
+                />
+                <!-- Label -->
+                <rect
+                  x="270"
+                  y="28"
+                  width="36"
+                  height="5"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.4"
+                />
+                <rect
+                  x="270"
+                  y="36"
+                  width="30"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <rect
+                  x="270"
+                  y="43"
+                  width="34"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Scroll reveals and hover effects that make the page feel
+                polished and intentional. Adds depth without slowing
+                performance. Works on all tiers — no JavaScript library
+                required.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Page Content Styling</p>
+                <p class="feature-card-price">from 1,200 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: styled text elements -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Blockquote -->
+                <rect
+                  x="16"
+                  y="12"
+                  width="3"
+                  height="32"
+                  rx="1"
+                  fill="#9a7c3c"
+                />
+                <rect
+                  x="26"
+                  y="14"
+                  width="100"
+                  height="6"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.5"
+                />
+                <rect
+                  x="26"
+                  y="24"
+                  width="88"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.25"
+                />
+                <rect
+                  x="26"
+                  y="32"
+                  width="94"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.25"
+                />
+                <!-- Table -->
+                <rect
+                  x="148"
+                  y="12"
+                  width="160"
+                  height="76"
+                  rx="1"
+                  fill="#ffffff"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <!-- Table header -->
+                <rect
+                  x="148"
+                  y="12"
+                  width="160"
+                  height="16"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.06"
+                />
+                <rect
+                  x="156"
+                  y="17"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.4"
+                />
+                <rect
+                  x="224"
+                  y="17"
+                  width="30"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.4"
+                />
+                <!-- Table rows -->
+                <rect
+                  x="156"
+                  y="34"
+                  width="50"
+                  height="3"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="224"
+                  y="34"
+                  width="34"
+                  height="3"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.5"
+                />
+                <rect
+                  x="156"
+                  y="44"
+                  width="44"
+                  height="3"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="224"
+                  y="44"
+                  width="30"
+                  height="3"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.5"
+                />
+                <rect
+                  x="156"
+                  y="54"
+                  width="48"
+                  height="3"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="224"
+                  y="54"
+                  width="36"
+                  height="3"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.5"
+                />
+                <!-- Ordered list -->
+                <rect
+                  x="16"
+                  y="54"
+                  width="8"
+                  height="8"
+                  rx="4"
+                  fill="#9a7c3c"
+                  opacity="0.4"
+                />
+                <rect
+                  x="28"
+                  y="56"
+                  width="70"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.25"
+                />
+                <rect
+                  x="16"
+                  y="68"
+                  width="8"
+                  height="8"
+                  rx="4"
+                  fill="#9a7c3c"
+                  opacity="0.25"
+                />
+                <rect
+                  x="28"
+                  y="70"
+                  width="60"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.25"
+                />
+                <rect
+                  x="16"
+                  y="82"
+                  width="8"
+                  height="8"
+                  rx="4"
+                  fill="#9a7c3c"
+                  opacity="0.15"
+                />
+                <rect
+                  x="28"
+                  y="84"
+                  width="66"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.25"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Professionally styled tables, ordered and unordered lists,
+                blockquotes, inline code, and callout boxes. Ensures long-form
+                content pages look intentional — not like plain HTML defaults.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content & Communication -->
+        <div style="margin-bottom: 3rem">
+          <p class="feature-section-label">Content &amp; Communication</p>
+          <div class="feature-grid reveal">
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">
+                  Contact Form with Email Notification
+                </p>
+                <p class="feature-card-price">from 1,500 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: contact form -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <rect
+                  x="30"
+                  y="10"
+                  width="260"
+                  height="80"
+                  rx="2"
+                  fill="#ffffff"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <!-- Form header -->
+                <rect
+                  x="44"
+                  y="20"
+                  width="80"
+                  height="6"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.6"
+                />
+                <!-- Input row 1 -->
+                <rect
+                  x="44"
+                  y="34"
+                  width="100"
+                  height="14"
+                  rx="1"
+                  fill="#f7f4ef"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <rect
+                  x="50"
+                  y="39"
+                  width="50"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <rect
+                  x="160"
+                  y="34"
+                  width="114"
+                  height="14"
+                  rx="1"
+                  fill="#f7f4ef"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <rect
+                  x="166"
+                  y="39"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <!-- Textarea -->
+                <rect
+                  x="44"
+                  y="54"
+                  width="230"
+                  height="22"
+                  rx="1"
+                  fill="#f7f4ef"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <rect
+                  x="50"
+                  y="60"
+                  width="140"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.1"
+                />
+                <rect
+                  x="50"
+                  y="68"
+                  width="100"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.1"
+                />
+                <!-- Send button -->
+                <rect
+                  x="44"
+                  y="82"
+                  width="72"
+                  height="14"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.85"
+                />
+                <rect
+                  x="52"
+                  y="86"
+                  width="44"
+                  height="5"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.7"
+                />
+                <!-- Mail icon -->
+                <path
+                  d="M238 86 L260 86 L260 94 L238 94 Z"
+                  fill="none"
+                  stroke="#9a7c3c"
+                  stroke-width="1.2"
+                />
+                <path
+                  d="M238 86 L249 91 L260 86"
+                  stroke="#9a7c3c"
+                  stroke-width="1.2"
+                  fill="none"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                An enquiry form that sends submissions directly to your email
+                inbox. Removes the need for visitors to open their email app.
+                Static and Semi-Dynamic use a reliable third-party service;
+                Dynamic uses a custom backend.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Image Gallery with Lightbox</p>
+                <p class="feature-card-price">from 1,800 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: photo grid + lightbox overlay -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Photo grid -->
+                <rect
+                  x="16"
+                  y="10"
+                  width="56"
+                  height="40"
+                  rx="1"
+                  fill="#c4b89a"
+                  opacity="0.6"
+                />
+                <rect
+                  x="78"
+                  y="10"
+                  width="56"
+                  height="40"
+                  rx="1"
+                  fill="#b8a887"
+                  opacity="0.5"
+                />
+                <rect
+                  x="140"
+                  y="10"
+                  width="56"
+                  height="40"
+                  rx="1"
+                  fill="#c4b89a"
+                  opacity="0.4"
+                />
+                <rect
+                  x="16"
+                  y="56"
+                  width="56"
+                  height="34"
+                  rx="1"
+                  fill="#b8a887"
+                  opacity="0.4"
+                />
+                <rect
+                  x="78"
+                  y="56"
+                  width="56"
+                  height="34"
+                  rx="1"
+                  fill="#c4b89a"
+                  opacity="0.5"
+                />
+                <rect
+                  x="140"
+                  y="56"
+                  width="56"
+                  height="34"
+                  rx="1"
+                  fill="#b8a887"
+                  opacity="0.6"
+                />
+                <!-- Lightbox overlay -->
+                <rect
+                  x="196"
+                  y="6"
+                  width="108"
+                  height="88"
+                  rx="2"
+                  fill="#1c1814"
+                  opacity="0.92"
+                />
+                <!-- Featured image in lightbox -->
+                <rect
+                  x="202"
+                  y="14"
+                  width="96"
+                  height="62"
+                  rx="1"
+                  fill="#c4b89a"
+                  opacity="0.4"
+                />
+                <!-- Mountain/landscape icon inside lightbox image -->
+                <path
+                  d="M220 58 L236 34 L252 58Z"
+                  fill="#9a7c3c"
+                  opacity="0.4"
+                />
+                <circle cx="264" cy="30" r="6" fill="#9a7c3c" opacity="0.3" />
+                <!-- Close button -->
+                <circle cx="296" cy="14" r="6" fill="#f7f4ef" opacity="0.15" />
+                <path
+                  d="M293 11 L299 17 M299 11 L293 17"
+                  stroke="#f7f4ef"
+                  stroke-width="1.2"
+                  opacity="0.6"
+                />
+                <!-- Nav arrows -->
+                <path
+                  d="M200 45 L204 41 L200 45 L204 49"
+                  stroke="#f7f4ef"
+                  stroke-width="1.2"
+                  opacity="0.5"
+                  fill="none"
+                />
+                <path
+                  d="M300 45 L296 41 L300 45 L296 49"
+                  stroke="#f7f4ef"
+                  stroke-width="1.2"
+                  opacity="0.5"
+                  fill="none"
+                />
+                <!-- Caption bar -->
+                <rect
+                  x="202"
+                  y="78"
+                  width="96"
+                  height="10"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.07"
+                />
+                <rect
+                  x="210"
+                  y="81"
+                  width="60"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.3"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                A clean photo gallery where clicking an image opens it in a
+                full-screen overlay. Essential for photographers, designers,
+                restaurants, and any business where visual proof of work matters
+                for trust.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Testimonials Slider</p>
+                <p class="feature-card-price">from 2,000 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: quote card carousel -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Previous card peek -->
+                <rect
+                  x="6"
+                  y="18"
+                  width="60"
+                  height="64"
+                  rx="2"
+                  fill="#e8e1d4"
+                  opacity="0.5"
+                />
+                <!-- Main testimonial card -->
+                <rect
+                  x="56"
+                  y="10"
+                  width="208"
+                  height="80"
+                  rx="2"
+                  fill="#ffffff"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <!-- Quote mark -->
+                <text
+                  x="72"
+                  y="38"
+                  font-family="Georgia,serif"
+                  font-size="32"
+                  fill="#9a7c3c"
+                  opacity="0.25"
+                >
+                  "
+                </text>
+                <!-- Quote text lines -->
+                <rect
+                  x="80"
+                  y="38"
+                  width="160"
+                  height="5"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.3"
+                />
+                <rect
+                  x="80"
+                  y="47"
+                  width="148"
+                  height="5"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="80"
+                  y="56"
+                  width="120"
+                  height="5"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <!-- Avatar + name -->
+                <circle cx="80" cy="76" r="8" fill="#c4b89a" />
+                <rect
+                  x="94"
+                  y="72"
+                  width="50"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.4"
+                />
+                <rect
+                  x="94"
+                  y="79"
+                  width="36"
+                  height="3"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.4"
+                />
+                <!-- Dots indicator -->
+                <circle cx="156" cy="88" r="4" fill="#1c1814" opacity="0.5" />
+                <circle cx="168" cy="88" r="3" fill="#1c1814" opacity="0.15" />
+                <circle cx="178" cy="88" r="3" fill="#1c1814" opacity="0.15" />
+                <!-- Next card peek -->
+                <rect
+                  x="256"
+                  y="18"
+                  width="60"
+                  height="64"
+                  rx="2"
+                  fill="#e8e1d4"
+                  opacity="0.5"
+                />
+                <!-- Arrow buttons -->
+                <path
+                  d="M50 46 L44 50 L50 54"
+                  stroke="#9a7c3c"
+                  stroke-width="1.5"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M270 46 L276 50 L270 54"
+                  stroke="#9a7c3c"
+                  stroke-width="1.5"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                A rotating carousel of customer reviews or quotes. Social proof
+                is one of the strongest conversion tools for any service
+                business — seeing what others say builds trust immediately.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">YouTube Latest Video</p>
+                <p class="feature-card-price">from 3,000 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: embedded video player -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Video player -->
+                <rect
+                  x="30"
+                  y="10"
+                  width="180"
+                  height="80"
+                  rx="2"
+                  fill="#1c1814"
+                  opacity="0.88"
+                />
+                <!-- Video content (thumbnail placeholder) -->
+                <rect
+                  x="34"
+                  y="14"
+                  width="172"
+                  height="60"
+                  rx="1"
+                  fill="#2a2420"
+                />
+                <!-- Play button circle -->
+                <circle cx="120" cy="44" r="16" fill="#ffffff" opacity="0.15" />
+                <circle
+                  cx="120"
+                  cy="44"
+                  r="16"
+                  fill="none"
+                  stroke="#ffffff"
+                  stroke-width="1.2"
+                  opacity="0.5"
+                />
+                <path
+                  d="M115 38 L129 44 L115 50 Z"
+                  fill="#ffffff"
+                  opacity="0.8"
+                />
+                <!-- Progress bar -->
+                <rect
+                  x="34"
+                  y="76"
+                  width="172"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.1"
+                />
+                <rect
+                  x="34"
+                  y="76"
+                  width="80"
+                  height="3"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.7"
+                />
+                <!-- Time + volume -->
+                <rect
+                  x="38"
+                  y="82"
+                  width="28"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.3"
+                />
+                <rect
+                  x="186"
+                  y="82"
+                  width="14"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.3"
+                />
+                <!-- "Auto-update" label beside player -->
+                <rect
+                  x="224"
+                  y="20"
+                  width="76"
+                  height="12"
+                  rx="2"
+                  fill="#9a7c3c"
+                  opacity="0.12"
+                  stroke="#9a7c3c"
+                  stroke-width="0.8"
+                  stroke-opacity="0.4"
+                />
+                <rect
+                  x="230"
+                  y="24"
+                  width="48"
+                  height="4"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.5"
+                />
+                <rect
+                  x="224"
+                  y="40"
+                  width="76"
+                  height="46"
+                  rx="1"
+                  fill="#e8e1d4"
+                />
+                <rect
+                  x="230"
+                  y="46"
+                  width="60"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.25"
+                />
+                <rect
+                  x="230"
+                  y="54"
+                  width="50"
+                  height="3"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <rect
+                  x="230"
+                  y="61"
+                  width="54"
+                  height="3"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <rect
+                  x="230"
+                  y="74"
+                  width="34"
+                  height="8"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.3"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Displays your most recent YouTube video automatically. Option A:
+                thumbnail linking to YouTube. Option B: embedded player on your
+                page. Keeps your site fresh without any manual updates once set
+                up.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Automated Social Feed</p>
+                <p class="feature-card-price">from 4,000 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: Instagram-style photo grid -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Grid of 6 posts -->
+                <rect
+                  x="16"
+                  y="10"
+                  width="58"
+                  height="58"
+                  rx="1"
+                  fill="#c4b89a"
+                  opacity="0.55"
+                />
+                <rect
+                  x="80"
+                  y="10"
+                  width="58"
+                  height="58"
+                  rx="1"
+                  fill="#b8a887"
+                  opacity="0.45"
+                />
+                <rect
+                  x="144"
+                  y="10"
+                  width="58"
+                  height="58"
+                  rx="1"
+                  fill="#c4b89a"
+                  opacity="0.65"
+                />
+                <rect
+                  x="208"
+                  y="10"
+                  width="58"
+                  height="58"
+                  rx="1"
+                  fill="#b8a887"
+                  opacity="0.5"
+                />
+                <rect
+                  x="16"
+                  y="74"
+                  width="58"
+                  height="18"
+                  rx="1"
+                  fill="#b8a887"
+                  opacity="0.35"
+                />
+                <rect
+                  x="80"
+                  y="74"
+                  width="58"
+                  height="18"
+                  rx="1"
+                  fill="#c4b89a"
+                  opacity="0.45"
+                />
+                <rect
+                  x="144"
+                  y="74"
+                  width="58"
+                  height="18"
+                  rx="1"
+                  fill="#b8a887"
+                  opacity="0.55"
+                />
+                <rect
+                  x="208"
+                  y="74"
+                  width="58"
+                  height="18"
+                  rx="1"
+                  fill="#c4b89a"
+                  opacity="0.4"
+                />
+                <!-- Heart / like icons on hover -->
+                <path
+                  d="M38 30 C38 28 36 26 34 28 C32 26 30 28 30 30 C30 34 34 37 34 37 C34 37 38 34 38 30Z"
+                  fill="#f7f4ef"
+                  opacity="0.6"
+                />
+                <path
+                  d="M166 30 C166 28 164 26 162 28 C160 26 158 28 158 30 C158 34 162 37 162 37 C162 37 166 34 166 30Z"
+                  fill="#f7f4ef"
+                  opacity="0.6"
+                />
+                <!-- Instagram logo hint -->
+                <rect
+                  x="274"
+                  y="14"
+                  width="18"
+                  height="18"
+                  rx="4"
+                  fill="none"
+                  stroke="#1c1814"
+                  stroke-width="1.5"
+                  opacity="0.25"
+                />
+                <circle
+                  cx="283"
+                  cy="23"
+                  r="4"
+                  fill="none"
+                  stroke="#1c1814"
+                  stroke-width="1.2"
+                  opacity="0.25"
+                />
+                <circle
+                  cx="289"
+                  cy="17"
+                  r="1.5"
+                  fill="#1c1814"
+                  opacity="0.25"
+                />
+                <!-- Live badge -->
+                <rect
+                  x="266"
+                  y="40"
+                  width="40"
+                  height="12"
+                  rx="2"
+                  fill="#9a7c3c"
+                  opacity="0.15"
+                  stroke="#9a7c3c"
+                  stroke-width="0.8"
+                  stroke-opacity="0.4"
+                />
+                <circle cx="272" cy="46" r="2.5" fill="#3a6e50" opacity="0.8" />
+                <rect
+                  x="278"
+                  y="43"
+                  width="22"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.35"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Shows your latest Instagram or Twitter posts directly on your
+                website. Requires a Semi-Dynamic or Dynamic site. Keeps your
+                site current without any extra work on your part after setup.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Real-time Chat Widget</p>
+                <p class="feature-card-price">4,000 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: floating chat bubble -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Website background -->
+                <rect
+                  x="16"
+                  y="10"
+                  width="220"
+                  height="80"
+                  rx="2"
+                  fill="#f7f4ef"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <rect
+                  x="26"
+                  y="22"
+                  width="100"
+                  height="8"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <rect
+                  x="26"
+                  y="36"
+                  width="140"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.08"
+                />
+                <rect
+                  x="26"
+                  y="44"
+                  width="120"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.08"
+                />
+                <rect
+                  x="26"
+                  y="52"
+                  width="130"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.08"
+                />
+                <!-- Floating WhatsApp-style button -->
+                <circle cx="222" cy="80" r="20" fill="#25d366" />
+                <!-- WhatsApp icon inside -->
+                <circle cx="222" cy="80" r="14" fill="#25d366" />
+                <path
+                  d="M222 68 C215 68 210 73 210 80 C210 82.5 211 84.8 212.5 86.5 L211 90 L215 88.6 C216.5 89.4 218.2 89.8 220 89.8 C227 89.8 233 84.4 233 78.4 C233 72 227.6 68 222 68Z"
+                  fill="#ffffff"
+                  opacity="0.9"
+                />
+                <path
+                  d="M218 76 C218 76 219.5 77.5 221 79 C222.5 80.5 224.5 82 224.5 82 L226 81 L227.5 82.5 L225 85 C225 85 222 84 219.5 81.5 C217 79 216.5 76 216.5 76Z"
+                  fill="#25d366"
+                />
+                <!-- Chat bubble expanding from button -->
+                <rect
+                  x="130"
+                  y="46"
+                  width="90"
+                  height="28"
+                  rx="3"
+                  fill="#1c1814"
+                  opacity="0.88"
+                />
+                <path
+                  d="M218 74 L214 68 L222 68Z"
+                  fill="#1c1814"
+                  opacity="0.88"
+                />
+                <rect
+                  x="138"
+                  y="52"
+                  width="70"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.6"
+                />
+                <rect
+                  x="138"
+                  y="60"
+                  width="56"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.35"
+                />
+                <!-- Notification dot -->
+                <circle cx="235" cy="65" r="5" fill="#ff4444" />
+                <rect
+                  x="233"
+                  y="62"
+                  width="4"
+                  height="5"
+                  rx="1"
+                  fill="#ffffff"
+                  opacity="0.9"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Integrates a live chat or messaging button — WhatsApp,
+                Messenger, or a dedicated chat service. Extremely popular in
+                Bangladesh for direct sales conversations. Flat fee across all
+                three tiers.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust & Performance -->
+        <div>
+          <p class="feature-section-label">Trust &amp; Performance</p>
+          <div class="feature-grid reveal">
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">SEO &amp; Performance Package</p>
+                <p class="feature-card-price">from 2,000 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: search result + performance score -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Google search result mockup -->
+                <rect
+                  x="16"
+                  y="10"
+                  width="180"
+                  height="78"
+                  rx="2"
+                  fill="#ffffff"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <rect
+                  x="24"
+                  y="18"
+                  width="120"
+                  height="5"
+                  rx="1"
+                  fill="#1a0dab"
+                  opacity="0.5"
+                />
+                <rect
+                  x="24"
+                  y="26"
+                  width="80"
+                  height="3"
+                  rx="1"
+                  fill="#006621"
+                  opacity="0.5"
+                />
+                <rect
+                  x="24"
+                  y="33"
+                  width="150"
+                  height="3"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="24"
+                  y="39"
+                  width="140"
+                  height="3"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.15"
+                />
+                <!-- Divider -->
+                <rect x="16" y="55" width="180" height="1" fill="#e8e1d4" />
+                <!-- Second result -->
+                <rect
+                  x="24"
+                  y="62"
+                  width="100"
+                  height="5"
+                  rx="1"
+                  fill="#1a0dab"
+                  opacity="0.3"
+                />
+                <rect
+                  x="24"
+                  y="70"
+                  width="80"
+                  height="3"
+                  rx="1"
+                  fill="#006621"
+                  opacity="0.3"
+                />
+                <rect
+                  x="24"
+                  y="77"
+                  width="140"
+                  height="3"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.12"
+                />
+                <!-- Performance score gauge -->
+                <rect
+                  x="210"
+                  y="10"
+                  width="96"
+                  height="78"
+                  rx="2"
+                  fill="#1c1814"
+                  opacity="0.04"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <!-- Score arc -->
+                <circle
+                  cx="258"
+                  cy="46"
+                  r="28"
+                  fill="none"
+                  stroke="#e8e1d4"
+                  stroke-width="6"
+                />
+                <circle
+                  cx="258"
+                  cy="46"
+                  r="28"
+                  fill="none"
+                  stroke="#3a6e50"
+                  stroke-width="6"
+                  stroke-dasharray="140 176"
+                  stroke-dashoffset="44"
+                  stroke-linecap="round"
+                />
+                <rect
+                  x="247"
+                  y="40"
+                  width="22"
+                  height="12"
+                  rx="1"
+                  fill="none"
+                />
+                <rect
+                  x="249"
+                  y="42"
+                  width="18"
+                  height="8"
+                  rx="1"
+                  fill="#3a6e50"
+                  opacity="0.15"
+                />
+                <!-- Score number -->
+                <rect x="250" y="42" width="16" height="8" rx="1" fill="none" />
+                <text
+                  x="258"
+                  y="50"
+                  font-family="monospace"
+                  font-size="10"
+                  fill="#3a6e50"
+                  text-anchor="middle"
+                  opacity="0.9"
+                >
+                  94
+                </text>
+                <rect
+                  x="238"
+                  y="78"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Structured data markup, accessibility labels, optimised meta
+                tags, and asset pre-loading. Directly affects how high your site
+                ranks in Google search results — measurable impact for any
+                business.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Cookie Consent Banner</p>
+                <p class="feature-card-price">1,500 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: cookie banner at bottom of page -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Page content (dimmed) -->
+                <rect
+                  x="16"
+                  y="10"
+                  width="288"
+                  height="58"
+                  rx="1"
+                  fill="#f7f4ef"
+                />
+                <rect
+                  x="24"
+                  y="18"
+                  width="160"
+                  height="8"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.12"
+                />
+                <rect
+                  x="24"
+                  y="32"
+                  width="200"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.07"
+                />
+                <rect
+                  x="24"
+                  y="40"
+                  width="180"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.07"
+                />
+                <rect
+                  x="24"
+                  y="48"
+                  width="190"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.07"
+                />
+                <!-- Cookie consent banner -->
+                <rect x="0" y="68" width="320" height="32" fill="#1c1814" />
+                <!-- Cookie icon -->
+                <circle cx="24" cy="84" r="9" fill="#9a7c3c" opacity="0.2" />
+                <circle cx="24" cy="84" r="3" fill="#9a7c3c" opacity="0.4" />
+                <circle cx="20" cy="80" r="1.5" fill="#9a7c3c" opacity="0.5" />
+                <circle cx="28" cy="80" r="1.5" fill="#9a7c3c" opacity="0.5" />
+                <circle cx="20" cy="88" r="1.5" fill="#9a7c3c" opacity="0.5" />
+                <circle cx="28" cy="88" r="1.5" fill="#9a7c3c" opacity="0.5" />
+                <!-- Banner text -->
+                <rect
+                  x="42"
+                  y="79"
+                  width="120"
+                  height="4"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.5"
+                />
+                <rect
+                  x="42"
+                  y="87"
+                  width="96"
+                  height="3"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.25"
+                />
+                <!-- Accept button -->
+                <rect
+                  x="220"
+                  y="76"
+                  width="60"
+                  height="16"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.8"
+                />
+                <rect
+                  x="226"
+                  y="81"
+                  width="40"
+                  height="5"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.8"
+                />
+                <!-- Decline link -->
+                <rect
+                  x="286"
+                  y="81"
+                  width="24"
+                  height="5"
+                  rx="1"
+                  fill="#f7f4ef"
+                  opacity="0.2"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                A legally expected notice for sites using analytics or tracking.
+                Available at the same price across all tiers — it protects both
+                you and your visitors while demonstrating professional attention
+                to compliance.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <p class="feature-card-name">Analytics Integration</p>
+                <p class="feature-card-price">1,500 BDT</p>
+              </div>
+              <!-- VISUAL EXAMPLE: analytics dashboard mini -->
+              <svg
+                class="feature-visual"
+                viewBox="0 0 320 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="320" height="100" fill="#f0ebe2" />
+                <!-- Dashboard card -->
+                <rect
+                  x="16"
+                  y="10"
+                  width="288"
+                  height="80"
+                  rx="2"
+                  fill="#ffffff"
+                  stroke="#c4b89a"
+                  stroke-width="1"
+                />
+                <!-- Stat boxes -->
+                <rect
+                  x="24"
+                  y="18"
+                  width="60"
+                  height="30"
+                  rx="1"
+                  fill="#f7f4ef"
+                  stroke="#e8e1d4"
+                  stroke-width="1"
+                />
+                <rect
+                  x="30"
+                  y="24"
+                  width="36"
+                  height="7"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.6"
+                />
+                <rect
+                  x="30"
+                  y="35"
+                  width="28"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="92"
+                  y="18"
+                  width="60"
+                  height="30"
+                  rx="1"
+                  fill="#f7f4ef"
+                  stroke="#e8e1d4"
+                  stroke-width="1"
+                />
+                <rect
+                  x="98"
+                  y="24"
+                  width="30"
+                  height="7"
+                  rx="1"
+                  fill="#3a6e50"
+                  opacity="0.5"
+                />
+                <rect
+                  x="98"
+                  y="35"
+                  width="36"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <rect
+                  x="160"
+                  y="18"
+                  width="60"
+                  height="30"
+                  rx="1"
+                  fill="#f7f4ef"
+                  stroke="#e8e1d4"
+                  stroke-width="1"
+                />
+                <rect
+                  x="166"
+                  y="24"
+                  width="32"
+                  height="7"
+                  rx="1"
+                  fill="#9a7c3c"
+                  opacity="0.4"
+                />
+                <rect
+                  x="166"
+                  y="35"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="#1c1814"
+                  opacity="0.2"
+                />
+                <!-- Line chart -->
+                <rect
+                  x="24"
+                  y="56"
+                  width="270"
+                  height="28"
+                  rx="1"
+                  fill="#f7f4ef"
+                  stroke="#e8e1d4"
+                  stroke-width="1"
+                />
+                <!-- Chart lines -->
+                <polyline
+                  points="32,76 60,68 90,72 120,62 150,58 180,64 210,54 240,60 270,52 288,56"
+                  fill="none"
+                  stroke="#9a7c3c"
+                  stroke-width="1.5"
+                  opacity="0.6"
+                />
+                <polyline
+                  points="32,80 60,78 90,76 120,74 150,72 180,70 210,66 240,68 270,62 288,64"
+                  fill="none"
+                  stroke="#3a6e50"
+                  stroke-width="1"
+                  opacity="0.35"
+                />
+              </svg>
+              <p class="feature-card-desc">
+                Connects Google Analytics or Plausible to your site so you can
+                see how many visitors you get, where they come from, and which
+                pages they read. Essential data for any marketing decision.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHICH TIER IS RIGHT ───────────────────────────── -->
+    <section class="section section--alt">
+      <div class="container">
+        <p class="section-eyebrow">Decision Guide</p>
+        <h2 class="section-heading">
+          Which tier is right<br /><em>for you?</em>
+        </h2>
+        <p class="section-sub">
+          Not sure which tier matches your project? This table maps common
+          business needs to the most appropriate option.
+        </p>
+        <div class="data-table-wrap reveal">
+          <table class="data-table decision-table">
+            <thead>
+              <tr>
+                <th style="width: 40%">If you need…</th>
+                <th style="width: 20%">Choose</th>
+                <th>Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>A professional presence at minimum cost</td>
+                <td class="dt-tier">Static</td>
+                <td>
+                  Lowest price, fastest delivery, free GitHub Pages hosting.
+                </td>
+              </tr>
+              <tr>
+                <td>Live Instagram or YouTube content on your site</td>
+                <td class="dt-tier">Semi-Dynamic</td>
+                <td>
+                  Client-side API calls pull live content without a server.
+                </td>
+              </tr>
+              <tr>
+                <td>Users to register, log in, and have accounts</td>
+                <td class="dt-tier">Dynamic</td>
+                <td>User authentication requires a database and backend.</td>
+              </tr>
+              <tr>
+                <td>An online shop with cart and payment</td>
+                <td class="dt-tier">Dynamic</td>
+                <td>
+                  E-commerce requires server-side order processing and a
+                  database.
+                </td>
+              </tr>
+              <tr>
+                <td>To publish blog posts or news yourself</td>
+                <td class="dt-tier">Semi-Dynamic or Dynamic</td>
+                <td>
+                  Semi-Dynamic uses a headless CMS (add-on). Dynamic includes
+                  full CMS.
+                </td>
+              </tr>
+              <tr>
+                <td>Maximum budget efficiency for a startup</td>
+                <td class="dt-tier">Semi-Dynamic</td>
+                <td>
+                  Best feature-to-cost ratio. Looks and feels dynamic without a
+                  backend bill.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="margin-top: 1.5rem">
+          <strong>Still not sure?</strong> Tell us what your website needs to
+          accomplish — not which tier you think you need — and we will recommend
+          the most cost-effective option. There is no obligation to proceed.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────── -->
+    <div class="cta-banner">
+      <div class="container">
+        <h2>Ready to build your<br /><em>next website?</em></h2>
+        <p>
+          Tell us what you need and receive a detailed, itemised proposal within
+          24 hours.
+        </p>
+        <div class="btn-row" style="justify-content: center">
+          <a href="start.html" class="btn btn-primary">
+            Start a Project
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="pricing.html" class="btn btn-outline">View Pricing</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <p class="footer-brand-name">Akrasia<span>.</span></p>
+            <p>
+              Custom web development for businesses across Bangladesh. Built
+              with care, priced with integrity.
+            </p>
+            <span class="footer-tag">Team Akrasia &ensp;·&ensp; BD</span>
+          </div>
+          <div class="footer-col">
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="services.html#static">Static Websites</a></li>
+              <li><a href="services.html#semi">Semi-Dynamic</a></li>
+              <li><a href="services.html#dynamic">Dynamic + CMS</a></li>
+              <li><a href="services.html#ecommerce">E-commerce</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Get in Touch</h4>
+            <ul>
+              <li><a href="start.html">Start a Project</a></li>
+              <li><a href="start.html#faq">FAQ</a></li>
+              <li><a href="contact.html#team">The Team</a></li>
+              <li>
+                <a href="mailto:teamtheakrasia@gmail.com"
+                  >teamtheakrasia@gmail.com</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 Akrasia. All prices in BDT.</p>
+          <p>Crafted in <a href="contact.html#team">Bangladesh</a>.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

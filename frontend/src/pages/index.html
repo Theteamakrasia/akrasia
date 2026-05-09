@@ -1,107 +1,468 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  <meta name="description" content="Akrasia — brief value proposition here." >
-  <meta property="og:title" content="Akrasia" >
-  <meta property="og:description" content="Your value prop here." >
-  <title>Your Startup | Home</title>
-  <link rel="icon" href="../../public/favicon.ico" >
-  <link rel="stylesheet" href="../css/main.css" >
-</head>
-<body>
-
-  <!-- ── Navbar ── -->
-  <nav class="navbar">
-    <div class="container navbar__inner">
-      <a href="index.html" class="navbar__logo">Akrasia</a>
-      <button type="button" class="navbar__hamburger" aria-label="Toggle menu" aria-expanded="false">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <line x1="3" y1="6"  x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </button>
-      <ul class="navbar__links">
-        <li><a href="index.html"   class="navbar__link active">Home</a></li>
-        <li><a href="about.html"   class="navbar__link">About</a></li>
-        <li><a href="contact.html" class="navbar__link">Contact</a></li>
-        <li><a href="#" class="btn btn-primary btn-sm">Get Started</a></li>
-      </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Akrasia — Professional Web Development</title>
+    <meta
+      name="description"
+      content="Custom web development in Bangladesh. Transparent pricing, hand-coded websites, professional delivery. Three clear tiers — Static, Semi-Dynamic, and Dynamic."
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      /* ── FIX: remove hero vertical & horizontal artefact lines ── */
+      .hero-rule {
+        display: none !important;
+      }
+      .hero::before {
+        top: -2px;
+      } /* push pseudo-element past sub-pixel seam */
+      /* ── FIX: tier cards fully clickable ── */
+      a.tier-card {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+      }
+      a.tier-card:hover {
+        background: var(--bg-2);
+      }
+      a.tier-card.featured {
+        background: var(--bg-2);
+      }
+      a.tier-card.featured:hover {
+        background: var(--bg-3);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── NAV ─────────────────────────────────────────── -->
+    <nav class="nav">
+      <div class="container">
+        <a href="index.html" class="nav-logo">Akrasia<span>.</span></a>
+        <div class="nav-links">
+          <a href="index.html" class="active">Home</a>
+          <a href="services.html">Services</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="contact.html">Contact</a>
+          <a href="start.html" class="nav-cta">Start a Project</a>
+        </div>
+        <button class="nav-hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="nav-mobile">
+      <a href="index.html" class="active">Home</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+      <a href="start.html" class="nav-cta">Start a Project</a>
     </div>
-  </nav>
 
-  <!-- ── Hero ── -->
-  <section class="hero" style="padding:var(--space-24) 0;background:var(--color-bg-alt);">
-    <div class="container" style="text-align:center;max-width:700px;">
-      <h1 class="animate-fade-in-up" style="margin-bottom:var(--space-4);">
-        Build Something <span style="color:var(--color-primary)">Amazing</span>
-      </h1>
-      <p style="font-size:var(--text-lg);margin-bottom:var(--space-8);">
-        Your one-line value proposition goes here. Tell visitors exactly what you do and why it matters.
-      </p>
-      <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;">
-        <a href="#features" class="btn btn-primary btn-lg">Get Started</a>
-        <a href="about.html" class="btn btn-outline btn-lg">Learn More</a>
+    <!-- ── HERO ────────────────────────────────────────── -->
+    <section class="hero">
+      <!-- hero-rule div removed — was causing the vertical black line -->
+      <div class="container">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Web Development &ensp;·&ensp; Bangladesh</p>
+          <h1>Websites built to<br /><em>mean business.</em></h1>
+          <p class="hero-desc">
+            Custom-coded websites for organisations that want more than a
+            template. Honest pricing, clear timelines, and sites that perform
+            for your customers.
+          </p>
+          <div class="btn-row">
+            <a href="pricing.html" class="btn btn-primary">
+              View Pricing
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="services.html" class="btn btn-outline">Explore Services</a>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-num">3<span> tiers</span></div>
+              <div class="hero-stat-label">Static · Semi-Dynamic · Dynamic</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">100<span>%</span></div>
+              <div class="hero-stat-label">Custom hand-coded</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">BDT</div>
+              <div class="hero-stat-label">All prices in Taka</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">6</div>
+              <div class="hero-stat-label">Team members</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MARQUEE ──────────────────────────────────────── -->
+    <div class="marquee-band" aria-hidden="true">
+      <div class="marquee-inner">
+        <span>Static Websites</span><span class="sep">·</span>
+        <span>Semi-Dynamic</span><span class="sep">·</span>
+        <span>Dynamic with CMS</span><span class="sep">·</span>
+        <span>E-commerce</span><span class="sep">·</span>
+        <span>User Portals</span><span class="sep">·</span>
+        <span>SEO Optimised</span><span class="sep">·</span>
+        <span>Mobile First</span><span class="sep">·</span>
+        <span>GitHub Pages Ready</span><span class="sep">·</span>
+        <span>Contact Forms</span><span class="sep">·</span>
+        <span>Social Feeds</span><span class="sep">·</span>
+        <span>Team Akrasia</span><span class="sep">·</span>
+        <!-- duplicate for seamless loop -->
+        <span>Static Websites</span><span class="sep">·</span>
+        <span>Semi-Dynamic</span><span class="sep">·</span>
+        <span>Dynamic with CMS</span><span class="sep">·</span>
+        <span>E-commerce</span><span class="sep">·</span>
+        <span>User Portals</span><span class="sep">·</span>
+        <span>SEO Optimised</span><span class="sep">·</span>
+        <span>Mobile First</span><span class="sep">·</span>
+        <span>GitHub Pages Ready</span><span class="sep">·</span>
+        <span>Contact Forms</span><span class="sep">·</span>
+        <span>Social Feeds</span><span class="sep">·</span>
+        <span>Team Akrasia</span><span class="sep">·</span>
       </div>
     </div>
-  </section>
 
-  <!-- ── Features ── -->
-  <section id="features" style="padding:var(--space-24) 0;">
-    <div class="container">
-      <h2 style="text-align:center;margin-bottom:var(--space-12);">Why Choose Us</h2>
-      <div class="grid grid-3">
-        <div class="card">
-          <div class="card__icon" style="background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;">⚡</div>
-          <h3 class="card__title">Fast</h3>
-          <p class="card__body">Describe your first key feature or benefit here.</p>
+    <!-- ── TIER OVERVIEW ────────────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <p class="section-eyebrow">Our Approach</p>
+        <h2 class="section-heading">
+          Three ways to build<br />your <em>perfect website</em>
+        </h2>
+        <p class="section-sub">
+          Every project starts by asking one question: what does your website
+          need to do? The answer determines which tier is right for you. Click
+          any tier to learn more.
+        </p>
+
+        <!-- FIX: each tier-card is now an <a> tag — the whole card is clickable -->
+        <div class="tier-grid reveal">
+          <a href="services.html#static" class="tier-card">
+            <span class="tier-card-tag">Tier One</span>
+            <p class="tier-name">Static</p>
+            <p class="tier-tagline">Fast, lean, and maintenance-free</p>
+            <div class="tier-price-box">
+              <p class="tier-price-from">Homepages from</p>
+              <p class="tier-price-amount">4,000 BDT</p>
+              <p class="tier-price-note">Inner pages from 2,000 BDT each</p>
+            </div>
+            <ul class="tier-use-list">
+              <li>Portfolios and personal CVs</li>
+              <li>Event or launch pages</li>
+              <li>Business brochure sites</li>
+              <li>Fixed content that rarely changes</li>
+            </ul>
+          </a>
+
+          <a href="services.html#semi" class="tier-card">
+            <span class="tier-card-tag">Tier Two</span>
+            <p class="tier-name">Semi-Dynamic</p>
+            <p class="tier-tagline">Social-connected, no backend cost</p>
+            <div class="tier-price-box">
+              <p class="tier-price-from">Homepages from</p>
+              <p class="tier-price-amount">6,000 BDT</p>
+              <p class="tier-price-note">Inner pages from 3,000 BDT each</p>
+            </div>
+            <ul class="tier-use-list">
+              <li>Businesses active on Instagram or YouTube</li>
+              <li>Service providers needing a contact form</li>
+              <li>Startups wanting a professional presence fast</li>
+              <li>Sites needing live social media feeds</li>
+            </ul>
+          </a>
+
+          <a href="services.html#dynamic" class="tier-card featured">
+            <span class="tier-card-tag"
+              >Tier Three &ensp;—&ensp; Full Power</span
+            >
+            <p class="tier-name">Dynamic</p>
+            <p class="tier-tagline">Built to grow with your business</p>
+            <div class="tier-price-box">
+              <p class="tier-price-from">Homepages from</p>
+              <p class="tier-price-amount">8,000 BDT</p>
+              <p class="tier-price-note">Inner pages from 4,000 BDT each</p>
+            </div>
+            <ul class="tier-use-list">
+              <li>Blogs, news sections, and content management</li>
+              <li>User accounts and member portals</li>
+              <li>E-commerce with cart and checkout</li>
+              <li>Any site you need to update yourself</li>
+            </ul>
+          </a>
         </div>
-        <div class="card">
-          <div class="card__icon" style="background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;">🔒</div>
-          <h3 class="card__title">Secure</h3>
-          <p class="card__body">Describe your second key feature or benefit here.</p>
+      </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ──────────────────────────────────── -->
+    <section class="section section--alt">
+      <div class="container">
+        <p class="section-eyebrow">The Process</p>
+        <h2 class="section-heading">
+          From first conversation<br />to <em>live website</em>
+        </h2>
+        <p class="section-sub">
+          A clear four-step process with milestone-based payments, so you always
+          know exactly what happens next.
+        </p>
+
+        <div class="steps reveal">
+          <div class="step">
+            <span class="step-num">01 — Enquiry</span>
+            <h4>Initial Conversation</h4>
+            <p>
+              Tell us about your business and goals. We recommend the right tier
+              and answer questions with no obligation to proceed.
+            </p>
+          </div>
+          <div class="step step--alt">
+            <span class="step-num">02 — Quote</span>
+            <h4>Written Proposal</h4>
+            <p>
+              You receive a detailed, itemised quote in BDT — no hidden fees. A
+              deposit of 40–50% secures your place in the schedule.
+            </p>
+          </div>
+          <div class="step">
+            <span class="step-num">03 — Build</span>
+            <h4>Design &amp; Development</h4>
+            <p>
+              Development begins. You see the design before any code is
+              finalised. Two to three revision rounds are included in every
+              project.
+            </p>
+          </div>
+          <div class="step step--alt">
+            <span class="step-num">04 — Launch</span>
+            <h4>Delivery &amp; Handover</h4>
+            <p>
+              Final payment is made, the site goes live, and you receive all
+              source files. Ongoing maintenance plans from 2,000 BDT/month.
+            </p>
+          </div>
         </div>
-        <div class="card">
-          <div class="card__icon" style="background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;">📈</div>
-          <h3 class="card__title">Scalable</h3>
-          <p class="card__body">Describe your third key feature or benefit here.</p>
+      </div>
+    </section>
+
+    <!-- ── SAMPLE ESTIMATE ──────────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <p class="section-eyebrow">Pricing Example</p>
+        <h2 class="section-heading">
+          What does a real project <em>actually cost?</em>
+        </h2>
+        <p class="section-sub">
+          A fully itemised estimate for a typical 5-page Static business
+          website, built to a professional standard.
+        </p>
+
+        <div class="estimate-block reveal">
+          <div class="estimate-header">
+            <div>
+              <p class="estimate-title">5-Page Static Business Website</p>
+              <p class="estimate-tier">
+                Static tier &ensp;·&ensp; Standard professional feature pack
+              </p>
+            </div>
+            <a
+              href="pricing.html"
+              class="btn btn-outline"
+              style="font-size: 10.5px; padding: 0.6rem 1.25rem"
+            >
+              Full pricing guide →
+            </a>
+          </div>
+          <div class="estimate-rows">
+            <div class="estimate-row">
+              <span class="estimate-row-label">Homepage (Static)</span>
+              <span class="estimate-row-price">4,000 BDT</span>
+            </div>
+            <div class="estimate-row">
+              <span class="estimate-row-label"
+                >4 Inner pages — About, Services, Portfolio, Contact</span
+              >
+              <span class="estimate-row-price">8,000 BDT</span>
+            </div>
+            <div class="estimate-row">
+              <span class="estimate-row-label"
+                >Responsive Header with Mega Menu</span
+              >
+              <span class="estimate-row-price">4,000 BDT</span>
+            </div>
+            <div class="estimate-row">
+              <span class="estimate-row-label">Mobile Navigation Panel</span>
+              <span class="estimate-row-price">3,000 BDT</span>
+            </div>
+            <div class="estimate-row">
+              <span class="estimate-row-label"
+                >Hero Section with Lazy Background</span
+              >
+              <span class="estimate-row-price">1,800 BDT</span>
+            </div>
+            <div class="estimate-row">
+              <span class="estimate-row-label">Multi-column Footer</span>
+              <span class="estimate-row-price">2,500 BDT</span>
+            </div>
+            <div class="estimate-row">
+              <span class="estimate-row-label">Cookie Consent Banner</span>
+              <span class="estimate-row-price">1,500 BDT</span>
+            </div>
+            <div class="estimate-row">
+              <span class="estimate-row-label"
+                >Custom Design System &amp; Theme</span
+              >
+              <span class="estimate-row-price">3,500 BDT</span>
+            </div>
+          </div>
+          <div class="estimate-total">
+            <span class="estimate-total-label">Project Total</span>
+            <span class="estimate-total-amount">28,300 BDT</span>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top: 1.5rem">
+          <strong>Market context.</strong> A comparable Static website in
+          Bangladesh typically costs 15,000–35,000 BDT. This estimate sits in
+          the centre of that range — a professionally hand-coded site with no
+          template shortcuts or hidden fees.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHY AKRASIA ───────────────────────────────────── -->
+    <section class="section section--alt">
+      <div class="container">
+        <p class="section-eyebrow">Why Akrasia</p>
+        <h2 class="section-heading">
+          Built by a team that<br /><em>actually cares.</em>
+        </h2>
+        <p class="section-sub">
+          Akrasia is six developers who write real code, give honest quotes, and
+          stand behind every project they deliver.
+        </p>
+
+        <div class="steps reveal" style="grid-template-columns: repeat(3, 1fr)">
+          <div class="step">
+            <span class="step-num">Principle I</span>
+            <h4>Transparent Pricing</h4>
+            <p>
+              Every feature is itemised before a single line of code is written.
+              No mystery bundles, no surprise invoices at any stage of the
+              project.
+            </p>
+          </div>
+          <div class="step step--alt">
+            <span class="step-num">Principle II</span>
+            <h4>No Templates, Ever</h4>
+            <p>
+              Every project is written from scratch in clean HTML, CSS, and
+              JavaScript — optimised for performance and tailored precisely to
+              your brand.
+            </p>
+          </div>
+          <div class="step">
+            <span class="step-num">Principle III</span>
+            <h4>GitHub Pages Ready</h4>
+            <p>
+              All static and semi-dynamic deliverables are deployable to GitHub
+              Pages — free professional hosting with no server configuration
+              required.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────── -->
+    <div class="cta-banner">
+      <div class="container">
+        <h2>Ready to build your<br /><em>next website?</em></h2>
+        <p>
+          Tell us what you need and receive a detailed, itemised proposal within
+          24 hours.
+        </p>
+        <div class="btn-row" style="justify-content: center">
+          <a href="start.html" class="btn btn-primary">
+            Start a Project
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="pricing.html" class="btn btn-outline">View Pricing</a>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ── Footer ── -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__grid">
-        <div>
-          <div class="footer__brand-name">YourStartup</div>
-          <p>Your short brand tagline here.</p>
+    <!-- ── FOOTER ────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <p class="footer-brand-name">Akrasia<span>.</span></p>
+            <p>
+              Custom web development for businesses across Bangladesh. Built
+              with care, priced with integrity.
+            </p>
+            <span class="footer-tag">Team Akrasia &ensp;·&ensp; BD</span>
+          </div>
+          <div class="footer-col">
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="services.html#static">Static Websites</a></li>
+              <li><a href="services.html#semi">Semi-Dynamic</a></li>
+              <li><a href="services.html#dynamic">Dynamic + CMS</a></li>
+              <li><a href="services.html#ecommerce">E-commerce</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Get in Touch</h4>
+            <ul>
+              <li><a href="start.html">Start a Project</a></li>
+              <li><a href="start.html#faq">FAQ</a></li>
+              <li><a href="contact.html#team">The Team</a></li>
+              <li>
+                <a href="mailto:teamtheakrasia@gmail.com"
+                  >teamtheakrasia@gmail.com</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <div class="footer__heading">Product</div>
-          <a href="#" class="footer__link">Features</a>
-          <a href="#" class="footer__link">Pricing</a>
-          <a href="#" class="footer__link">Changelog</a>
-        </div>
-        <div>
-          <div class="footer__heading">Company</div>
-          <a href="about.html"   class="footer__link">About</a>
-          <a href="contact.html" class="footer__link">Contact</a>
-        </div>
-        <div>
-          <div class="footer__heading">Legal</div>
-          <a href="#" class="footer__link">Privacy</a>
-          <a href="#" class="footer__link">Terms</a>
+        <div class="footer-bottom">
+          <p>© 2025 Akrasia. All prices in BDT.</p>
+          <p>Crafted in <a href="contact.html#team">Bangladesh</a>.</p>
         </div>
       </div>
-      <div class="footer__bottom">
-        &copy; <span id="year"></span> Akrasia. All rights reserved.
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <script type="module" src="../js/main.js"></script>
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-</body>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>
