@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Startup | Contact</title>
+  <link rel="icon" href="../../public/favicon.ico" />
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo">Akrasia</a>
+      <button class="navbar__hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <ul class="navbar__links">
+        <li><a href="index.html"   class="navbar__link">Home</a></li>
+        <li><a href="about.html"   class="navbar__link">About</a></li>
+        <li><a href="contact.html" class="navbar__link active">Contact</a></li>
+        <li><a href="#" class="btn btn-primary btn-sm">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section style="padding:var(--space-24) 0;background:var(--color-bg-alt);">
+      <div class="container" style="max-width:600px;">
+        <h1 style="margin-bottom:var(--space-2);">Get in Touch</h1>
+        <p style="margin-bottom:var(--space-8);">We'd love to hear from you. Fill out the form and we'll get back to you shortly.</p>
+
+        <div style="background:var(--color-bg);padding:var(--space-8);border-radius:var(--radius-lg);border:1px solid var(--color-border);">
+          <!-- form data sent to backend API when ready -->
+          <div id="contact-form">
+            <div style="margin-bottom:var(--space-4);">
+              <label for="name" style="display:block;font-weight:var(--font-medium);margin-bottom:var(--space-1);">Full Name</label>
+              <input id="name" type="text" placeholder="Jane Doe" style="width:100%;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-base);" />
+            </div>
+            <div style="margin-bottom:var(--space-4);">
+              <label for="email" style="display:block;font-weight:var(--font-medium);margin-bottom:var(--space-1);">Email</label>
+              <input id="email" type="email" placeholder="jane@example.com" style="width:100%;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-base);" />
+            </div>
+            <div style="margin-bottom:var(--space-6);">
+              <label for="message" style="display:block;font-weight:var(--font-medium);margin-bottom:var(--space-1);">Message</label>
+              <textarea id="message" rows="5" placeholder="Tell us how we can help..." style="width:100%;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-base);resize:vertical;"></textarea>
+            </div>
+            <button id="submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message</button>
+            <p id="form-status" style="margin-top:var(--space-3);text-align:center;color:var(--color-success);display:none;">✅ Message sent! We'll be in touch.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">&copy; <span id="year"></span> Akrasia. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/pages/contact.js"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
