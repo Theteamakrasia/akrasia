@@ -1,6 +1,8 @@
 # 🚀 [Your Startup Name]
 
 > One-line tagline about what your startup does.
+> https://akrasia-2up.pages.dev/
+> https://akrasia-swart.vercel.app/
 
 ---
 
