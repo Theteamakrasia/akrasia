@@ -9,9 +9,6 @@ Thumbs.db
 *.swo
 
 # Env files (never commit secrets)
-.env
-.env.local
-.env.*.local
 
 # Node (for future backend)
 node_modules/
