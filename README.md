@@ -1,4 +1,4 @@
-# 🚀 [Akrasia]
+# 🚀 Akrasia
 
 > Want to make interesting website? We're here for you.
 > https://teamakrasia.vercel.app
