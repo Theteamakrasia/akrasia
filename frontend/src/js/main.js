@@ -11,8 +11,9 @@
      e.g.  'https://api.akrasia.com/api'
      For local dev with VS Code Live Server: http://localhost:8000/api
   ───────────────────────────────────────────────────────── */
-  const API_BASE = (window.AKRASIA_API_URL || 'https://akrasia-production.up.railway.app/api');
-
+// Line ~13 — after merge, verify this is clean:
+const DEFAULT_API_BASE = 'https://akrasia-production.up.railway.app/api';
+const API_BASE = String(window.AKRASIA_API_URL || DEFAULT_API_BASE).replace(/\/$/, '');
   /* ── NAV: scroll state ─────────────────────────────────── */
   const nav = document.querySelector('.nav');
   if (nav) {
