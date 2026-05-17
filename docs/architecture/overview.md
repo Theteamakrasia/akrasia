@@ -23,3 +23,5 @@ Browser ──► Nginx ──► Frontend (Static)
 | Hosting               | TBD            | To be decided    |
 
 See `decisions/` for full Architecture Decision Records.
+
+
