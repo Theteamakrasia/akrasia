@@ -11,7 +11,8 @@
      e.g.  'https://api.akrasia.com/api'
      For local dev with VS Code Live Server: http://localhost:8000/api
   ───────────────────────────────────────────────────────── */
-  const API_BASE = (window.AKRASIA_API_URL || 'curl https://akrasia-production.up.railway.app/api');
+  const DEFAULT_API_BASE = 'https://akrasia-production.up.railway.app/api';
+  const API_BASE = String(window.AKRASIA_API_URL || DEFAULT_API_BASE).replace(/\/$/, '');
 
   /* ── NAV: scroll state ─────────────────────────────────── */
   const nav = document.querySelector('.nav');
@@ -176,7 +177,9 @@
           body:    JSON.stringify(payload),
         });
 
-        const result = await response.json();
+        const raw = await response.text();
+        let result = {};
+        try { result = raw ? JSON.parse(raw) : {}; } catch { result = { message: raw }; }
 
         if (!response.ok) {
           // 422 Validation errors — show per-field
@@ -209,7 +212,7 @@
       } catch (networkErr) {
         // Network error — server unreachable
         showBannerError(form,
-          'Could not reach the server. Please check your connection or email us at teamtheakrasia@gmail.com.'
+          'Could not reach the server. Please try again in a moment or email us at teamtheakrasia@gmail.com.'
         );
         btn.textContent = origText;
         btn.disabled    = false;
