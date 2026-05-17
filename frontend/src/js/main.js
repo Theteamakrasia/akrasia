@@ -148,6 +148,16 @@
     form.querySelectorAll('.form-banner-error').forEach(el => el.remove());
   }
 
+  async function fetchWithTimeout(url, options = {}, timeoutMs = 15000) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  }
+
   /* ── FORM SUBMISSION (contact + order quote) ───────────── */
   document.querySelectorAll('.contact-form, .quote-form').forEach(form => {
     // Determine endpoint based on which form this is
@@ -164,18 +174,20 @@
       clearErrors(form);
 
       const btn       = form.querySelector('[type=submit]');
-      const origText  = btn.textContent;
-      btn.textContent = 'Sending…';
-      btn.disabled    = true;
+      const origText  = btn ? btn.textContent : '';
+      if (btn) {
+        btn.textContent = 'Sending…';
+        btn.disabled    = true;
+      }
 
       try {
         const payload = serializeForm(form);
 
-        const response = await fetch(endpoint, {
+        const response = await fetchWithTimeout(endpoint, {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify(payload),
-        });
+        }, 15000);
 
         const raw = await response.text();
         let result = {};
@@ -193,8 +205,10 @@
               'Something went wrong. Please try again or email us directly.');
           }
           // Re-enable the button so they can fix errors
-          btn.textContent = origText;
-          btn.disabled    = false;
+          if (btn) {
+            btn.textContent = origText;
+            btn.disabled    = false;
+          }
           submitting      = false;
           return;
         }
@@ -210,12 +224,20 @@
         }
 
       } catch (networkErr) {
-        // Network error — server unreachable
-        showBannerError(form,
-          'Could not reach the server. Please try again in a moment or email us at teamtheakrasia@gmail.com.'
-        );
-        btn.textContent = origText;
-        btn.disabled    = false;
+        if (networkErr && networkErr.name === 'AbortError') {
+          showBannerError(form,
+            'This is taking longer than expected. Please try again, or email us at teamtheakrasia@gmail.com.'
+          );
+        } else {
+          // Network error — server unreachable
+          showBannerError(form,
+            'Could not reach the server. Please try again in a moment or email us at teamtheakrasia@gmail.com.'
+          );
+        }
+        if (btn) {
+          btn.textContent = origText;
+          btn.disabled    = false;
+        }
         submitting      = false;
       }
     });
