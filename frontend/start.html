@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <title>Start a Project — Akrasia</title>
@@ -235,7 +236,9 @@
           <a href="index.html">Home</a>
           <a href="services.html">Services</a>
           <a href="pricing.html">Pricing</a>
-          <a href="contact.html">Contact</a>
+          <a href="work.html">Our Work</a>
+          
+      <a href="contact.html">Contact</a>
           <a href="start.html" class="nav-cta active">Start a Project</a>
         </div>
         <button type="button" class="nav-hamburger" aria-label="Open menu">
@@ -247,6 +250,8 @@
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
       <a href="pricing.html">Pricing</a>
+      <a href="work.html">Our Work</a>
+          
       <a href="contact.html">Contact</a>
       <a href="start.html" class="nav-cta active">Start a Project</a>
     </div>
@@ -482,6 +487,12 @@
                 </div>
               </div>
 
+              <!-- Honeypot: hidden from real users, bots fill it in -->
+              <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+                <label for="hp-website">Website</label>
+                <input type="text" id="hp-website" name="honeypot" tabindex="-1" autocomplete="off">
+              </div>
+
               <button
                 type="submit"
                 class="btn btn-primary"
@@ -694,7 +705,9 @@
               <li><a href="index.html">Home</a></li>
               <li><a href="services.html">Services</a></li>
               <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="work.html">Our Work</a>
+          
+      <a href="contact.html">Contact</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -727,6 +740,6 @@
       </div>
     </footer>
 
-    <script src="/src/js/main.js"></script>
+    <script src="src/js/main.js"></script>
   </body>
 </html>
