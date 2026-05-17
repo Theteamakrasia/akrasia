@@ -10,6 +10,8 @@
 const nodemailer = require("nodemailer");
 const config     = require("../config");
 
+const EMAIL_TIMEOUT_MS = parseInt(process.env.EMAIL_TIMEOUT_MS || "12000", 10);
+
 // ── Transporter (lazy-initialised) ────────────────────────────
 let transporter;
 
@@ -23,6 +25,10 @@ function getTransporter() {
         user: config.smtp.user,
         pass: config.smtp.pass,
       },
+      // Prevent requests hanging indefinitely on SMTP issues.
+      connectionTimeout: EMAIL_TIMEOUT_MS,
+      greetingTimeout:   EMAIL_TIMEOUT_MS,
+      socketTimeout:     EMAIL_TIMEOUT_MS,
       // Retry-safe: Nodemailer will retry failed sends automatically
       pool:           true,
       maxConnections: 3,
@@ -173,8 +179,7 @@ async function sendSubmissionEmails(type, data) {
   const company = buildCompanyNotification(type, data);
   const client  = buildClientConfirmation(type, data);
 
-  // Send both concurrently; await both so errors surface
-  await Promise.all([
+  const sendBoth = Promise.all([
     transport.sendMail({
       from:    config.emailFrom,
       to:      config.emailTo,
@@ -187,6 +192,14 @@ async function sendSubmissionEmails(type, data) {
       subject: client.subject,
       html:    client.html,
     }),
+  ]);
+
+  // Guard at the application level too — even if the SMTP lib stalls.
+  await Promise.race([
+    sendBoth,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Email send timed out")), EMAIL_TIMEOUT_MS)
+    ),
   ]);
 }
 

@@ -56,21 +56,19 @@ async function submitContact(req, res) {
     });
   }
 
-  // ── 4. Send emails (non-blocking — don't fail the response if email fails)
-  try {
-    await sendSubmissionEmails("contact", { ...data, id: contact.id, sourcePage: "contact.html" });
-    logger.info("CONTACT_EMAILS_SENT", { id: contact.id });
-  } catch (emailErr) {
-    // Log but don't expose email failure to the user
-    logger.error("Email sending failed for contact", { id: contact.id, message: emailErr.message });
-  }
-
-  // ── 5. Respond
-  return res.status(201).json({
+  // ── 4. Respond immediately — downstream (SMTP) must never block the client.
+  res.status(201).json({
     success: true,
     message: "Thank you — we will be in touch within 24 hours.",
     id:      contact.id,
   });
+
+  // ── 5. Send emails (best-effort, non-blocking)
+  sendSubmissionEmails("contact", { ...data, id: contact.id, sourcePage: "contact.html" })
+    .then(() => logger.info("CONTACT_EMAILS_SENT", { id: contact.id }))
+    .catch((emailErr) =>
+      logger.error("Email sending failed for contact", { id: contact.id, message: emailErr.message })
+    );
 }
 
 module.exports = { submitContact };

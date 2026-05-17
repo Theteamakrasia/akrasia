@@ -65,16 +65,24 @@ async function submitOrder(req, res) {
   }
 
   // ── 4. Emails
-  try {
-    await sendSubmissionEmails("order", { ...data, id: order.id, sourcePage: "start.html" });
-    logger.info("ORDER_EMAILS_SENT", { id: order.id });
-  } catch (emailErr) {
-    logger.error("Email sending failed for order", { id: order.id, message: emailErr.message });
-  }
+  // Respond immediately — downstream (SMTP/logging) must never block the client.
+  res.status(201).json({
+    success: true,
+    message:
+      "Request received — we will send you a formal, itemised proposal within 24 hours.",
+    id: order.id,
+  });
 
-  // ── 5. Log submission event
-  try {
-    await prisma.log.create({
+  // ── 4. Emails (best-effort, non-blocking)
+  sendSubmissionEmails("order", { ...data, id: order.id, sourcePage: "start.html" })
+    .then(() => logger.info("ORDER_EMAILS_SENT", { id: order.id }))
+    .catch((emailErr) =>
+      logger.error("Email sending failed for order", { id: order.id, message: emailErr.message })
+    );
+
+  // ── 5. Log submission event (best-effort, non-blocking)
+  prisma.log
+    .create({
       data: {
         level:   "INFO",
         event:   "ORDER_SUBMITTED",
@@ -82,15 +90,8 @@ async function submitOrder(req, res) {
         orderId: order.id,
         ipHash,
       },
-    });
-  } catch (_) { /* log failures must never block the response */ }
-
-  return res.status(201).json({
-    success: true,
-    message:
-      "Request received — we will send you a formal, itemised proposal within 24 hours.",
-    id: order.id,
-  });
+    })
+    .catch(() => {});
 }
 
 module.exports = { submitOrder };
