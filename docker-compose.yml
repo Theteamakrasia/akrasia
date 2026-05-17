@@ -1,35 +1,48 @@
 version: "3.9"
 
-# Production-oriented compose
+# ── Akrasia — Production Docker Compose ─────────────────────
 services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: ../infra/docker/frontend.Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       akrasia_db
+      POSTGRES_USER:     akrasia_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme_in_production}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U akrasia_user -d akrasia_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
-      context: ./backend
-      dockerfile: ../infra/docker/backend.Dockerfile
+      context: .
+      dockerfile: infra/docker/backend.Dockerfile
+    restart: unless-stopped
     ports:
       - "8000:8000"
     env_file:
       - ./backend/.env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://akrasia_user:${POSTGRES_PASSWORD:-changeme_in_production}@db:5432/akrasia_db
 
-  db:
+  frontend:
     build:
-      context: ./database
-      dockerfile: ../infra/docker/db.Dockerfile
-    env_file:
-      - ./database/.env
-    volumes:
-      - db_data:/var/lib/data
+      context: .
+      dockerfile: infra/docker/frontend.Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
 
 volumes:
   db_data:

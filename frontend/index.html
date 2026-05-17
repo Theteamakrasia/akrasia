@@ -34,6 +34,22 @@
       a.tier-card.featured:hover {
         background: var(--bg-3);
       }
+    
+      /* ── Hero illustration ─────────────────────── */
+      .hero-illustration {
+        width: 100%;
+        max-width: 560px;
+        margin: 3rem auto 0;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: heroIllustrationIn 1s 0.4s ease-out both;
+      }
+      @keyframes heroIllustrationIn {
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @media (min-width: 900px) {
+        .hero-illustration { margin-top: 4rem; }
+      }
     </style>
   </head>
   <body>
@@ -45,7 +61,9 @@
           <a href="index.html" class="active">Home</a>
           <a href="services.html">Services</a>
           <a href="pricing.html">Pricing</a>
-          <a href="contact.html">Contact</a>
+          <a href="work.html">Our Work</a>
+          
+      <a href="contact.html">Contact</a>
           <a href="start.html" class="nav-cta">Start a Project</a>
         </div>
         <button type="button" class="nav-hamburger" aria-label="Open menu">
@@ -57,6 +75,8 @@
       <a href="index.html" class="active">Home</a>
       <a href="services.html">Services</a>
       <a href="pricing.html">Pricing</a>
+      <a href="work.html">Our Work</a>
+          
       <a href="contact.html">Contact</a>
       <a href="start.html" class="nav-cta">Start a Project</a>
     </div>
@@ -106,6 +126,309 @@
             </div>
           </div>
         </div>
+
+      <!-- ── Animated hero illustration ─────────────────── -->
+      <div class="hero-illustration" aria-hidden="true">
+        <svg viewBox="0 0 560 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:560px;display:block">
+          <defs>
+            <linearGradient id="hi-bg" x1="0" y1="0" x2="560" y2="340" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#1a1510"/>
+              <stop offset="100%" stop-color="#0d0a08"/>
+            </linearGradient>
+            <linearGradient id="hi-accent" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#c9a85c" stop-opacity=".8"/>
+              <stop offset="100%" stop-color="#9a7c3c" stop-opacity=".4"/>
+            </linearGradient>
+            <linearGradient id="hi-screen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#141210"/>
+              <stop offset="100%" stop-color="#0d0a08"/>
+            </linearGradient>
+            <clipPath id="hi-browser-clip">
+              <rect x="220" y="48" width="320" height="270" rx="2"/>
+            </clipPath>
+            <filter id="hi-glow">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <style>
+            /* ── Code editor lines ── */
+            @keyframes hi-type{0%{width:0}100%{width:var(--w)}}
+            @keyframes hi-cursor-blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+            @keyframes hi-line-in{0%{opacity:0;transform:translateY(4px)}100%{opacity:1;transform:translateY(0)}}
+
+            /* ── Browser preview ── */
+            @keyframes hi-preview-fade{0%,60%{opacity:0;filter:blur(4px)}100%{opacity:1;filter:blur(0)}}
+            @keyframes hi-bar-grow{0%{width:0}100%{width:var(--bw)}}
+            @keyframes hi-section-in{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
+            @keyframes hi-nav-highlight{0%,100%{fill-opacity:.25}50%{fill-opacity:.9}}
+            @keyframes hi-btn-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+            @keyframes hi-sparkle{0%,100%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1)}}
+            @keyframes hi-progress-beam{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+            @keyframes hi-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+            @keyframes hi-orb-pulse{0%,100%{r:40;opacity:.06}50%{r:52;opacity:.09}}
+
+            /* Code lines */
+            .hi-cl1{animation:hi-line-in .3s .2s ease-out both}
+            .hi-cl2{animation:hi-line-in .3s .4s ease-out both}
+            .hi-cl3{animation:hi-line-in .3s .6s ease-out both}
+            .hi-cl4{animation:hi-line-in .3s .8s ease-out both}
+            .hi-cl5{animation:hi-line-in .3s 1.0s ease-out both}
+            .hi-cl6{animation:hi-line-in .3s 1.2s ease-out both}
+            .hi-cl7{animation:hi-line-in .3s 1.4s ease-out both}
+            .hi-cl8{animation:hi-line-in .3s 1.6s ease-out both}
+            .hi-cl9{animation:hi-line-in .3s 1.8s ease-out both}
+            .hi-cl10{animation:hi-line-in .3s 2.0s ease-out both}
+            .hi-cl11{animation:hi-line-in .3s 2.2s ease-out both}
+            .hi-cl12{animation:hi-line-in .3s 2.4s ease-out both}
+            .hi-cursor{animation:hi-cursor-blink .8s step-end infinite}
+
+            /* Browser preview sections */
+            .hi-preview{animation:hi-preview-fade 1s 1.8s ease-out both}
+            .hi-pnav{animation:hi-section-in .4s 2.0s ease-out both}
+            .hi-phero{animation:hi-section-in .4s 2.2s ease-out both}
+            .hi-pcards{animation:hi-section-in .4s 2.4s ease-out both}
+            .hi-pbtn{animation:hi-btn-pulse 2.5s 3s ease-in-out infinite}
+
+            /* Ambient elements */
+            .hi-orb{animation:hi-orb-pulse 4s ease-in-out infinite}
+            .hi-float{animation:hi-float 3.5s ease-in-out infinite}
+            .hi-sparkle1{animation:hi-sparkle 2s 3s ease-in-out infinite}
+            .hi-sparkle2{animation:hi-sparkle 2s 3.6s ease-in-out infinite}
+            .hi-sparkle3{animation:hi-sparkle 2s 4.2s ease-in-out infinite}
+          </style>
+
+          <!-- Background -->
+          <rect width="560" height="340" rx="12" fill="url(#hi-bg)"/>
+
+          <!-- Ambient glow orbs -->
+          <circle class="hi-orb" cx="120" cy="170" r="40" fill="#c9a85c"/>
+          <circle cx="440" cy="100" r="30" fill="#9a7c3c" opacity=".05">
+            <animate attributeName="r" values="30;40;30" dur="5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".05;.09;.05" dur="5s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- Grid lines (subtle) -->
+          <line x1="0" y1="0" x2="560" y2="0" stroke="#c9a85c" stroke-width=".3" opacity=".08"/>
+          <line x1="0" y1="340" x2="560" y2="340" stroke="#c9a85c" stroke-width=".3" opacity=".08"/>
+
+          <!-- ── CODE EDITOR PANEL (left) ────────────────── -->
+          <rect x="16" y="16" width="190" height="308" rx="4" fill="#0f0c0a"/>
+          <rect x="16" y="16" width="190" height="308" rx="4" fill="none" stroke="#2a2520" stroke-width="1"/>
+          <!-- Editor tab bar -->
+          <rect x="16" y="16" width="190" height="28" rx="4" fill="#161210"/>
+          <rect x="16" y="36" width="190" height="8" fill="#161210"/>
+          <!-- Tab -->
+          <rect x="24" y="20" width="70" height="18" rx="2" fill="#1e1a16"/>
+          <rect x="30" y="26" width="8" height="6" rx="1" fill="#c9a85c" opacity=".6"/>
+          <rect x="42" y="28" width="40" height="3.5" rx="1" fill="#f7f4ef" opacity=".3"/>
+          <circle cx="88" cy="29" r="2.5" fill="#f7f4ef" opacity=".15"/>
+          <!-- Line numbers column -->
+          <rect x="16" y="44" width="24" height="280" fill="#111009"/>
+          <!-- Code content -->
+          <g font-family="'Courier New', monospace" font-size="7.5">
+            <!-- Line 1: html tag -->
+            <g class="hi-cl1">
+              <text x="46" y="58" fill="#c9a85c" opacity=".7">&lt;</text>
+              <text x="51" y="58" fill="#c9a85c">html</text>
+              <text x="72" y="58" fill="#c9a85c" opacity=".7">&gt;</text>
+              <text x="24" y="58" fill="#f7f4ef" opacity=".15" text-anchor="middle">1</text>
+            </g>
+            <!-- Line 2 -->
+            <g class="hi-cl2">
+              <text x="56" y="71" fill="#9a7c3c" opacity=".8">&lt;head&gt;</text>
+              <text x="24" y="71" fill="#f7f4ef" opacity=".15" text-anchor="middle">2</text>
+            </g>
+            <!-- Line 3 -->
+            <g class="hi-cl3">
+              <text x="66" y="84" fill="#3a6e50">&lt;meta</text>
+              <text x="100" y="84" fill="#f7f4ef" opacity=".35"> charset</text>
+              <text x="24" y="84" fill="#f7f4ef" opacity=".15" text-anchor="middle">3</text>
+            </g>
+            <!-- Line 4 -->
+            <g class="hi-cl4">
+              <text x="66" y="97" fill="#3a6e50">&lt;title&gt;</text>
+              <text x="109" y="97" fill="#f7f4ef" opacity=".5">Akrasia</text>
+              <text x="24" y="97" fill="#f7f4ef" opacity=".15" text-anchor="middle">4</text>
+            </g>
+            <!-- Line 5 -->
+            <g class="hi-cl5">
+              <text x="56" y="110" fill="#9a7c3c" opacity=".8">&lt;/head&gt;</text>
+              <text x="24" y="110" fill="#f7f4ef" opacity=".15" text-anchor="middle">5</text>
+            </g>
+            <!-- Line 6 -->
+            <g class="hi-cl6">
+              <text x="56" y="123" fill="#9a7c3c" opacity=".8">&lt;body&gt;</text>
+              <text x="24" y="123" fill="#f7f4ef" opacity=".15" text-anchor="middle">6</text>
+            </g>
+            <!-- Line 7: nav -->
+            <g class="hi-cl7">
+              <text x="66" y="136" fill="#3a6e50">&lt;nav</text>
+              <text x="88" y="136" fill="#c9a85c" opacity=".6"> class</text>
+              <text x="115" y="136" fill="#f7f4ef" opacity=".4">="nav"</text>
+              <text x="24" y="136" fill="#f7f4ef" opacity=".15" text-anchor="middle">7</text>
+            </g>
+            <!-- Line 8: section -->
+            <g class="hi-cl8">
+              <text x="66" y="149" fill="#3a6e50">&lt;section</text>
+              <text x="24" y="149" fill="#f7f4ef" opacity=".15" text-anchor="middle">8</text>
+            </g>
+            <!-- Line 9: h1 -->
+            <g class="hi-cl9">
+              <text x="76" y="162" fill="#3a6e50">&lt;h1&gt;</text>
+              <text x="105" y="162" fill="#f7f4ef" opacity=".55">Built to</text>
+              <text x="24" y="162" fill="#f7f4ef" opacity=".15" text-anchor="middle">9</text>
+            </g>
+            <!-- Line 10 -->
+            <g class="hi-cl10">
+              <text x="76" y="175" fill="#c9a85c" opacity=".75">&lt;em&gt;</text>
+              <text x="101" y="175" fill="#c9a85c">mean</text>
+              <text x="24" y="175" fill="#f7f4ef" opacity=".15" text-anchor="middle">10</text>
+            </g>
+            <!-- Line 11 -->
+            <g class="hi-cl11">
+              <text x="76" y="188" fill="#3a6e50">&lt;p</text>
+              <text x="87" y="188" fill="#c9a85c" opacity=".6"> class</text>
+              <text x="114" y="188" fill="#f7f4ef" opacity=".4">="desc"</text>
+              <text x="24" y="188" fill="#f7f4ef" opacity=".15" text-anchor="middle">11</text>
+            </g>
+            <!-- Line 12 -->
+            <g class="hi-cl12">
+              <text x="76" y="201" fill="#3a6e50">&lt;a</text>
+              <text x="86" y="201" fill="#c9a85c" opacity=".6"> href</text>
+              <text x="107" y="201" fill="#f7f4ef" opacity=".4">="pricing"</text>
+              <text x="24" y="201" fill="#f7f4ef" opacity=".15" text-anchor="middle">12</text>
+            </g>
+          </g>
+          <!-- Active line highlight -->
+          <rect x="40" y="193" width="166" height="13" rx="1" fill="#c9a85c" opacity=".04"/>
+          <!-- Blinking cursor -->
+          <rect class="hi-cursor" x="152" y="194" width="1.5" height="9" fill="#c9a85c" opacity=".9"/>
+          <!-- Scrollbar -->
+          <rect x="198" y="44" width="4" height="280" rx="2" fill="#f7f4ef" opacity=".04"/>
+          <rect x="198" y="90" width="4" height="60" rx="2" fill="#c9a85c" opacity=".3"/>
+
+          <!-- ── DIVIDER / ARROW ────────────────────────── -->
+          <g class="hi-float">
+            <rect x="210" y="154" width="4" height="32" rx="2" fill="#c9a85c" opacity=".25"/>
+            <circle cx="212" cy="150" r="8" fill="#1a1510" stroke="#c9a85c" stroke-width="1" stroke-opacity=".4"/>
+            <path d="M208 152 L212 148 L216 152" stroke="#c9a85c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".7"/>
+            <path d="M208 160 L212 164 L216 160" stroke="#c9a85c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".7"/>
+          </g>
+
+          <!-- ── BROWSER WINDOW (right) ─────────────────── -->
+          <g class="hi-preview">
+            <!-- Browser chrome -->
+            <rect x="220" y="16" width="324" height="308" rx="6" fill="#1a1714"/>
+            <rect x="220" y="16" width="324" height="308" rx="6" fill="none" stroke="#2a2520" stroke-width="1"/>
+            <!-- Title bar -->
+            <rect x="220" y="16" width="324" height="30" rx="6" fill="#131110"/>
+            <rect x="220" y="36" width="324" height="10" fill="#131110"/>
+            <!-- Traffic lights -->
+            <circle cx="238" cy="31" r="4.5" fill="#e05252" opacity=".7"/>
+            <circle cx="252" cy="31" r="4.5" fill="#c9a85c" opacity=".7"/>
+            <circle cx="266" cy="31" r="4.5" fill="#3a6e50" opacity=".7"/>
+            <!-- URL bar -->
+            <rect x="282" y="22" width="210" height="18" rx="9" fill="#0d0a08"/>
+            <rect x="290" y="27" width="6" height="6" rx="1" fill="#3a6e50" opacity=".6"/>
+            <rect x="300" y="29" width="100" height="3" rx="1" fill="#f7f4ef" opacity=".2"/>
+            <!-- Reload icon suggestion -->
+            <circle cx="506" cy="31" r="5" fill="none" stroke="#f7f4ef" stroke-width="1" stroke-opacity=".15"/>
+
+            <!-- ── WEBSITE PREVIEW INSIDE BROWSER ─────── -->
+            <clipPath id="hi-clip2">
+              <rect x="220" y="46" width="324" height="278"/>
+            </clipPath>
+            <g clip-path="url(#hi-clip2)">
+              <!-- Page BG -->
+              <rect x="220" y="46" width="324" height="278" fill="#0f0c0a"/>
+
+              <!-- Navbar -->
+              <g class="hi-pnav">
+                <rect x="220" y="46" width="324" height="28" fill="#1a1510"/>
+                <!-- Logo block -->
+                <rect x="232" y="56" width="36" height="8" rx="1" fill="#c9a85c" opacity=".8"/>
+                <!-- Nav links -->
+                <rect x="300" y="58" width="20" height="4" rx="1" fill="#f7f4ef">
+                  <animate attributeName="fill-opacity" values=".3;.9;.3" dur="4s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="328" y="58" width="22" height="4" rx="1" fill="#f7f4ef" opacity=".3"/>
+                <rect x="358" y="58" width="18" height="4" rx="1" fill="#f7f4ef" opacity=".3"/>
+                <!-- CTA -->
+                <rect x="484" y="52" width="48" height="16" rx="1" fill="#9a7c3c"/>
+                <rect x="490" y="57" width="36" height="6" rx="1" fill="#f7f4ef" opacity=".7"/>
+              </g>
+
+              <!-- Hero section -->
+              <g class="hi-phero">
+                <rect x="220" y="74" width="324" height="90" fill="#141210"/>
+                <!-- Gradient overlay -->
+                <rect x="220" y="74" width="180" height="90" fill="#c9a85c" opacity=".03"/>
+                <!-- Headline -->
+                <rect x="238" y="90" width="130" height="12" rx="1.5" fill="#f7f4ef" opacity=".8"/>
+                <rect x="238" y="107" width="100" height="12" rx="1.5" fill="#c9a85c" opacity=".75"/>
+                <!-- Subtext -->
+                <rect x="238" y="126" width="150" height="4" rx="1" fill="#f7f4ef" opacity=".2"/>
+                <rect x="238" y="133" width="130" height="4" rx="1" fill="#f7f4ef" opacity=".15"/>
+                <rect x="238" y="140" width="140" height="4" rx="1" fill="#f7f4ef" opacity=".12"/>
+                <!-- CTA buttons -->
+                <g class="hi-pbtn">
+                  <rect x="238" y="152" width="60" height="18" rx="1.5" fill="#9a7c3c"/>
+                  <rect x="244" y="158" width="48" height="6" rx="1" fill="#f7f4ef" opacity=".7"/>
+                </g>
+                <rect x="308" y="152" width="60" height="18" rx="1.5" fill="none" stroke="#f7f4ef" stroke-width=".8" stroke-opacity=".25"/>
+                <rect x="314" y="158" width="48" height="6" rx="1" fill="#f7f4ef" opacity=".2"/>
+                <!-- Right decorative panel -->
+                <rect x="390" y="74" width="154" height="90" fill="#f7f4ef" opacity=".02"/>
+                <rect x="404" y="88" width="120" height="68" rx="2" fill="#1e1a16" opacity=".8"/>
+                <rect x="412" y="96" width="104" height="52" rx="1" fill="#9a7c3c" opacity=".12"/>
+                <line x1="412" y1="96" x2="516" y2="148" stroke="#c9a85c" stroke-width=".5" opacity=".1"/>
+                <line x1="516" y1="96" x2="412" y2="148" stroke="#c9a85c" stroke-width=".5" opacity=".1"/>
+              </g>
+
+              <!-- Cards row -->
+              <g class="hi-pcards">
+                <!-- Card 1 -->
+                <rect x="232" y="178" width="80" height="54" rx="2" fill="#1e1a16"/>
+                <rect x="240" y="186" width="64" height="20" rx="1" fill="#9a7c3c" opacity=".18"/>
+                <rect x="240" y="212" width="50" height="4" rx="1" fill="#f7f4ef" opacity=".3"/>
+                <rect x="240" y="220" width="38" height="3" rx="1" fill="#f7f4ef" opacity=".15"/>
+                <!-- Card 2 -->
+                <rect x="324" y="178" width="80" height="54" rx="2" fill="#1e1a16"/>
+                <rect x="332" y="186" width="64" height="20" rx="1" fill="#c9a85c" opacity=".15"/>
+                <rect x="332" y="212" width="55" height="4" rx="1" fill="#f7f4ef" opacity=".3"/>
+                <rect x="332" y="220" width="42" height="3" rx="1" fill="#f7f4ef" opacity=".15"/>
+                <!-- Card 3 -->
+                <rect x="416" y="178" width="80" height="54" rx="2" fill="#1e1a16"/>
+                <rect x="424" y="186" width="64" height="20" rx="1" fill="#9a7c3c" opacity=".22"/>
+                <rect x="424" y="212" width="48" height="4" rx="1" fill="#f7f4ef" opacity=".3"/>
+                <rect x="424" y="220" width="56" height="3" rx="1" fill="#f7f4ef" opacity=".15"/>
+                <!-- Card accent line (active) -->
+                <rect x="232" y="178" width="80" height="2" rx="1" fill="#c9a85c" opacity=".6"/>
+              </g>
+
+              <!-- Footer preview -->
+              <rect x="220" y="280" width="324" height="44" fill="#0d0a08"/>
+              <rect x="220" y="280" width="324" height="1" fill="#c9a85c" opacity=".12"/>
+              <rect x="234" y="290" width="36" height="6" rx="1" fill="#c9a85c" opacity=".5"/>
+              <rect x="290" y="291" width="28" height="4" rx="1" fill="#f7f4ef" opacity=".15"/>
+              <rect x="330" y="291" width="32" height="4" rx="1" fill="#f7f4ef" opacity=".15"/>
+              <rect x="374" y="291" width="24" height="4" rx="1" fill="#f7f4ef" opacity=".15"/>
+            </g>
+          </g>
+
+          <!-- Sparkles (appear after build) -->
+          <g class="hi-sparkle1">
+            <path d="M510 32 L512 28 L514 32 L518 34 L514 36 L512 40 L510 36 L506 34 Z" fill="#c9a85c" opacity=".7"/>
+          </g>
+          <g class="hi-sparkle2">
+            <path d="M536 52 L537.5 49 L539 52 L542 53.5 L539 55 L537.5 58 L536 55 L533 53.5 Z" fill="#c9a85c" opacity=".5"/>
+          </g>
+          <g class="hi-sparkle3">
+            <path d="M525 18 L526 16 L527 18 L529 19 L527 20 L526 22 L525 20 L523 19 Z" fill="#c9a85c" opacity=".4"/>
+          </g>
+        </svg>
+      </div>
       </div>
     </section>
 
@@ -431,7 +754,9 @@
               <li><a href="index.html">Home</a></li>
               <li><a href="services.html">Services</a></li>
               <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="work.html">Our Work</a>
+          
+      <a href="contact.html">Contact</a></li>
             </ul>
           </div>
           <div class="footer-col">

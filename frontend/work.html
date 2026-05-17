@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Work — Akrasia</title>
+    <meta name="description" content="Past work by Team Akrasia — websites, apps, and digital projects built for clients across Bangladesh.">
+    <link rel="stylesheet" href="src/css/main.css">
+    <style>
+      /* ── Filter tabs ─────────────────────────────────── */
+      .work-filters {
+        display: flex; flex-wrap: wrap; gap: 0;
+        border: 1px solid var(--rule-md);
+        margin-bottom: 2.5rem;
+        width: fit-content;
+      }
+      .work-filter {
+        padding: 0.6rem 1.25rem;
+        font-size: 10.5px; text-transform: uppercase;
+        letter-spacing: 0.14em; color: var(--text-3);
+        background: none; border: none;
+        border-right: 1px solid var(--rule-md);
+        cursor: pointer; font-family: inherit;
+        transition: color 0.2s, background 0.2s;
+        white-space: nowrap;
+      }
+      .work-filter:last-child { border-right: none; }
+      .work-filter:hover { color: var(--text); background: var(--bg-2); }
+      .work-filter.active {
+        background: var(--text); color: var(--bg);
+      }
+
+      /* ── Work grid ───────────────────────────────────── */
+      .work-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1px;
+        background: var(--rule-md);
+        border: 1px solid var(--rule-md);
+      }
+
+      /* ── Work card ───────────────────────────────────── */
+      .work-card {
+        background: var(--surface);
+        display: flex; flex-direction: column;
+        transition: background 0.2s;
+        position: relative;
+        /* hidden state for filter animations */
+        animation: none;
+      }
+      .work-card:hover { background: var(--bg-2); }
+      .work-card[hidden] { display: none; }
+
+      /* Preview area */
+      .work-card-preview {
+        width: 100%; aspect-ratio: 16/9;
+        background: var(--bg-3);
+        overflow: hidden; position: relative;
+        border-bottom: 1px solid var(--rule);
+      }
+      /* iframe-based live preview */
+      .work-card-preview iframe {
+        width: 200%; height: 200%;
+        transform: scale(0.5);
+        transform-origin: top left;
+        pointer-events: none;
+        border: none;
+      }
+      /* Screenshot fallback */
+      .work-card-preview img {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: top;
+        display: block;
+      }
+      /* Placeholder when neither provided */
+      .work-preview-placeholder {
+        width: 100%; height: 100%;
+        display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(135deg, var(--bg-3) 0%, var(--bg-2) 100%);
+      }
+      .work-preview-placeholder svg { opacity: .18; }
+
+      /* Overlay on hover */
+      .work-card-overlay {
+        position: absolute; inset: 0;
+        background: rgba(28,24,20,.5);
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0; transition: opacity 0.25s;
+      }
+      .work-card:hover .work-card-overlay { opacity: 1; }
+      .work-overlay-btn {
+        display: flex; align-items: center; gap: 8px;
+        padding: 0.6rem 1.2rem;
+        background: var(--gold); color: var(--bg);
+        font-size: 11px; text-transform: uppercase;
+        letter-spacing: 0.12em; font-family: inherit;
+        text-decoration: none; border: none; cursor: pointer;
+        font-weight: 600;
+      }
+
+      /* Card body */
+      .work-card-body { padding: 1.5rem 1.75rem; flex: 1; display: flex; flex-direction: column; }
+      .work-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+      .work-tag {
+        font-size: 9.5px; text-transform: uppercase;
+        letter-spacing: 0.13em; color: var(--gold);
+        border: 1px solid var(--gold-rule);
+        padding: 2px 8px;
+        background: var(--gold-dim);
+      }
+      .work-card-title {
+        font-family: var(--serif); font-size: 1.15rem;
+        font-weight: 400; color: var(--text);
+        margin-bottom: 0.5rem;
+      }
+      .work-card-client {
+        font-size: 11px; text-transform: uppercase;
+        letter-spacing: 0.14em; color: var(--text-4);
+        margin-bottom: 0.75rem;
+      }
+      .work-card-desc {
+        font-size: 13px; color: var(--text-3);
+        line-height: 1.65; flex: 1;
+      }
+      .work-card-footer {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-top: 1.25rem; padding-top: 1rem;
+        border-top: 1px solid var(--rule);
+      }
+      .work-card-tech {
+        font-size: 11px; color: var(--text-4);
+      }
+      .work-card-link {
+        font-size: 11px; color: var(--gold); text-decoration: none;
+        display: flex; align-items: center; gap: 4px;
+        transition: color 0.2s;
+      }
+      .work-card-link:hover { color: var(--text); }
+
+      /* ── No results message ──────────────────────────── */
+      .work-no-results {
+        grid-column: 1 / -1;
+        padding: 3rem; text-align: center;
+        font-size: 14px; color: var(--text-4);
+        font-style: italic;
+        display: none;
+      }
+      .work-no-results.visible { display: block; }
+
+      /* ── Count badge ─────────────────────────────────── */
+      .work-count {
+        font-size: 11px; color: var(--text-4);
+        margin-bottom: 1.5rem;
+      }
+      .work-count span { color: var(--text-3); }
+
+      @media (max-width: 700px) {
+        .work-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── NAV ─────────────────────────────────────────── -->
+    <nav class="nav">
+      <div class="container">
+        <a href="index.html" class="nav-logo">Akrasia<span>.</span></a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="work.html" class="active">Our Work</a>
+          <a href="contact.html">Contact</a>
+          <a href="start.html" class="nav-cta">Start a Project</a>
+        </div>
+        <button type="button" class="nav-hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="nav-mobile">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="work.html" class="active">Our Work</a>
+      <a href="contact.html">Contact</a>
+      <a href="start.html" class="nav-cta">Start a Project</a>
+    </div>
+
+    <!-- ── PAGE HERO ─────────────────────────────────── -->
+    <div class="page-hero">
+      <div class="container">
+        <p class="page-eyebrow">Our Work</p>
+        <h1>Projects built for<br><em>real businesses.</em></h1>
+        <p class="lead">
+          A selection of websites, apps, and digital products we have designed
+          and built for clients across Bangladesh and beyond. Every project is
+          hand-coded — no templates, no shortcuts.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── PORTFOLIO ─────────────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <p class="section-eyebrow">Portfolio</p>
+        <h2 class="section-heading">Selected <em>work.</em></h2>
+        <p class="section-sub">
+          Filter by type or browse everything. Links open the live site in a
+          new tab — or click any card to preview.
+        </p>
+
+        <!-- Filters -->
+        <div class="work-filters" id="workFilters" role="tablist" aria-label="Project type filter">
+          <button class="work-filter active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button class="work-filter" data-filter="website" role="tab" aria-selected="false">Websites</button>
+          <button class="work-filter" data-filter="ecommerce" role="tab" aria-selected="false">E-commerce</button>
+          <button class="work-filter" data-filter="webapp" role="tab" aria-selected="false">Web Apps</button>
+          <button class="work-filter" data-filter="landing" role="tab" aria-selected="false">Landing Pages</button>
+        </div>
+
+        <!-- Count -->
+        <p class="work-count" id="workCount"><span id="visibleCount">0</span> projects</p>
+
+        <!--
+        ═══════════════════════════════════════════════════════════════════
+        PORTFOLIO ITEMS
+        ═══════════════════════════════════════════════════════════════════
+
+        HOW TO ADD A NEW PROJECT:
+        ──────────────────────────────────────────────────────────────────
+        Copy one of the .work-card divs below and update:
+
+          data-type    → one of: website | ecommerce | webapp | landing
+          data-title   → used for search (optional, future feature)
+
+        Inside the card, set one of:
+          A) Live preview  — use data-url="https://your-site.com" on .work-card-preview
+             (loads the site in a scaled iframe on hover)
+          B) Screenshot    — add <img src="path/to/screenshot.jpg"> inside .work-card-preview
+          C) Placeholder   — leave .work-card-preview empty (shows default icon)
+
+        Then fill in:
+          .work-card-tags  → category tags (Website, E-commerce, etc.)
+          .work-card-title → project name
+          .work-card-client → client name or "Confidential"
+          .work-card-desc  → 1–2 sentence description
+          .work-card-tech  → tech stack used
+          .work-card-link  → href of live site (or "#" if not public)
+
+        That's it — the card appears automatically in the grid.
+        ═══════════════════════════════════════════════════════════════════
+        -->
+
+        <div class="work-grid reveal" id="workGrid">
+
+          <!-- ─ EXAMPLE 1: Website with live preview ─────────────── -->
+          <!--
+          <div class="work-card" data-type="website">
+            <div class="work-card-preview" data-url="https://example-client.com">
+              <div class="work-card-overlay">
+                <a href="https://example-client.com" target="_blank" rel="noopener" class="work-overlay-btn">
+                  Visit site ↗
+                </a>
+              </div>
+            </div>
+            <div class="work-card-body">
+              <div class="work-card-tags">
+                <span class="work-tag">Website</span>
+                <span class="work-tag">Static</span>
+              </div>
+              <p class="work-card-title">Example Client Name</p>
+              <p class="work-card-client">Client Industry · Year</p>
+              <p class="work-card-desc">
+                Brief description of the project, what problem it solved,
+                and what made it interesting to build.
+              </p>
+              <div class="work-card-footer">
+                <span class="work-card-tech">HTML · CSS · JS</span>
+                <a href="https://example-client.com" target="_blank" rel="noopener" class="work-card-link">
+                  View live ↗
+                </a>
+              </div>
+            </div>
+          </div>
+          -->
+
+          <!-- ─ EXAMPLE 2: Website with screenshot ───────────────── -->
+          <!--
+          <div class="work-card" data-type="website">
+            <div class="work-card-preview">
+              <img src="public/screenshots/project-name.jpg" alt="Project Name screenshot">
+              <div class="work-card-overlay">
+                <a href="https://example.com" target="_blank" rel="noopener" class="work-overlay-btn">
+                  Visit site ↗
+                </a>
+              </div>
+            </div>
+            <div class="work-card-body">
+              <div class="work-card-tags">
+                <span class="work-tag">Website</span>
+                <span class="work-tag">Semi-Dynamic</span>
+              </div>
+              <p class="work-card-title">Project Name</p>
+              <p class="work-card-client">Client · 2025</p>
+              <p class="work-card-desc">Description of the project.</p>
+              <div class="work-card-footer">
+                <span class="work-card-tech">HTML · CSS · JS · Node</span>
+                <a href="https://example.com" target="_blank" rel="noopener" class="work-card-link">View live ↗</a>
+              </div>
+            </div>
+          </div>
+          -->
+
+          <!-- ─ PLACEHOLDER CARD (remove when real projects are added) ─ -->
+          <div class="work-card work-placeholder-card" data-type="website">
+            <div class="work-card-preview">
+              <div class="work-preview-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#1c1814" stroke-width="1.2">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+                </svg>
+              </div>
+            </div>
+            <div class="work-card-body">
+              <div class="work-card-tags">
+                <span class="work-tag">Website</span>
+              </div>
+              <p class="work-card-title">Your project title here</p>
+              <p class="work-card-client">Client name · Year</p>
+              <p class="work-card-desc">
+                This is a placeholder. Uncomment one of the example cards above,
+                fill in your project details, and this placeholder disappears automatically.
+              </p>
+              <div class="work-card-footer">
+                <span class="work-card-tech">HTML · CSS · JS</span>
+                <span class="work-card-link" style="color:var(--text-4);font-style:italic">coming soon</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /work-grid -->
+
+        <div class="work-no-results" id="noResults">
+          No projects in this category yet. Check back soon.
+        </div>
+
+        <div class="callout" style="margin-top:2rem">
+          <strong>NDA note.</strong> Some client work is under non-disclosure agreements
+          and cannot be shown publicly. The projects listed here represent a subset of our
+          total output. <a href="start.html" style="color:var(--gold)">Start a project →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STATS BAND ─────────────────────────────────── -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="hero-stats reveal" style="max-width:none;justify-content:flex-start;gap:3rem;flex-wrap:wrap">
+          <div>
+            <div class="hero-stat-num" id="projectCount">—</div>
+            <div class="hero-stat-label">Projects delivered</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">6</div>
+            <div class="hero-stat-label">Team members</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">100<span>%</span></div>
+            <div class="hero-stat-label">Hand-coded, no templates</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">BDT</div>
+            <div class="hero-stat-label">Transparent pricing</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ─────────────────────────────────────────── -->
+    <div class="cta-banner">
+      <div class="container">
+        <h2>Like what you see?<br><em>Let's build yours.</em></h2>
+        <p>Use the project form to get a formal, itemised proposal within 24 hours.</p>
+        <div class="btn-row" style="justify-content:center">
+          <a href="start.html" class="btn btn-primary">
+            Start a Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="pricing.html" class="btn btn-outline">View Pricing</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ─────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <p class="footer-brand-name">Akrasia<span>.</span></p>
+            <p>Custom web development for businesses across Bangladesh. Built with care, priced with integrity.</p>
+            <span class="footer-tag">Team Akrasia &ensp;·&ensp; BD</span>
+          </div>
+          <div class="footer-col">
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="work.html">Our Work</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="services.html#static">Static Websites</a></li>
+              <li><a href="services.html#semi">Semi-Dynamic</a></li>
+              <li><a href="services.html#dynamic">Dynamic + CMS</a></li>
+              <li><a href="services.html#ecommerce">E-commerce</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Get in Touch</h4>
+            <ul>
+              <li><a href="start.html">Start a Project</a></li>
+              <li><a href="work.html">Our Work</a></li>
+              <li><a href="contact.html#team">The Team</a></li>
+              <li><a href="mailto:teamtheakrasia@gmail.com">teamtheakrasia@gmail.com</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 Akrasia. All prices in BDT.</p>
+          <p>Crafted in <a href="contact.html#team">Bangladesh</a>.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="src/js/main.js"></script>
+    <script>
+    /**
+     * work.html — Portfolio filter + live preview loader
+     *
+     * HOW THE LIVE PREVIEW WORKS:
+     *   If a .work-card-preview has data-url="https://…", an <iframe> is
+     *   created and the site is loaded inside it scaled to fit the card.
+     *   This is loaded lazily (only when the card enters the viewport) to
+     *   avoid unnecessary network requests for sites further down the page.
+     *
+     * HOW FILTERING WORKS:
+     *   Clicking a filter button adds/removes the `hidden` attribute from
+     *   cards whose data-type doesn't match. Pure DOM, no re-render.
+     */
+    (function () {
+      'use strict';
+
+      /* ── Filter tabs ────────────────────────────────── */
+      const filterBtns = document.querySelectorAll('.work-filter');
+      const cards      = document.querySelectorAll('.work-card');
+      const noResults  = document.getElementById('noResults');
+      const countEl    = document.getElementById('visibleCount');
+      const projectCountEl = document.getElementById('projectCount');
+
+      function updateCount() {
+        const visible = [...cards].filter(c => !c.hidden).length;
+        if (countEl)   countEl.textContent = visible;
+        /* Remove placeholder card from project stats count */
+        const real = [...cards].filter(c => !c.classList.contains('work-placeholder-card')).length;
+        if (projectCountEl) projectCountEl.textContent = real || '—';
+        if (noResults) noResults.classList.toggle('visible', visible === 0);
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+
+          const filter = btn.dataset.filter;
+          cards.forEach(card => {
+            card.hidden = filter !== 'all' && card.dataset.type !== filter;
+          });
+          updateCount();
+        });
+      });
+
+      updateCount();
+
+      /* ── Lazy iframe preview loader ─────────────────── */
+      const previewEls = document.querySelectorAll('.work-card-preview[data-url]');
+
+      if (previewEls.length && 'IntersectionObserver' in window) {
+        const previewObs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el  = entry.target;
+            const url = el.dataset.url;
+            if (!url || el.querySelector('iframe')) return;
+
+            /* Don't load iframe if screenshot already present */
+            if (el.querySelector('img')) return;
+
+            const iframe = document.createElement('iframe');
+            iframe.src             = url;
+            iframe.title           = 'Site preview';
+            iframe.loading         = 'lazy';
+            iframe.sandbox         = 'allow-scripts allow-same-origin';
+            /* Insert before the overlay */
+            const overlay = el.querySelector('.work-card-overlay');
+            el.insertBefore(iframe, overlay);
+
+            previewObs.unobserve(el);
+          });
+        }, { rootMargin: '200px' });
+
+        previewEls.forEach(el => previewObs.observe(el));
+      }
+
+    })();
+    </script>
+  </body>
+</html>
