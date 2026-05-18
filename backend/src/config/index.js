@@ -1,0 +1,58 @@
+/**
+ * config/index.js
+ * Centralised config — reads from .env via dotenv.
+ * Throws early if required variables are missing (fail-fast).
+ */
+
+require("dotenv").config();
+
+function required(key) {
+  const val = process.env[key];
+  if (!val) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+  return val;
+}
+
+function optional(key, defaultVal = undefined) {
+  return process.env[key] || defaultVal;
+}
+
+const config = {
+  // ── Server
+  port:    optional("PORT", "8000"),
+  nodeEnv: optional("NODE_ENV", "development"),
+
+  // ── Database (consumed by Prisma, validated here for fail-fast)
+  databaseUrl: required("DATABASE_URL"),
+
+  // ── CORS: comma-separated allowed origins
+  corsOrigins: optional("CORS_ORIGIN", "http://localhost:5500")
+    .split(",")
+    .map((o) => o.trim()),
+
+  // ── Email (SMTP via Nodemailer)
+  smtp: {
+    host:   optional("SMTP_HOST", "smtp.gmail.com"),
+    port:   parseInt(optional("SMTP_PORT", "587"), 10),
+    secure: optional("SMTP_SECURE", "false") === "true",
+    user:   required("SMTP_USER"),
+    pass:   required("SMTP_PASS"),
+  },
+  emailFrom: optional("EMAIL_FROM", '"Team Akrasia" <teamtheakrasia@gmail.com>'),
+  emailTo:   optional("EMAIL_TO",   "teamtheakrasia@gmail.com"),
+
+  // ── JWT (reserved for future admin panel)
+  jwt: {
+    secret:    optional("JWT_SECRET", "change_this_in_production"),
+    expiresIn: optional("JWT_EXPIRES_IN", "7d"),
+  },
+
+  // ── Rate limiting
+  rateLimit: {
+    windowMs: parseInt(optional("RATE_LIMIT_WINDOW_MS", "900000"), 10), // 15 min
+    max:      parseInt(optional("RATE_LIMIT_MAX", "20"), 10),
+  },
+};
+
+module.exports = config;

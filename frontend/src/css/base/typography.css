@@ -1,0 +1,25 @@
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+h1 { font-size: var(--text-4xl); font-weight: var(--font-bold);    line-height: 1.2; }
+h2 { font-size: var(--text-3xl); font-weight: var(--font-bold);    line-height: 1.25; }
+h3 { font-size: var(--text-2xl); font-weight: var(--font-semibold); line-height: 1.3; }
+h4 { font-size: var(--text-xl);  font-weight: var(--font-semibold); }
+h5 { font-size: var(--text-lg);  font-weight: var(--font-medium); }
+h6 { font-size: var(--text-base); font-weight: var(--font-medium); }
+
+p { color: var(--color-text-muted); line-height: 1.75; }
+
+a:hover { color: var(--color-primary); }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-surface);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+}

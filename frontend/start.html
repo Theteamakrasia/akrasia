@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>Start a Project — Akrasia</title>
+    <meta
+      name="description"
+      content="Tell us about your project and receive a formal, itemised proposal from Team Akrasia within one business day."
+    >
+    <link rel="stylesheet" href="src/css/main.css" >
+    <style>
+      /* ── Quote form wrapper ── */
+      .quote-form-wrap {
+        background: var(--surface);
+        border: 1px solid var(--rule-md);
+      }
+      .quote-form-header {
+        padding: 2rem 2.5rem;
+        border-bottom: 1px solid var(--rule);
+        background: var(--bg-2);
+      }
+      .quote-form-header h3 {
+        font-family: var(--serif);
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: var(--text);
+        margin-bottom: 0.3rem;
+      }
+      .quote-form-header p {
+        font-size: 13px;
+        color: var(--text-3);
+      }
+      .quote-form-body {
+        padding: 2.5rem;
+      }
+
+      .qf-section {
+        margin-bottom: 2.75rem;
+        padding-bottom: 2.75rem;
+        border-bottom: 1px solid var(--rule);
+      }
+      .qf-section:last-of-type {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      .qf-section-title {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.75rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .qf-section-title::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+      .form-group:last-child {
+        margin-bottom: 0;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-3);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        margin-bottom: 0.55rem;
+      }
+      .form-control {
+        width: 100%;
+        background: var(--bg);
+        border: 1px solid var(--rule-md);
+        border-radius: 0;
+        padding: 0.82rem 1rem;
+        font-size: 14px;
+        color: var(--text);
+        font-family: var(--sans);
+        transition: border-color 0.2s;
+        outline: none;
+        resize: vertical;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      .form-control:focus {
+        border-color: var(--rule-dark);
+        background: var(--surface);
+      }
+      .form-control::placeholder {
+        color: var(--text-4);
+      }
+      select.form-control {
+        cursor: pointer;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a837b' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 2.25rem;
+      }
+      select.form-control option {
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      .form-success {
+        text-align: center;
+        padding: 4rem 2.5rem;
+        display: none;
+      }
+      .form-success-mark {
+        width: 50px;
+        height: 50px;
+        border: 1px solid var(--gold-rule);
+        background: var(--gold-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 1.3rem;
+      }
+      .form-success h4 {
+        font-family: var(--serif);
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: var(--text);
+        margin-bottom: 0.65rem;
+      }
+      .form-success p {
+        font-size: 14px;
+        color: var(--text-2);
+        max-width: 360px;
+        margin: 0 auto;
+      }
+
+      /* ── FAQ ── */
+      .faq-list {
+        border: 1px solid var(--rule-md);
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--rule);
+      }
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+      .faq-q {
+        width: 100%;
+        background: var(--surface);
+        border: none;
+        text-align: left;
+        padding: 1.35rem 1.75rem;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1.5rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        font-family: var(--sans);
+      }
+      .faq-q:hover {
+        background: var(--bg-2);
+      }
+      .faq-icon {
+        width: 22px;
+        height: 22px;
+        border: 1px solid var(--rule-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: var(--gold);
+        flex-shrink: 0;
+        transition:
+          transform 0.3s var(--ease),
+          background 0.2s;
+        line-height: 1;
+      }
+      .faq-item.open .faq-icon {
+        transform: rotate(45deg);
+        background: var(--gold-dim);
+      }
+      .faq-item.open .faq-q {
+        background: var(--bg-2);
+      }
+      .faq-a {
+        display: none;
+        padding: 0 1.75rem 1.35rem;
+        font-size: 13.5px;
+        color: var(--text-2);
+        line-height: 1.85;
+        border-top: 1px solid var(--rule);
+        background: var(--bg-2);
+      }
+      .faq-item.open .faq-a {
+        display: block;
+      }
+
+      @media (max-width: 600px) {
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .quote-form-body {
+          padding: 1.5rem;
+        }
+        .quote-form-header {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── NAV ─────────────────────────────────────────── -->
+    <nav class="nav">
+      <div class="container">
+        <a href="index.html" class="nav-logo">Akrasia<span>.</span></a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="work.html">Our Work</a>
+          <a href="contact.html">Contact</a>
+          <a href="start.html" class="nav-cta active">Start a Project</a>
+        </div>
+        <button type="button" class="nav-hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="nav-mobile">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="work.html">Our Work</a>
+      <a href="contact.html">Contact</a>
+      <a href="start.html" class="nav-cta active">Start a Project</a>
+    </div>
+
+    <!-- ── PAGE HERO ─────────────────────────────────────── -->
+    <div class="page-hero">
+      <div class="container">
+        <p class="page-eyebrow">Start a Project</p>
+        <h1>Tell us about<br><em>your project.</em></h1>
+        <p class="lead">
+          Complete the form below and we'll return a detailed, itemised proposal
+          within one business day. The more detail you provide, the more
+          accurate your quote will be.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── QUOTE FORM ────────────────────────────────────── -->
+    <section class="section" id="quote">
+      <div class="container">
+        <p class="section-eyebrow">Project Enquiry</p>
+        <h2 class="section-heading">Your project, <em>in your words.</em></h2>
+        <p class="section-sub">
+          No jargon required. Just tell us what you need your website to do and
+          who it's for. We'll handle the technical side.
+        </p>
+
+        <div class="quote-form-wrap reveal">
+          <div class="quote-form-header">
+            <div>
+              <h3>Project Enquiry Form</h3>
+              <p>
+                Fields marked * are required. Everything else helps us prepare a
+                more accurate quote.
+              </p>
+            </div>
+          </div>
+
+          <div class="quote-form-body">
+            <form class="quote-form contact-form">
+              <!-- 01 Contact Information -->
+              <div class="qf-section">
+                <p class="qf-section-title">01 — Contact Information</p>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="q-name">Your Name *</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="q-name"
+                      name="name"
+                      placeholder="Full name"
+                      required
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="q-company"
+                      >Company / Organisation</label
+                    >
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="q-company"
+                      name="company"
+                      placeholder="Company name (if applicable)"
+                    >
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="q-email"
+                      >Email Address *</label
+                    >
+                    <input
+                      class="form-control"
+                      type="email"
+                      id="q-email"
+                      name="email"
+                      placeholder="your@email.com"
+                      required
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="q-phone"
+                      >Phone / WhatsApp</label
+                    >
+                    <input
+                      class="form-control"
+                      type="tel"
+                      id="q-phone"
+                      name="phone"
+                      placeholder="+880 …"
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- 02 Project Details -->
+              <div class="qf-section">
+                <p class="qf-section-title">02 — Project Details</p>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="q-service"
+                      >Service Category *</label
+                    >
+                    <select
+                      class="form-control"
+                      id="q-service"
+                      name="service"
+                      required
+                    >
+                      <option value="" disabled selected>
+                        Select a service
+                      </option>
+                      <option>Static Website</option>
+                      <option>Semi-Dynamic Website</option>
+                      <option>Dynamic Website + CMS</option>
+                      <option>E-commerce Website</option>
+                      <option>Website Redesign</option>
+                      <option>Landing Page / Microsite</option>
+                      <option>I'm not sure — please advise</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="q-type">Project Type</label>
+                    <select class="form-control" id="q-type" name="type">
+                      <option value="" disabled selected>
+                        Select project type
+                      </option>
+                      <option>New website from scratch</option>
+                      <option>Redesign of existing site</option>
+                      <option>Add features to existing site</option>
+                      <option>Ongoing maintenance</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="q-budget"
+                      >Budget Range (BDT)</label
+                    >
+                    <select class="form-control" id="q-budget" name="budget">
+                      <option value="" disabled selected>
+                        Select budget range
+                      </option>
+                      <option>Under 15,000 BDT</option>
+                      <option>15,000 – 30,000 BDT</option>
+                      <option>30,000 – 60,000 BDT</option>
+                      <option>60,000 – 100,000 BDT</option>
+                      <option>100,000+ BDT</option>
+                      <option>Flexible — open to recommendation</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="q-timeline"
+                      >Desired Timeline</label
+                    >
+                    <select
+                      class="form-control"
+                      id="q-timeline"
+                      name="timeline"
+                    >
+                      <option value="" disabled selected>
+                        Select timeline
+                      </option>
+                      <option>As soon as possible (1–2 weeks)</option>
+                      <option>Within 1 month</option>
+                      <option>Within 2–3 months</option>
+                      <option>No specific deadline — quality over speed</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="q-goals"
+                    >Project Goals *</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="q-goals"
+                    name="goals"
+                    rows="5"
+                    placeholder="What do you want your website to accomplish? Who are your customers? What should visitors do when they land on your site? Include any features you know you need."
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- 03 Preferences & Context -->
+              <div class="qf-section">
+                <p class="qf-section-title">03 — Preferences &amp; Context</p>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="q-comm"
+                      >Preferred Communication Method</label
+                    >
+                    <select
+                      class="form-control"
+                      id="q-comm"
+                      name="communication"
+                    >
+                      <option value="" disabled selected>
+                        Select preference
+                      </option>
+                      <option>Email</option>
+                      <option>WhatsApp</option>
+                      <option>Phone call</option>
+                      <option>No preference</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="q-source"
+                      >How Did You Hear About Us?</label
+                    >
+                    <select class="form-control" id="q-source" name="source">
+                      <option value="" disabled selected>Select…</option>
+                      <option>Google Search</option>
+                      <option>GitHub</option>
+                      <option>Word of mouth / referral</option>
+                      <option>Social media</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="q-notes">Anything Else?</label>
+                  <textarea
+                    class="form-control"
+                    id="q-notes"
+                    name="notes"
+                    rows="3"
+                    placeholder="Specific requirements, references to websites you admire, or any context that would help us prepare the most accurate quote possible."
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Honeypot: hidden from real users, bots fill it in -->
+              <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+                <label for="hp-website">Website</label>
+                <input type="text" id="hp-website" name="honeypot" tabindex="-1" autocomplete="off">
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="margin-top: 0.5rem"
+              >
+                Submit Enquiry
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            </form>
+
+            <div class="form-success">
+              <div class="form-success-mark">✓</div>
+              <h4>Enquiry received.</h4>
+              <p>
+                Thank you. We'll review your project details and return a
+                formal, itemised proposal within one business day at
+                <a
+                  href="mailto:teamtheakrasia@gmail.com"
+                  style="color: var(--gold)"
+                  >teamtheakrasia@gmail.com</a
+                >.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ───────────────────────────────────────────── -->
+    <section class="section section--alt" id="faq">
+      <div class="container">
+        <p class="section-eyebrow">FAQ</p>
+        <h2 class="section-heading">Questions we get <em>asked most.</em></h2>
+        <p class="section-sub" style="margin-bottom: 2.5rem">
+          If your question is not answered below, email us directly — we reply
+          to every message personally.
+        </p>
+
+        <div class="faq-list reveal">
+          <div class="faq-item">
+            <button type="button" class="faq-q">
+              How do I know which tier is right for my business?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              Start by asking what your site needs to do. If it just needs to
+              show information about your business, Static is likely right. If
+              you post frequently on social media and want that reflected live
+              on your site, Semi-Dynamic. If you need to update content
+              yourself, manage users, or sell products, you need Dynamic. When
+              in doubt, tell us your goals — not the tier you think you need —
+              and we'll recommend the most cost-effective option.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-q">
+              Can I upgrade from Static to Dynamic later?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              Yes, but it requires a rebuild rather than a simple upgrade — the
+              underlying architecture is fundamentally different. Your design,
+              content, and brand identity carry over completely. We plan this
+              upgrade with you in advance when it makes sense, so you don't
+              overpay for Dynamic features you don't yet need.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-q">
+              What do I need to provide before work begins?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              At minimum: your business name, preferred colour palette or brand
+              guidelines, and the text content for each page. Photographs and
+              logos should be provided in high resolution. If you don't have
+              these yet, let us know — we can discuss timelines accordingly, or
+              quote for basic copywriting assistance.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-q">
+              How long does a typical project take?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              A 3–5 page Static site typically takes 7–14 days from deposit
+              payment to delivery, assuming content is ready. Semi-Dynamic sites
+              with social integrations: 14–21 days. Dynamic sites with CMS: 3–6
+              weeks depending on complexity. These timelines assume timely
+              feedback from your side at each review stage.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-q">
+              What happens after the site is delivered?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              You receive all source files and can host the site wherever you
+              choose. We offer two ongoing maintenance options: a monthly
+              retainer (approximately 2,000 BDT/month) covering minor text
+              updates, security patches, and priority response; or per-update
+              billing at approximately 1,000 BDT/hour for occasional changes.
+              Neither is required — you are free to manage the site yourself or
+              hand it to any other developer.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-q">
+              Do you work with clients outside Bangladesh?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              Yes. We work remotely with clients in any country. All pricing is
+              quoted in BDT for transparency; international payments can be
+              discussed on a case-by-case basis. Communication is in English or
+              Bengali depending on your preference.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-q">
+              What is the refund policy if I am not satisfied?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              The deposit is non-refundable once development begins, as it
+              covers design and initial build time. If the delivered work does
+              not meet the agreed specification after revisions, we will work to
+              resolve it at no extra charge. We have never had a dispute that
+              required escalation — clear written quotes and regular check-ins
+              prevent the majority of misunderstandings before they occur.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-q">
+              Can I use the pricing calculator before submitting this form?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              Absolutely. The live calculator on the
+              <a href="pricing.html#calculator" style="color: var(--gold)"
+                >Pricing page</a
+              >
+              lets you build an estimate by selecting a tier and ticking
+              add-ons. Your estimated total can then be referenced when you fill
+              in the budget field above. The formal quote we return will be
+              exact and itemised — it may be higher or lower depending on
+              technical scope we identify after reviewing your goals.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────── -->
+    <div class="cta-banner">
+      <div class="container">
+        <h2>Questions answered.<br><em>Ready to start?</em></h2>
+        <p>
+          Use the form above or email us directly. We respond within one
+          business day, every time.
+        </p>
+        <div class="btn-row" style="justify-content: center">
+          <a href="mailto:teamtheakrasia@gmail.com" class="btn btn-primary">
+            Email the Team
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="pricing.html" class="btn btn-outline">View Pricing</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <p class="footer-brand-name">Akrasia<span>.</span></p>
+            <p>
+              Custom web development for businesses across Bangladesh. Built
+              with care, priced with integrity.
+            </p>
+            <span class="footer-tag">Team Akrasia &ensp;·&ensp; BD</span>
+          </div>
+          <div class="footer-col">
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="work.html">Our Work</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="services.html#static">Static Websites</a></li>
+              <li><a href="services.html#semi">Semi-Dynamic</a></li>
+              <li><a href="services.html#dynamic">Dynamic + CMS</a></li>
+              <li><a href="services.html#ecommerce">E-commerce</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Get in Touch</h4>
+            <ul>
+              <li><a href="start.html">Start a Project</a></li>
+              <li><a href="start.html#faq">FAQ</a></li>
+              <li><a href="contact.html#team">The Team</a></li>
+              <li>
+                <a href="mailto:teamtheakrasia@gmail.com"
+                  >teamtheakrasia@gmail.com</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 Akrasia. All prices in BDT.</p>
+          <p>Crafted in <a href="contact.html#team">Bangladesh</a>.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="src/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+// Prisma schema — Akrasia backend
+// Run: npx prisma migrate dev --name init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────
+// CONTACTS  — simple contact enquiries
+// ─────────────────────────────────────────
+model Contact {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  message     String
+  sourcePage  String   @default("contact")
+  ipHash      String?  // anonymised SHA-256 of client IP
+  userAgent   String?
+  status      ContactStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([email])
+  @@index([createdAt])
+  @@map("contacts")
+}
+
+enum ContactStatus {
+  PENDING
+  REVIEWED
+  REPLIED
+  ARCHIVED
+}
+
+// ─────────────────────────────────────────
+// ORDERS  — full project quote requests
+// ─────────────────────────────────────────
+model Order {
+  id            String   @id @default(cuid())
+
+  // Contact info
+  name          String
+  email         String
+  phone         String?
+  company       String?
+
+  // Project details
+  service       String
+  projectType   String?
+  budget        String?
+  timeline      String?
+  goals         String   @db.Text
+  notes         String?  @db.Text
+
+  // Preferences
+  communication String?
+  referralSource String?
+
+  // Meta
+  sourcePage    String   @default("start")
+  ipHash        String?
+  userAgent     String?
+  status        OrderStatus @default(NEW)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  logs          Log[]
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+enum OrderStatus {
+  NEW
+  UNDER_REVIEW
+  QUOTED
+  ACCEPTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// ─────────────────────────────────────────
+// LOGS  — security / request audit log
+// ─────────────────────────────────────────
+model Log {
+  id        String   @id @default(cuid())
+  level     LogLevel @default(INFO)
+  event     String   // e.g. "CONTACT_SUBMITTED", "RATE_LIMIT_HIT"
+  message   String?
+  ipHash    String?
+  orderId   String?
+  order     Order?   @relation(fields: [orderId], references: [id])
+  meta      Json?    // arbitrary key-value for context
+  createdAt DateTime @default(now())
+
+  @@index([level])
+  @@index([event])
+  @@index([createdAt])
+  @@map("logs")
+}
+
+enum LogLevel {
+  DEBUG
+  INFO
+  WARN
+  ERROR
+}
