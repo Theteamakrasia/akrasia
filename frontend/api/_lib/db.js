@@ -1,11 +1,21 @@
-import { PrismaClient } from "@prisma/client";
+/**
+ * api/_lib/db.js
+ * Prisma singleton for Vercel serverless functions.
+ * The global cache prevents exhausting DB connections across warm invocations.
+ */
 
-const globalForPrisma = globalThis;
+const { PrismaClient } = require('@prisma/client');
 
-export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClient();
+const globalForPrisma = global;
 
-if (process.env.NODE_ENV !== "production") {
+const prisma =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    log: process.env.NODE_ENV === 'development' ? ['query', 'error'] : ['error'],
+  });
+
+if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma;
 }
+
+module.exports = prisma;
