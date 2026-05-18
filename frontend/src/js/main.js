@@ -11,7 +11,7 @@
      e.g.  'https://api.akrasia.com/api'
      For local dev with VS Code Live Server: http://localhost:8000/api
   ───────────────────────────────────────────────────────── */
-  const API_BASE = (window.AKRASIA_API_URL || 'http://localhost:8000/api');
+  const API_BASE = (window.AKRASIA_API_URL || 'https://akrasia-production.up.railway.app/api');
 
   /* ── NAV: scroll state ─────────────────────────────────── */
   const nav = document.querySelector('.nav');
