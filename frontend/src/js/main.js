@@ -19,7 +19,7 @@
     const tick = () => nav.classList.toggle('scrolled', window.scrollY > 24);
     window.addEventListener('scroll', tick, { passive: true });
     tick();
-  }
+  } 
 
   /* ── NAV: hamburger ────────────────────────────────────── */
   const burger  = document.querySelector('.nav-hamburger');
