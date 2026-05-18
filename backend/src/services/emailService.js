@@ -1,39 +1,40 @@
 /**
  * services/emailService.js
- * Handles all outgoing email via Nodemailer (SMTP).
- *
- * Two emails are sent on every submission:
- *   1. Notification to teamtheakrasia@gmail.com
- *   2. Confirmation to the submitting client
+ * Nodemailer — Gmail SMTP with explicit timeouts.
+ * pool:true is removed because it can hold open connections indefinitely
+ * on Railway's free tier, causing the entire process to stall.
  */
 
-const nodemailer = require("nodemailer");
-const config     = require("../config");
+const nodemailer = require('nodemailer');
+const config     = require('../config');
 
-// ── Transporter (lazy-initialised) ────────────────────────────
+const SMTP_TIMEOUT_MS = 10000; // 10 s per SMTP operation
+
 let transporter;
 
 function getTransporter() {
   if (!transporter) {
     transporter = nodemailer.createTransport({
-      host:   config.smtp.host,
-      port:   config.smtp.port,
-      secure: config.smtp.secure, // true for 465, false for 587
+      host:   config.smtp.host,   // smtp.gmail.com
+      port:   config.smtp.port,   // 587
+      secure: config.smtp.secure, // false for STARTTLS on 587
       auth: {
         user: config.smtp.user,
         pass: config.smtp.pass,
       },
-      // Retry-safe: Nodemailer will retry failed sends automatically
-      pool:           true,
-      maxConnections: 3,
-      rateDelta:      5000,
-      rateLimit:      5, // max 5 messages per rateDelta ms
+      // Hard timeouts — prevents Railway dyno from hanging
+      connectionTimeout: SMTP_TIMEOUT_MS,
+      greetingTimeout:   SMTP_TIMEOUT_MS,
+      socketTimeout:     SMTP_TIMEOUT_MS,
+      // pool:true is intentionally omitted — single connections are safer
+      // on free-tier hosting where processes may be recycled at any time.
     });
   }
   return transporter;
 }
 
-// ── Shared CSS for email templates ────────────────────────────
+/* ── Email template helpers (unchanged) ──────────────────── */
+
 const emailBaseStyles = `
   body { margin:0; padding:0; background:#0d0d0d; font-family: Georgia, 'Times New Roman', serif; }
   .wrapper { max-width:600px; margin:0 auto; background:#141414; border:1px solid #2a2a2a; }
@@ -52,40 +53,38 @@ const emailBaseStyles = `
   h2 { color:#e8d5a3; font-size:20px; font-weight:400; margin:0 0 16px; }
 `;
 
-// ── Template: notification to company ─────────────────────────
 function buildCompanyNotification(type, data) {
-  const isOrder   = type === "order";
-  const title     = isOrder ? "New Project Request" : "New Contact Enquiry";
-  const sourcePage = data.sourcePage || (isOrder ? "start.html" : "contact.html");
+  const isOrder    = type === 'order';
+  const title      = isOrder ? 'New Project Request' : 'New Contact Enquiry';
+  const sourcePage = data.sourcePage || (isOrder ? 'start.html' : 'contact.html');
 
   const rows = isOrder
     ? [
-        ["Name",          data.name],
-        ["Email",         data.email],
-        ["Phone",         data.phone         || "—"],
-        ["Company",       data.company        || "—"],
-        ["Service",       data.service],
-        ["Project Type",  data.projectType    || "—"],
-        ["Budget",        data.budget         || "—"],
-        ["Timeline",      data.timeline       || "—"],
-        ["Communication", data.communication  || "—"],
-        ["Referral",      data.referralSource || "—"],
-        ["Goals",         data.goals,          true],
-        ["Notes",         data.notes          || "—", true],
+        ['Name',          data.name],
+        ['Email',         data.email],
+        ['Phone',         data.phone          || '—'],
+        ['Company',       data.company        || '—'],
+        ['Service',       data.service],
+        ['Project Type',  data.projectType    || '—'],
+        ['Budget',        data.budget         || '—'],
+        ['Timeline',      data.timeline       || '—'],
+        ['Communication', data.communication  || '—'],
+        ['Referral',      data.referralSource || '—'],
+        ['Goals',         data.goals,           true],
+        ['Notes',         data.notes          || '—', true],
       ]
     : [
-        ["Name",    data.name],
-        ["Email",   data.email],
-        ["Message", data.message, true],
+        ['Name',    data.name],
+        ['Email',   data.email],
+        ['Message', data.message, true],
       ];
 
   const rowsHtml = rows
-    .map(
-      ([label, value, long = false]) =>
-        `<div class="field-label">${label}</div>
-         <div class="field-value${long ? " long" : ""}">${value}</div>`
+    .map(([label, value, long = false]) =>
+      `<div class="field-label">${label}</div>
+       <div class="field-value${long ? ' long' : ''}">${value}</div>`
     )
-    .join("");
+    .join('');
 
   return {
     subject: `[Akrasia] ${title} — ${data.name}`,
@@ -95,27 +94,24 @@ function buildCompanyNotification(type, data) {
         <div class="header"><p class="logo">Akrasia<span>.</span></p></div>
         <div class="body">
           <div class="badge">${title}</div>
-          <h2>You received a new ${isOrder ? "project request" : "enquiry"}.</h2>
+          <h2>You received a new ${isOrder ? 'project request' : 'enquiry'}.</h2>
           ${rowsHtml}
           <div class="field-label">Submitted at</div>
-          <div class="field-value">${new Date().toLocaleString("en-GB", { timeZone: "Asia/Dhaka" })} (Dhaka time)</div>
+          <div class="field-value">${new Date().toLocaleString('en-GB', { timeZone: 'Asia/Dhaka' })} (Dhaka time)</div>
           <div class="field-label">Source Page</div>
           <div class="field-value">${sourcePage}</div>
         </div>
-        <div class="footer">
-          Akrasia · Bangladesh · teamtheakrasia@gmail.com
-        </div>
+        <div class="footer">Akrasia · Bangladesh · teamtheakrasia@gmail.com</div>
       </div></body></html>`,
   };
 }
 
-// ── Template: confirmation to client ──────────────────────────
 function buildClientConfirmation(type, data) {
-  const isOrder   = type === "order";
-  const firstName = data.name.split(" ")[0];
+  const isOrder   = type === 'order';
+  const firstName = data.name.split(' ')[0];
 
   return {
-    subject: `We received your ${isOrder ? "project request" : "message"} — Akrasia`,
+    subject: `We received your ${isOrder ? 'project request' : 'message'} — Akrasia`,
     html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
       <title>Request received — Akrasia</title><style>${emailBaseStyles}</style></head>
       <body><div class="wrapper">
@@ -124,27 +120,23 @@ function buildClientConfirmation(type, data) {
           <div class="badge">Request Received</div>
           <h2>Thank you, ${firstName}.</h2>
           <p>
-            We have received your ${isOrder ? "project request" : "message"} and
+            We have received your ${isOrder ? 'project request' : 'message'} and
             will reply <strong style="color:#e8d5a3">within 24 hours</strong>
             on business days — personally, never by automation.
           </p>
           ${
             isOrder
-              ? `<p>
-                  Our reply will include a formal, itemised proposal in BDT tailored
+              ? `<p>Our reply will include a formal, itemised proposal in BDT tailored
                   to your requirements. If you have any additional details to share
-                  before then, simply reply to this email.
-                </p>`
-              : `<p>
-                  If your enquiry is urgent, you can also reach us at
+                  before then, simply reply to this email.</p>`
+              : `<p>If your enquiry is urgent, you can also reach us at
                   <a href="mailto:teamtheakrasia@gmail.com" style="color:#c9a85c">
-                  teamtheakrasia@gmail.com</a>.
-                </p>`
+                  teamtheakrasia@gmail.com</a>.</p>`
           }
           <div class="field-label">What you submitted</div>
-          <div class="field-value">${isOrder ? data.service : "General enquiry"}</div>
+          <div class="field-value">${isOrder ? data.service : 'General enquiry'}</div>
           <div class="field-label">Your reference</div>
-          <div class="field-value">${data.id || "—"}</div>
+          <div class="field-value">${data.id || '—'}</div>
           <br>
           <p style="color:#5a5450; font-size:13px;">
             Team Akrasia · Bangladesh<br>
@@ -161,19 +153,12 @@ function buildClientConfirmation(type, data) {
   };
 }
 
-// ── Public API ─────────────────────────────────────────────────
-/**
- * sendSubmissionEmails(type, data)
- * @param {"contact"|"order"} type
- * @param {object} data  — validated form payload + { id, sourcePage }
- */
+/* ── Public API ───────────────────────────────────────────── */
 async function sendSubmissionEmails(type, data) {
   const transport = getTransporter();
+  const company   = buildCompanyNotification(type, data);
+  const client    = buildClientConfirmation(type, data);
 
-  const company = buildCompanyNotification(type, data);
-  const client  = buildClientConfirmation(type, data);
-
-  // Send both concurrently; await both so errors surface
   await Promise.all([
     transport.sendMail({
       from:    config.emailFrom,

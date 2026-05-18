@@ -1,19 +1,16 @@
 /**
- * Akrasia — Shared JavaScript v4.0
- * Replaces mock form submission with real API calls.
- * All existing UI behaviour (nav, FAQ, calculator, reveal) is preserved.
+ * Akrasia — Shared JavaScript v4.1
+ * Fixes: API_BASE URL, fetch timeout, button reset on all error paths.
  */
 (function () {
   'use strict';
 
-  /* ── API base URL ──────────────────────────────────────────
-     Change this to your deployed backend URL before going live.
-     e.g.  'https://api.akrasia.com/api'
-     For local dev with VS Code Live Server: http://localhost:8000/api
-  ───────────────────────────────────────────────────────── */
-// Line ~13 — after merge, verify this is clean:
-const DEFAULT_API_BASE = 'https://akrasia-production.up.railway.app/api';
-const API_BASE = String(window.AKRASIA_API_URL || DEFAULT_API_BASE).replace(/\/$/, '');
+  /* ── API base URL ──────────────────────────────────────── */
+  const API_BASE = (window.AKRASIA_API_URL || 'https://akrasia-production.up.railway.app/api')
+    .replace(/\/$/, ''); // strip any accidental trailing slash
+
+  const FETCH_TIMEOUT_MS = 20000; // 20 s — Railway cold-start + SMTP grace period
+
   /* ── NAV: scroll state ─────────────────────────────────── */
   const nav = document.querySelector('.nav');
   if (nav) {
@@ -70,15 +67,9 @@ const API_BASE = String(window.AKRASIA_API_URL || DEFAULT_API_BASE).replace(/\/$
 
   /* ── FORM HELPERS ──────────────────────────────────────── */
 
-  /**
-   * Collect all named form fields into a plain object.
-   * Skips empty strings and converts them to undefined
-   * so the backend schema's .optional() validators are satisfied.
-   */
   function serializeForm(form) {
     const data = {};
     new FormData(form).forEach((val, key) => {
-      // Always include honeypot (even if empty) so the backend can check it
       if (key === 'honeypot') { data[key] = val; return; }
       const trimmed = String(val).trim();
       if (trimmed !== '') data[key] = trimmed;
@@ -86,37 +77,26 @@ const API_BASE = String(window.AKRASIA_API_URL || DEFAULT_API_BASE).replace(/\/$
     return data;
   }
 
-  /**
-   * Display field-level validation errors returned by the API.
-   */
   function showFieldErrors(form, errors) {
-    // Clear previous errors
     form.querySelectorAll('.field-error').forEach(el => el.remove());
     form.querySelectorAll('.form-control--error').forEach(el =>
       el.classList.remove('form-control--error')
     );
-
     if (!Array.isArray(errors)) return;
-
     errors.forEach(({ field, message }) => {
       const input = form.querySelector(`[name="${field}"]`);
       if (!input) return;
       input.classList.add('form-control--error');
-      const msg  = document.createElement('p');
+      const msg = document.createElement('p');
       msg.className = 'field-error';
       msg.style.cssText = 'color:#e05252;font-size:12px;margin:4px 0 0;';
       msg.textContent = message;
       input.parentNode.appendChild(msg);
     });
-
-    // Scroll to first error
     const first = form.querySelector('.form-control--error');
     if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  /**
-   * Show a banner error message inside the form wrapper.
-   */
   function showBannerError(form, message) {
     let banner = form.querySelector('.form-banner-error');
     if (!banner) {
@@ -137,9 +117,6 @@ const API_BASE = String(window.AKRASIA_API_URL || DEFAULT_API_BASE).replace(/\/$
     banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  /**
-   * Reset all error states on a form.
-   */
   function clearErrors(form) {
     form.querySelectorAll('.field-error').forEach(el => el.remove());
     form.querySelectorAll('.form-control--error').forEach(el =>
@@ -148,39 +125,59 @@ const API_BASE = String(window.AKRASIA_API_URL || DEFAULT_API_BASE).replace(/\/$
     form.querySelectorAll('.form-banner-error').forEach(el => el.remove());
   }
 
-  /* ── FORM SUBMISSION (contact + order quote) ───────────── */
+  /* ── Fetch with timeout ────────────────────────────────── */
+  function fetchWithTimeout(url, options, ms) {
+    const controller = new AbortController();
+    const timer      = setTimeout(() => controller.abort(), ms);
+    return fetch(url, { ...options, signal: controller.signal })
+      .finally(() => clearTimeout(timer));
+  }
+
+  /* ── FORM SUBMISSION ───────────────────────────────────── */
   document.querySelectorAll('.contact-form, .quote-form').forEach(form => {
-    // Determine endpoint based on which form this is
-    const isOrderForm   = form.classList.contains('quote-form');
-    const endpoint      = isOrderForm ? `${API_BASE}/orders` : `${API_BASE}/contact`;
+    const isOrderForm = form.classList.contains('quote-form');
+    const endpoint    = isOrderForm ? `${API_BASE}/orders` : `${API_BASE}/contact`;
 
     let submitting = false;
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
-      if (submitting) return; // prevent duplicate submissions
+      if (submitting) return;
 
       submitting = true;
       clearErrors(form);
 
-      const btn       = form.querySelector('[type=submit]');
-      const origText  = btn.textContent;
+      const btn      = form.querySelector('[type=submit]');
+      const origText = btn.textContent;
       btn.textContent = 'Sending…';
       btn.disabled    = true;
 
+      // ── Always reset the button — no matter what path exits ──
+      const resetBtn = () => {
+        btn.textContent = origText;
+        btn.disabled    = false;
+        submitting      = false;
+      };
+
       try {
-        const payload = serializeForm(form);
+        const response = await fetchWithTimeout(
+          endpoint,
+          {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(serializeForm(form)),
+          },
+          FETCH_TIMEOUT_MS
+        );
 
-        const response = await fetch(endpoint, {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify(payload),
-        });
-
-        const result = await response.json();
+        let result = {};
+        try {
+          result = await response.json();
+        } catch (_) {
+          // Body wasn't JSON — treat as opaque error
+        }
 
         if (!response.ok) {
-          // 422 Validation errors — show per-field
           if (response.status === 422 && result.errors) {
             showFieldErrors(form, result.errors);
           } else if (response.status === 429) {
@@ -190,10 +187,7 @@ const API_BASE = String(window.AKRASIA_API_URL || DEFAULT_API_BASE).replace(/\/$
             showBannerError(form, result.message ||
               'Something went wrong. Please try again or email us directly.');
           }
-          // Re-enable the button so they can fix errors
-          btn.textContent = origText;
-          btn.disabled    = false;
-          submitting      = false;
+          resetBtn();
           return;
         }
 
@@ -207,14 +201,15 @@ const API_BASE = String(window.AKRASIA_API_URL || DEFAULT_API_BASE).replace(/\/$
           successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-      } catch (networkErr) {
-        // Network error — server unreachable
-        showBannerError(form,
-          'Could not reach the server. Please check your connection or email us at teamtheakrasia@gmail.com.'
-        );
-        btn.textContent = origText;
-        btn.disabled    = false;
-        submitting      = false;
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          showBannerError(form,
+            'The server took too long to respond. Please try again in a moment.');
+        } else {
+          showBannerError(form,
+            'Could not reach the server. Please check your connection or email us at teamtheakrasia@gmail.com.');
+        }
+        resetBtn();
       }
     });
   });
