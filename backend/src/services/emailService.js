@@ -1,34 +1,32 @@
 /**
  * services/emailService.js
- * Nodemailer — Gmail SMTP with explicit timeouts.
- * pool:true is removed because it can hold open connections indefinitely
- * on Railway's free tier, causing the entire process to stall.
+ * Nodemailer — Gmail SMTP over port 465 (SSL).
+ * Port 587 (STARTTLS) is blocked by Railway at the network level.
+ * Port 465 uses TLS from byte one — Railway allows it.
  */
 
 const nodemailer = require('nodemailer');
 const config     = require('../config');
-
-const SMTP_TIMEOUT_MS = 10000; // 10 s per SMTP operation
 
 let transporter;
 
 function getTransporter() {
   if (!transporter) {
     transporter = nodemailer.createTransport({
-      host:   config.smtp.host,   // smtp.gmail.com
-      port:   config.smtp.port,   // 587
-      secure: config.smtp.secure, // false for STARTTLS on 587
+      host:   config.smtp.host,    // smtp.gmail.com
+      port:   config.smtp.port,    // 465  ← set in Railway env
+      secure: config.smtp.secure,  // true ← set in Railway env
       auth: {
         user: config.smtp.user,
-        pass: config.smtp.pass,
+        pass: config.smtp.pass,    // your 16-char App Password — unchanged
       },
-      // Hard timeouts — prevents Railway dyno from hanging
-      connectionTimeout: SMTP_TIMEOUT_MS,
-      greetingTimeout:   SMTP_TIMEOUT_MS,
-      socketTimeout:     SMTP_TIMEOUT_MS,
-      // pool:true is intentionally omitted — single connections are safer
-      // on free-tier hosting where processes may be recycled at any time.
+      // Railway's TLS environment — prevents cert handshake failures
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
+    // Remove the singleton on any connection error so it rebuilds next call
+    transporter.on('error', () => { transporter = null; });
   }
   return transporter;
 }
