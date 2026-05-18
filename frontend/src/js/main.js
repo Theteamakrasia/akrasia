@@ -1,15 +1,18 @@
 /**
- * Akrasia — Shared JavaScript v4.1
- * Fixes: API_BASE URL, fetch timeout, button reset on all error paths.
+ * Akrasia — Shared JavaScript v5.0
+ * Full Vercel migration: API_BASE is now same-origin /api — no CORS, no external service.
  */
 (function () {
   'use strict';
 
-  /* ── API base URL ──────────────────────────────────────── */
-  const API_BASE = (window.AKRASIA_API_URL || 'https://akrasia-production.up.railway.app/api')
-    .replace(/\/$/, ''); // strip any accidental trailing slash
+  /* ── API base URL ──────────────────────────────────────────
+     Frontend and API functions are on the same Vercel project.
+     /api/orders  →  teamakrasia.vercel.app/api/orders
+     Same origin = no CORS headers needed at all.
+  ─────────────────────────────────────────────────────────── */
+  const API_BASE = '/api';
 
-  const FETCH_TIMEOUT_MS = 20000; // 20 s — Railway cold-start + SMTP grace period
+  const FETCH_TIMEOUT_MS = 20000; // 20 s
 
   /* ── NAV: scroll state ─────────────────────────────────── */
   const nav = document.querySelector('.nav');
@@ -149,10 +152,9 @@
 
       const btn      = form.querySelector('[type=submit]');
       const origText = btn.textContent;
-      btn.textContent = 'Sending…';
+      btn.textContent = 'Sending\u2026';
       btn.disabled    = true;
 
-      // ── Always reset the button — no matter what path exits ──
       const resetBtn = () => {
         btn.textContent = origText;
         btn.disabled    = false;
@@ -171,11 +173,7 @@
         );
 
         let result = {};
-        try {
-          result = await response.json();
-        } catch (_) {
-          // Body wasn't JSON — treat as opaque error
-        }
+        try { result = await response.json(); } catch (_) { /* non-JSON body */ }
 
         if (!response.ok) {
           if (response.status === 422 && result.errors) {
@@ -191,7 +189,7 @@
           return;
         }
 
-        // ── Success ──────────────────────────────────────────
+        // ── Success ──────────────────────────────────────
         form.style.display = 'none';
         const successEl = form
           .closest('.quote-form-wrap, .form-card')
@@ -238,8 +236,7 @@
   const calcForm = document.querySelector('.calc-form');
   if (calcForm) {
     const totalEl = document.querySelector('.calc-result-amount');
-
-    const recalc = () => {
+    const recalc  = () => {
       let total = 0;
       calcForm.querySelectorAll('input[type="checkbox"]:checked').forEach(el => {
         total += parseInt(el.dataset.price || 0, 10);
@@ -249,12 +246,10 @@
       });
       if (totalEl) totalEl.textContent = total.toLocaleString('en-BD') + ' BDT';
     };
-
     calcForm.querySelectorAll('input, select').forEach(el =>
       el.addEventListener('change', recalc)
     );
     recalc();
-
     const resetBtn = document.querySelector('.calc-reset');
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
