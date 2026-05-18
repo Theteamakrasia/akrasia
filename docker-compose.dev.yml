@@ -1,4 +1,3 @@
-version: "3.9"
 
 # ── Akrasia — Local Development Compose ─────────────────────
 # Usage: docker-compose -f docker-compose.dev.yml up
