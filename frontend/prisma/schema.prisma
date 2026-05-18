@@ -1,14 +1,11 @@
 // Akrasia — Prisma schema for Vercel Postgres (Neon)
 
 generator client {
-  provider      = "prisma-client-js"
-  // Both native (local dev) and the Amazon Linux target Vercel runs on
-  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  // Vercel Postgres provides these two URLs automatically
+  provider = "postgresql"
   url       = env("POSTGRES_PRISMA_URL")       // pooled  — for all runtime queries
   directUrl = env("POSTGRES_URL_NON_POOLING")  // direct  — for migrations only
 }

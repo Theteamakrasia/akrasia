@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
-    "build":       "prisma generate",
-    "db:migrate":  "prisma migrate deploy"
+    "build": "prisma generate",
+    "db:migrate": "prisma migrate deploy"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
-    "nodemailer":     "^6.9.14",
-    "zod":            "^3.23.8"
+    "dotenv": "^17.4.2",
+    "nodemailer": "^6.9.14",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "prisma": "^5.22.0"
