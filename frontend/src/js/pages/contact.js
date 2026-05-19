@@ -13,8 +13,8 @@ document.getElementById("submit-btn")?.addEventListener("click", async () => {
 
   try {
     // Uncomment when backend is ready:
-    // await api.post("/contact", { name, email, message });
-    console.log("Form data:", { name, email, message });
+    await api.post("/contact", { name, email, message });
+    //console.log("Form data:", { name, email, message });
     status.style.display = "block";
   } catch (err) {
     alert("Something went wrong. Please try again.");
