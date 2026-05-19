@@ -6,12 +6,35 @@
 (function () {
   'use strict';
 
-  /* ── API base URL ──────────────────────────────────────────
-     Change this to your deployed backend URL before going live.
-     e.g.  'https://api.akrasia.com/api'
-     For local dev with VS Code Live Server: http://localhost:8000/api
-  ───────────────────────────────────────────────────────── */
-  const API_BASE = (window.AKRASIA_API_URL || 'https://akrasia-production.up.railway.app/api');
+   /* ── API base URL ──────────────────────────────────────────
+      Automatically detects the environment and sets the appropriate API URL.
+      - Local development: http://localhost:8000/api
+      - Railway production: Uses the same domain as the frontend
+   ───────────────────────────────────────────────────────── */
+   function getApiBaseUrl() {
+     const hostname = window.location.hostname;
+     
+     // Check if running in local development environment
+     const isLocal = hostname === 'localhost' || 
+                     hostname === '127.0.0.1' ||
+                     hostname === '';
+     
+     // Check if running on Railway (contains 'up.railway.app')
+     const isRailway = hostname.includes('up.railway.app');
+     
+     if (isLocal) {
+       // Use local backend for development
+       return 'http://localhost:8000/api';
+     } else if (isRailway) {
+       // Use the same domain for Railway (frontend and backend on same subdomain)
+       return `${window.location.origin}/api`;
+     } else {
+       // Default fallback - use the current origin
+       return `${window.location.origin}/api`;
+     }
+   }
+   
+   const API_BASE = (window.AKRASIA_API_URL || getApiBaseUrl());
 
   /* ── NAV: scroll state ─────────────────────────────────── */
   const nav = document.querySelector('.nav');
