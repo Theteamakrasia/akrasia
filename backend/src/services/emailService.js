@@ -187,21 +187,48 @@ async function sendSubmissionEmails(type, data) {
   const company = buildCompanyNotification(type, data);
   const client  = buildClientConfirmation(type, data);
 
-  // Send both concurrently; await both so errors surface
-  await Promise.all([
-    transport.sendMail({
+  const results = {
+    company: { sent: false, error: null },
+    client:  { sent: false, error: null },
+  };
+
+  // Send team notification independently
+  try {
+    const info = await transport.sendMail({
       from:    config.emailFrom,
       to:      config.emailTo,
       subject: company.subject,
       html:    company.html,
-    }),
-    transport.sendMail({
+    });
+    results.company.sent = true;
+    results.company.info = info;
+    console.log(`✅ Team email sent to ${config.emailTo}: ${info.messageId}`);
+  } catch (error) {
+    results.company.error = error;
+    console.error(`❌ Team email failed to ${config.emailTo}:`, error.message, error.code);
+  }
+
+  // Send client confirmation independently
+  try {
+    if (!data.email) {
+      throw new Error("Client email address is missing");
+    }
+    const info = await transport.sendMail({
       from:    config.emailFrom,
       to:      data.email,
       subject: client.subject,
       html:    client.html,
-    }),
-  ]);
+    });
+    results.client.sent = true;
+    results.client.info = info;
+    console.log(`✅ Client email sent to ${data.email}: ${info.messageId}`);
+  } catch (error) {
+    results.client.error = error;
+    console.error(`❌ Client email failed to ${data.email}:`, error.message, error.code);
+  }
+
+  // Always return results, never throw
+  return results;
 }
 
 module.exports = { sendSubmissionEmails };
