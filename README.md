@@ -211,7 +211,7 @@ Set environment variable on Vercel:
 
 After deploying, update `CORS_ORIGIN` in your backend `.env` to your Vercel URL:
 ```
-CORS_ORIGIN=https://your-project.vercel.app
+CORS_ORIGIN=https://teamakrasia.vercel.app
 ```
 
 And update `API_BASE` in `frontend/src/js/main.js` to your backend URL.
