@@ -15,6 +15,12 @@ let transporter;
 
 function getTransporter() {
   if (!transporter) {
+    console.log("Initializing SMTP transporter...");
+    console.log("SMTP Host:", config.smtp.host);
+    console.log("SMTP Port:", config.smtp.port);
+    console.log("SMTP Secure:", config.smtp.secure);
+    console.log("SMTP User:", config.smtp.user);
+    
     transporter = nodemailer.createTransport({
       host:   config.smtp.host,
       port:   config.smtp.port,
@@ -39,6 +45,7 @@ function getTransporter() {
     transporter.verify((error, success) => {
       if (error) {
         console.error("SMTP Connection Failed:", error.message, error.code);
+        console.error("Please check your SMTP configuration in the .env file or Railway Variables.");
       } else {
         console.log("SMTP Connection Established Successfully");
       }
