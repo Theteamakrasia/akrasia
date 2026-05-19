@@ -27,25 +27,25 @@ const config = {
   databaseUrl: required("DATABASE_URL"),
 
   // ── CORS: comma-separated allowed origins
-  corsOrigins: optional("CORS_ORIGIN", "https://teamakrasia.vercel.app")
+  corsOrigins: optional("CORS_ORIGIN", "http://localhost:5500")
     .split(",")
     .map((o) => o.trim()),
 
   // ── Email (SMTP via Nodemailer)
   smtp: {
     host:   optional("SMTP_HOST", "smtp.gmail.com"),
-    port:   parseInt(optional("SMTP_PORT", "587"), 10),
-    secure: optional("SMTP_SECURE", "false") === "true",
-    user:   required("SMTP_USER", "teamtheakrasia@gmail.com"),
-    pass:   required("SMTP_PASS", "xvreuafpptzhqrjl"),
+    port:   parseInt(optional("SMTP_PORT", "465"), 10),
+    secure: optional("SMTP_SECURE", "true") === "true",
+    user:   required("SMTP_USER"),
+    pass:   required("SMTP_PASS"),
   },
   emailFrom: optional("EMAIL_FROM", '"Team Akrasia" <teamtheakrasia@gmail.com>'),
   emailTo:   optional("EMAIL_TO",   "teamtheakrasia@gmail.com"),
 
   // ── JWT (reserved for future admin panel)
   jwt: {
-    secret:    optional("JWT_SECRET", "7b4f8a2c1d9e3f6b5a8d2c0e1f4b7a3d9e8f6c5b2a1d0e4f7b8c9a0d1e2f3b4a"),
-    expiresIn: optional("JWT_EXPIRES_IN", "100000d"),
+    secret:    optional("JWT_SECRET", "change_this_in_production"),
+    expiresIn: optional("JWT_EXPIRES_IN", "7d"),
   },
 
   // ── Rate limiting
