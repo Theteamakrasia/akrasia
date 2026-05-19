@@ -31,16 +31,10 @@ const config = {
     .split(",")
     .map((o) => o.trim()),
 
-  // ── Email (SMTP via Nodemailer)
-  smtp: {
-    host:   optional("SMTP_HOST", "smtp.gmail.com"),
-    port:   parseInt(optional("SMTP_PORT", "465"), 10),
-    secure: optional("SMTP_SECURE", "true") === "true",
-    user:   required("SMTP_USER"),
-    pass:   required("SMTP_PASS"),
-  },
-  emailFrom: optional("EMAIL_FROM", '"Team Akrasia" <teamtheakrasia@gmail.com>'),
-  emailTo:   optional("EMAIL_TO",   "teamtheakrasia@gmail.com"),
+  // ── Email (Resend API)
+  resendApiKey: required("RESEND_API_KEY"),
+  emailFrom:    optional("EMAIL_FROM",    "Akrasia <onboarding@resend.dev>"),
+  emailTo:      optional("EMAIL_TO",      "teamtheakrasia@gmail.com"),
 
   // ── JWT (reserved for future admin panel)
   jwt: {
