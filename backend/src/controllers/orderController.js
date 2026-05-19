@@ -13,6 +13,12 @@ const logger                   = require("../utils/logger");
  * POST /api/orders
  */
 async function submitOrder(req, res) {
+   if (!req.body || Object.keys(req.body).length === 0) {
+    return res.status(400).json({
+      success: false,
+      message: "Request body is missing or empty.",
+    });
+  }
   // ── 1. Honeypot check
   if (isHoneypotFilled(req.body)) {
     logger.warn("ORDER honeypot triggered", { ip: getClientIp(req) });
