@@ -1,57 +1,24 @@
 /**
  * services/emailService.js
- * Handles all outgoing email via Nodemailer (SMTP).
+ * Handles all outgoing email via Resend API.
  *
  * Two emails are sent on every submission:
  *   1. Notification to teamtheakrasia@gmail.com
  *   2. Confirmation to the submitting client
  */
 
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 const config     = require("../config");
 
-// ── Transporter (lazy-initialised) ────────────────────────────
-let transporter;
+// ── Client (lazy-initialised) ────────────────────────────────
+let client;
 
-function getTransporter() {
-  if (!transporter) {
-    console.log("Initializing SMTP transporter...");
-    console.log("SMTP Host:", config.smtp.host);
-    console.log("SMTP Port:", config.smtp.port);
-    console.log("SMTP Secure:", config.smtp.secure);
-    console.log("SMTP User:", config.smtp.user);
-    
-    transporter = nodemailer.createTransport({
-      host:   config.smtp.host,
-      port:   config.smtp.port,
-      secure: config.smtp.secure, // true for 465, false for 587
-    auth: {
-         user: config.smtp.user,
-         pass: config.smtp.pass,
-       },
-       tls: {
-         rejectUnauthorized: false, // Allow connection even if TLS cert is problematic (e.g. self-signed)
-       },
-       connectionTimeout: 30000, // 30s to establish connection
-       socketTimeout: 30000,     // 30s for the socket to be active
-       // Retry-safe: Nodemailer will retry failed sends automatically
-       pool:           true,
-       maxConnections: 3,
-       rateDelta:      5000,
-       rateLimit:      5, // max 5 messages per rateDelta ms
-    });
-    
-    // Verify the connection immediately on startup
-    transporter.verify((error, success) => {
-      if (error) {
-        console.error("SMTP Connection Failed:", error.message, error.code);
-        console.error("Please check your SMTP configuration in the .env file or Railway Variables.");
-      } else {
-        console.log("SMTP Connection Established Successfully");
-      }
-    });
+function getClient() {
+  if (!client) {
+    console.log("Initializing Resend client...");
+    client = new Resend(config.resendApiKey);
   }
-  return transporter;
+  return client;
 }
 
 // ── Shared CSS for email templates ────────────────────────────
@@ -189,7 +156,7 @@ function buildClientConfirmation(type, data) {
  * @param {object} data  — validated form payload + { id, sourcePage }
  */
 async function sendSubmissionEmails(type, data) {
-  const transport = getTransporter();
+  const resend = getClient();
 
   const company = buildCompanyNotification(type, data);
   const client  = buildClientConfirmation(type, data);
@@ -201,18 +168,24 @@ async function sendSubmissionEmails(type, data) {
 
   // Send team notification independently
   try {
-    const info = await transport.sendMail({
+    const { data: emailData, error } = await resend.emails.send({
       from:    config.emailFrom,
-      to:      config.emailTo,
+      to:      [config.emailTo],
       subject: company.subject,
       html:    company.html,
     });
+
+    if (error) {
+      throw error;
+    }
+
     results.company.sent = true;
-    results.company.info = info;
-    console.log(`✅ Team email sent to ${config.emailTo}: ${info.messageId}`);
-  } catch (error) {
-    results.company.error = error;
-    console.error(`❌ Team email failed to ${config.emailTo}:`, error.message, error.code);
+    results.company.id   = emailData?.id;
+    console.log(`✅ Team email sent to ${config.emailTo}`);
+  } catch (err) {
+    results.company.error = err;
+    // Log only the message and statusCode — never the full error object which could contain secrets
+    console.error(`❌ Team email failed to ${config.emailTo}: ${err.message}${err.statusCode ? ` (${err.statusCode})` : ""}`);
   }
 
   // Send client confirmation independently
@@ -220,18 +193,24 @@ async function sendSubmissionEmails(type, data) {
     if (!data.email) {
       throw new Error("Client email address is missing");
     }
-    const info = await transport.sendMail({
+
+    const { data: emailData, error } = await resend.emails.send({
       from:    config.emailFrom,
-      to:      data.email,
+      to:      [data.email],
       subject: client.subject,
       html:    client.html,
     });
+
+    if (error) {
+      throw error;
+    }
+
     results.client.sent = true;
-    results.client.info = info;
-    console.log(`✅ Client email sent to ${data.email}: ${info.messageId}`);
-  } catch (error) {
-    results.client.error = error;
-    console.error(`❌ Client email failed to ${data.email}:`, error.message, error.code);
+    results.client.id   = emailData?.id;
+    console.log(`✅ Client email sent to ${data.email}`);
+  } catch (err) {
+    results.client.error = err;
+    console.error(`❌ Client email failed to ${data.email}: ${err.message}${err.statusCode ? ` (${err.statusCode})` : ""}`);
   }
 
   // Always return results, never throw
