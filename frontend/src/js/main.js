@@ -170,11 +170,17 @@
       try {
         const payload = serializeForm(form);
 
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
         const response = await fetch(endpoint, {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify(payload),
+          signal:  controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         const result = await response.json();
 
@@ -207,10 +213,16 @@
         }
 
       } catch (networkErr) {
-        // Network error — server unreachable
-        showBannerError(form,
-          'Could not reach the server. Please check your connection or email us at teamtheakrasia@gmail.com.'
-        );
+        // Handle AbortError specifically for timeouts
+        if (networkErr.name === 'AbortError') {
+          showBannerError(form,
+            'The server is taking too long to respond. Please try again or email us at teamtheakrasia@gmail.com.'
+          );
+        } else {
+          showBannerError(form,
+            'Could not reach the server. Please check your connection or email us at teamtheakrasia@gmail.com.'
+          );
+        }
         btn.textContent = origText;
         btn.disabled    = false;
         submitting      = false;
