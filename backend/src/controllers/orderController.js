@@ -13,12 +13,13 @@ const logger                   = require("../utils/logger");
  * POST /api/orders
  */
 async function submitOrder(req, res) {
-   if (!req.body || Object.keys(req.body).length === 0) {
+  if (!req.body || Object.keys(req.body).length === 0) {
     return res.status(400).json({
       success: false,
       message: "Request body is missing or empty.",
     });
   }
+
   // ── 1. Honeypot check
   if (isHoneypotFilled(req.body)) {
     logger.warn("ORDER honeypot triggered", { ip: getClientIp(req) });
@@ -71,25 +72,35 @@ async function submitOrder(req, res) {
   }
 
   // ── 4. Emails
-  try {
-    await sendSubmissionEmails("order", { ...data, id: order.id, sourcePage: "start.html" });
-    logger.info("ORDER_EMAILS_SENT", { id: order.id });
-  } catch (emailErr) {
-    logger.error("Email sending failed for order", { id: order.id, message: emailErr.message });
-  }
+  // Trigger emails asynchronously so we don't block the HTTP response
+  sendSubmissionEmails("order", { ...data, id: order.id, sourcePage: "start.html" })
+    .then(() => {
+      logger.info("ORDER_EMAILS_SENT", { id: order.id });
+    })
+    .catch((emailErr) => {
+      logger.error("Email sending failed for order", { 
+        id: order.id, 
+        message: emailErr.message,
+        code: emailErr.code,
+        response: emailErr.response,
+        stack: emailErr.stack
+      });
+    });
+
 
   // ── 5. Log submission event
-  try {
-    await prisma.log.create({
-      data: {
-        level:   "INFO",
-        event:   "ORDER_SUBMITTED",
-        message: `New order from ${data.email} for ${data.service}`,
-        orderId: order.id,
-        ipHash,
-      },
-    });
-  } catch (_) { /* log failures must never block the response */ }
+  // Fire-and-forget logging to avoid blocking the response
+  prisma.log.create({
+    data: {
+      level:   "INFO",
+      event:   "ORDER_SUBMITTED",
+      message: `New order from ${data.email} for ${data.service}`,
+      orderId: order.id,
+      ipHash,
+    },
+  }).catch((logErr) => {
+    logger.error("Failed to log order submission", { error: logErr.message, orderId: order.id });
+  });
 
   return res.status(201).json({
     success: true,
