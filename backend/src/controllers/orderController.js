@@ -73,16 +73,22 @@ async function submitOrder(req, res) {
 
   // ── 4. Emails
   // Trigger emails asynchronously so we don't block the HTTP response
+  // The function always returns a results object, never throws
   sendSubmissionEmails("order", { ...data, id: order.id, sourcePage: "start.html" })
-    .then(() => {
-      logger.info("ORDER_EMAILS_SENT", { id: order.id });
+    .then((results) => {
+      logger.info("ORDER_EMAILS_PROCESSED", { 
+        id: order.id, 
+        teamSent: results.company.sent,
+        clientSent: results.client.sent,
+        teamError: results.company.error?.message,
+        clientError: results.client.error?.message
+      });
     })
     .catch((emailErr) => {
-      logger.error("Email sending failed for order", { 
+      // This catch block should theoretically not be reached now
+      logger.error("Unexpected error in email processing", { 
         id: order.id, 
         message: emailErr.message,
-        code: emailErr.code,
-        response: emailErr.response,
         stack: emailErr.stack
       });
     });
