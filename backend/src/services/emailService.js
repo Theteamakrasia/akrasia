@@ -19,15 +19,29 @@ function getTransporter() {
       host:   config.smtp.host,
       port:   config.smtp.port,
       secure: config.smtp.secure, // true for 465, false for 587
-      auth: {
-        user: config.smtp.user,
-        pass: config.smtp.pass,
-      },
-      // Retry-safe: Nodemailer will retry failed sends automatically
-      pool:           true,
-      maxConnections: 3,
-      rateDelta:      5000,
-      rateLimit:      5, // max 5 messages per rateDelta ms
+    auth: {
+         user: config.smtp.user,
+         pass: config.smtp.pass,
+       },
+       tls: {
+         rejectUnauthorized: false, // Allow connection even if TLS cert is problematic (e.g. self-signed)
+       },
+       connectionTimeout: 30000, // 30s to establish connection
+       socketTimeout: 30000,     // 30s for the socket to be active
+       // Retry-safe: Nodemailer will retry failed sends automatically
+       pool:           true,
+       maxConnections: 3,
+       rateDelta:      5000,
+       rateLimit:      5, // max 5 messages per rateDelta ms
+    });
+    
+    // Verify the connection immediately on startup
+    transporter.verify((error, success) => {
+      if (error) {
+        console.error("SMTP Connection Failed:", error.message, error.code);
+      } else {
+        console.log("SMTP Connection Established Successfully");
+      }
     });
   }
   return transporter;
