@@ -4,6 +4,10 @@
  * Throws early if required variables are missing (fail-fast).
  */
 
+/*
+  * Does not work with resend api or other api
+*/
+
 require("dotenv").config();
 
 function required(key) {
