@@ -1,162 +1,323 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-    <title>Pricing — Akrasia</title>
+    <title>Pricing " Akrasia</title>
     <meta
       name="description"
-      content="Transparent, itemised pricing for custom web development in Bangladesh. Use the live calculator to estimate your project cost instantly."
+      content="Transparent, itemised pricing for custom web development remotely. Use the live calculator to estimate your project cost instantly."
     >
     <link rel="stylesheet" href="src/css/main.css" >
     <style>
-      /* ── Pricing-page extras (tier cards, slider, estimator) ── */
+      /* "" Page hero "" */
+      .page-hero { position: relative; }
+      .page-hero .container { position: relative; }
+      .page-eyebrow {
+        font-family: var(--font-sans);
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+      }
+      .page-hero h1 {
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        font-weight: 600;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+      }
+      .page-hero h1 em {
+        font-family: var(--font-serif);
+        font-style: italic;
+        color: var(--text-primary);
+      }
+      .lead {
+        font-size: clamp(1rem, 1.3vw, 1.2rem);
+        color: var(--text-secondary);
+        max-width: 560px;
+        line-height: 1.6;
+      }
+
+      /* "" Section headings "" */
+      .section-heading {
+        font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -0.015em;
+        margin-bottom: 0.75rem;
+      }
+      .section-heading em {
+        font-family: var(--font-serif);
+        font-style: italic;
+        color: var(--text-primary);
+      }
+      .section-sub {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+      }
+
+      /* "" Callout "" */
+      .callout {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-thin);
+        border-left: 3px solid var(--accent);
+        border-radius: var(--r-md);
+        padding: 1.25rem 1.5rem;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+      .callout strong { color: var(--text-primary); }
+
+      /* "" CTA banner "" */
+      .cta-banner {
+        padding: 5rem 0;
+        text-align: center;
+        background: var(--bg-ash-dark);
+        border-top: 1px solid var(--border-thin);
+        border-bottom: 1px solid var(--border-thin);
+      }
+      .cta-banner h2 {
+        font-size: clamp(1.8rem, 3.5vw, 3rem);
+        font-weight: 600;
+        line-height: 1.1;
+        margin-bottom: 0.75rem;
+      }
+      .cta-banner h2 em {
+        font-family: var(--font-serif);
+        font-style: italic;
+        color: var(--text-primary);
+      }
+      .cta-banner p {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        max-width: 480px;
+        margin: 0 auto 1.75rem;
+      }
+      .btn-row {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* "" Pricing page extras "" */
       .pricing-tier-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        border: 1px solid var(--rule-md);
-        background: var(--rule-md);
-        gap: 1px;
+        gap: 1.5rem;
         margin-bottom: 2rem;
-      }
-      .pricing-tier-card {
-        background: var(--surface);
-        padding: 2.5rem;
-        display: flex;
-        flex-direction: column;
-        transition: background 0.25s;
-      }
-      .pricing-tier-card.featured {
-        background: var(--bg-2);
-      }
-      .pricing-tier-card:hover {
-        background: var(--bg-2);
       }
       .pricing-tier-tag {
         display: block;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.2em;
+        font-family: var(--font-sans);
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 1.25rem;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
       }
       .pricing-tier-name {
-        font-family: var(--serif);
-        font-size: 1.55rem;
+        font-family: var(--font-serif);
+        font-size: 1.6rem;
         font-weight: 400;
-        color: var(--text);
-        margin-bottom: 0.25rem;
-      }
-      .pricing-tier-tagline {
-        font-size: 13px;
-        color: var(--text-3);
-        margin-bottom: 1.75rem;
-      }
-      .pricing-price-from {
-        font-size: 10px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--text-4);
+        color: var(--text-primary);
         margin-bottom: 0.2rem;
       }
+.pricing-tier-tagline {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+      }
+      .pricing-price-from {
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        margin-bottom: 0.15rem;
+      }
       .pricing-price-homepage {
-        font-family: var(--serif);
-        font-size: 1.65rem;
+        font-family: var(--font-serif);
+        font-size: 1.7rem;
         font-weight: 400;
-        color: var(--text);
-        margin-bottom: 0.1rem;
+        color: var(--text-primary);
       }
       .pricing-price-inner {
-        font-size: 12.5px;
-        color: var(--gold);
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        border-top: 1px solid var(--rule);
+        font-size: 0.8rem;
+        color: var(--text-primary);
+        font-weight: 500;
+        border-top: 1px solid var(--border-thin);
         padding-top: 0.75rem;
         margin-top: 0.75rem;
+        margin-bottom: 1.25rem;
       }
       .pricing-tier-includes {
         flex: 1;
       }
       .pricing-tier-includes li {
-        font-size: 13px;
-        color: var(--text-2);
+        font-size: 0.8rem;
+        color: var(--text-secondary);
         padding: 0.4rem 0;
-        border-bottom: 1px solid var(--rule);
+        border-bottom: 1px solid var(--border-thin);
         display: flex;
         gap: 0.6rem;
         align-items: baseline;
         line-height: 1.55;
       }
-      .pricing-tier-includes li::before {
-        content: "—";
-        color: var(--text-4);
+.pricing-tier-includes li::before {
+        content: """;
+        color: var(--text-secondary);
         flex-shrink: 0;
-        font-size: 11px;
+        font-size: 0.7rem;
       }
       .pricing-tier-includes li:last-child {
         border-bottom: none;
       }
-
-      /* Section label (used on this page) */
-      .section-label {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.22em;
+      .pricing-tier-grid .bento-panel--accent {
+        position: relative;
+      }
+      .pricing-tier-grid .bento-panel--accent::after {
+        content: "Recommended";
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        font-family: var(--font-sans);
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--gold);
+        color: var(--text-primary);
+        background: var(--accent-dim);
+        padding: 0.3rem 0.6rem;
+        border-radius: var(--r-sm);
+      }
+
+      /* Feature item list rows */
+      .feature-item-list {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border-thin);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+      }
+      .feature-item {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border-thin);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.5rem 2rem;
+        align-items: start;
+        transition: background 0.25s;
+      }
+      .feature-item:last-child { border-bottom: none; }
+      .feature-item:hover { background: var(--bg-surface); }
+      .feature-item-name {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        grid-column: 1;
+      }
+      .feature-item-price {
+        font-family: var(--font-sans);
+        font-size: 0.85rem;
+        color: var(--text-primary);
+        white-space: nowrap;
+        grid-column: 2;
+        grid-row: 1;
+        text-align: right;
+      }
+      .feature-item-desc {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        grid-column: 1 / -1;
+      }
+      .feature-item-avail {
+        grid-column: 1 / -1;
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .avail-tag {
+        display: inline-block;
+        font-size: 0.65rem;
+        font-family: var(--font-sans);
+        padding: 0.2rem 0.5rem;
+        border-radius: var(--r-sm);
+        letter-spacing: 0.04em;
+      }
+      .avail-tag.yes {
+        background: var(--accent-dim);
+        color: var(--text-primary);
+        border: 1px solid rgba(139, 223, 221, 0.2);
+      }
+      .avail-tag.no {
+        background: rgba(106, 106, 100, 0.1);
+        color: var(--text-secondary);
+        border: 1px solid var(--border-thin);
+      }
+
+      /* Calculator */
+      .calc-form {
+        padding: 2rem 2.25rem;
+      }
+      .calc-group {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border-thin);
+      }
+      .calc-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+      .calc-group-label {
+        display: block;
+        font-family: var(--font-sans);
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+      }
+      .calc-select-row {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 1.25rem;
+        gap: 1rem;
+        margin-bottom: 1rem;
       }
-      .section-label::before {
-        content: "";
-        display: block;
-        width: 24px;
-        height: 1px;
-        background: var(--gold);
-        flex-shrink: 0;
+      .calc-select-row label {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        min-width: 100px;
       }
-
-      /* ── CALCULATOR (using existing theme classes + these extras) ── */
-      .calc-card {
-        border: 1px solid var(--rule-md);
-        background: var(--surface);
+      .calc-select {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-thin);
+        border-radius: var(--r-sm);
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+        color: var(--text-primary);
+        cursor: pointer;
+        min-width: 200px;
       }
-      .calc-card-header {
-        padding: 1.75rem 2.25rem;
-        border-bottom: 1px solid var(--rule);
-        background: var(--bg-2);
-      }
-      .calc-card-header h3 {
-        font-family: var(--serif);
-        font-size: 1.2rem;
-        font-weight: 400;
-        color: var(--text);
-        margin-bottom: 0.3rem;
-      }
-      .calc-card-header p {
-        font-size: 13px;
-        color: var(--text-3);
-      }
-
-      /* Inner pages slider */
       .calc-slider-wrap {
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.4rem;
         min-width: 0;
       }
       .calc-slider {
         width: 100%;
         height: 2px;
-        appearance: none;
         -webkit-appearance: none;
-        background: var(--rule-md);
+        appearance: none;
+        background: var(--border-thin);
         outline: none;
         cursor: pointer;
         border-radius: 1px;
@@ -166,9 +327,9 @@
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        background: var(--text);
-        border: 2px solid var(--surface);
-        box-shadow: 0 0 0 1px var(--rule-dark);
+        background: var(--text-primary);
+        border: 2px solid var(--bg-surface);
+        box-shadow: 0 0 0 1px var(--border-thin);
         cursor: pointer;
         transition: background 0.2s;
       }
@@ -176,30 +337,26 @@
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        background: var(--text);
-        border: 2px solid var(--surface);
-        box-shadow: 0 0 0 1px var(--rule-dark);
+        background: var(--text-primary);
+        border: 2px solid var(--bg-surface);
+        box-shadow: 0 0 0 1px var(--border-thin);
         cursor: pointer;
       }
-      .calc-slider:hover::-webkit-slider-thumb {
-        background: var(--gold);
-      }
-      .calc-slider:hover::-moz-range-thumb {
-        background: var(--gold);
-      }
+      .calc-slider:hover::-webkit-slider-thumb { background: var(--accent); }
+      .calc-slider:hover::-moz-range-thumb { background: var(--accent); }
       .calc-slider-meta {
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
       .calc-slider-count {
-        font-size: 13.5px;
-        color: var(--text);
+        font-size: 0.8rem;
+        color: var(--text-primary);
         font-weight: 500;
       }
       .calc-slider-price {
-        font-size: 13px;
-        color: var(--gold);
+        font-size: 0.8rem;
+        color: var(--text-primary);
         font-weight: 600;
       }
       .calc-slider-ticks {
@@ -208,41 +365,71 @@
         padding: 0 1px;
       }
       .calc-slider-ticks span {
-        font-size: 10px;
-        color: var(--text-4);
-        letter-spacing: 0.05em;
+        font-size: 0.65rem;
+        color: var(--text-secondary);
       }
       .calc-tier-note {
-        font-size: 11.5px;
-        color: var(--text-3);
+        font-size: 0.75rem;
+        color: var(--text-secondary);
         font-style: italic;
-        margin-top: 0.35rem;
+        margin-top: 0.25rem;
+      }
+      .calc-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid var(--border-thin);
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .calc-item:last-child { border-bottom: none; }
+      .calc-item:hover { background: rgba(255,255,255,0.02); margin: 0 -0.5rem; padding: 0.7rem 0.5rem; border-radius: var(--r-sm); }
+      .calc-item input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--text-primary);
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .calc-item-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+      .calc-item-name {
+        font-size: 0.85rem;
+        color: var(--text-primary);
+        font-weight: 450;
+      }
+      .calc-item-note {
+        font-size: 0.7rem;
+        color: var(--text-secondary);
+      }
+      .calc-item-price {
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        color: var(--text-primary);
+        white-space: nowrap;
       }
 
-      /* ── PROJECT ESTIMATOR (between form and buttons) ── */
+      /* Estimator */
       .calc-estimator {
-        margin: 0 2.25rem;
-        border: 1px solid var(--gold-rule);
-        background: var(--gold-dim);
+        margin: 0 2.25rem 2rem;
+        border: 1px solid var(--border-thin);
+        background: var(--bg-surface);
+        border-radius: var(--r-md);
         padding: 1.75rem 2rem;
       }
       .calc-estimator-label {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.22em;
+        font-family: var(--font-sans);
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--gold);
+        color: var(--text-primary);
         margin-bottom: 1.25rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .calc-estimator-label::before {
-        content: "";
-        display: block;
-        width: 24px;
-        height: 1px;
-        background: var(--gold);
       }
       .calc-breakdown {
         margin-bottom: 1.25rem;
@@ -251,66 +438,59 @@
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        font-size: 12.5px;
-        color: var(--text-2);
+        font-size: 0.8rem;
+        color: var(--text-secondary);
         padding: 0.35rem 0;
-        border-bottom: 1px solid var(--rule);
+        border-bottom: 1px solid var(--border-thin);
         gap: 1rem;
       }
-      .calc-breakdown-row:last-child {
-        border-bottom: none;
-      }
+      .calc-breakdown-row:last-child { border-bottom: none; }
       .calc-breakdown-row span:last-child {
-        font-weight: 600;
-        color: var(--text);
+        font-weight: 500;
+        color: var(--text-primary);
         white-space: nowrap;
-      }
-      .calc-breakdown-row.hidden {
-        display: none;
       }
       .calc-total-row {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
         padding-top: 1rem;
-        border-top: 1px solid var(--gold-rule);
+        border-top: 1px solid var(--border-thin);
         flex-wrap: wrap;
         gap: 1rem;
       }
       .calc-grand-total {
-        font-family: var(--serif);
+        font-family: var(--font-serif);
         font-size: 2.4rem;
         font-weight: 400;
-        color: var(--text);
+        color: var(--text-primary);
         letter-spacing: -0.02em;
         line-height: 1;
       }
       .calc-grand-total-note {
-        font-size: 12px;
-        color: var(--text-3);
+        font-size: 0.75rem;
+        color: var(--text-secondary);
         margin-top: 0.3rem;
       }
-
-      /* ── ACTION BUTTONS ROW ── */
       .calc-actions {
-        padding: 1.75rem 2.25rem;
-        border-top: 1px solid var(--rule);
+        padding: 1.5rem 2.25rem;
+        border-top: 1px solid var(--border-thin);
         display: flex;
         gap: 0.75rem;
         flex-wrap: wrap;
         align-items: center;
       }
 
-      /* Estimate block (example project) */
+      /* Estimate block */
       .estimate-block {
-        border: 1px solid var(--rule-md);
-        background: var(--surface);
+        border: 1px solid var(--border-thin);
+        border-radius: var(--r-lg);
         overflow: hidden;
       }
       .estimate-header {
         padding: 1.5rem 2rem;
-        background: var(--bg-2);
-        border-bottom: 1px solid var(--rule);
+        background: var(--bg-surface);
+        border-bottom: 1px solid var(--border-thin);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -318,15 +498,15 @@
         gap: 1rem;
       }
       .estimate-title {
-        font-family: var(--serif);
+        font-family: var(--font-serif);
         font-size: 1.1rem;
         font-weight: 400;
-        color: var(--text);
+        color: var(--text-primary);
         margin-bottom: 0.2rem;
       }
       .estimate-tier {
-        font-size: 12px;
-        color: var(--text-3);
+        font-size: 0.75rem;
+        color: var(--text-secondary);
       }
       .estimate-rows {
         padding: 0 2rem;
@@ -335,21 +515,17 @@
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        font-size: 13.5px;
-        color: var(--text-2);
+        font-size: 0.85rem;
+        color: var(--text-secondary);
         padding: 0.9rem 0;
-        border-bottom: 1px solid var(--rule);
+        border-bottom: 1px solid var(--border-thin);
         gap: 1.5rem;
         flex-wrap: wrap;
       }
-      .estimate-row:last-child {
-        border-bottom: none;
-      }
-      .estimate-row-label {
-        flex: 1;
-      }
+      .estimate-row:last-child { border-bottom: none; }
+      .estimate-row-label { flex: 1; }
       .estimate-row-price {
-        color: var(--text);
+        color: var(--text-primary);
         font-weight: 500;
         white-space: nowrap;
       }
@@ -357,98 +533,59 @@
         display: flex;
         justify-content: space-between;
         padding: 1.25rem 2rem;
-        background: var(--bg-2);
-        border-top: 1px solid var(--rule-md);
+        background: var(--bg-surface);
+        border-top: 1px solid var(--border-thin);
         align-items: baseline;
         flex-wrap: wrap;
         gap: 1rem;
       }
       .estimate-total-label {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.2em;
+        font-family: var(--font-sans);
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--text-3);
+        color: var(--text-secondary);
       }
       .estimate-total-amount {
-        font-family: var(--serif);
+        font-family: var(--font-serif);
         font-size: 1.5rem;
         font-weight: 400;
-        color: var(--text);
-      }
-
-      /* Not-included grid */
-      .not-included-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-        border: 1px solid var(--rule-md);
-        background: var(--rule-md);
-        gap: 1px;
-      }
-      .not-included-item {
-        background: var(--surface);
-        padding: 2rem;
-        transition: background 0.2s;
-      }
-      .not-included-item:hover {
-        background: var(--bg-2);
-      }
-      .ni-title {
-        font-size: 13.5px;
-        font-weight: 600;
-        color: var(--text);
-        margin-bottom: 0.65rem;
-      }
-      .ni-desc {
-        font-size: 13px;
-        color: var(--text-2);
-        line-height: 1.78;
+        color: var(--text-primary);
       }
 
       /* Terms grid */
       .terms-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        border: 1px solid var(--rule-md);
-        background: var(--rule-md);
-        gap: 1px;
-      }
-      .terms-card {
-        background: var(--surface);
-        padding: 2.25rem;
-        transition: background 0.2s;
-      }
-      .terms-card:hover {
-        background: var(--bg-2);
+        gap: 1.5rem;
       }
       .terms-card h4 {
-        font-size: 13.5px;
+        font-size: 0.85rem;
         font-weight: 600;
-        color: var(--text);
+        color: var(--text-primary);
         margin-bottom: 1.1rem;
       }
       .terms-card p {
-        font-size: 13.5px;
-        color: var(--text-2);
+        font-size: 0.85rem;
+        color: var(--text-secondary);
         line-height: 1.78;
       }
       .terms-card ul {
-        margin-top: 0.85rem;
+        margin-top: 0.75rem;
       }
       .terms-card ul li {
         display: flex;
         justify-content: space-between;
-        font-size: 13px;
-        color: var(--text-2);
+        font-size: 0.8rem;
+        color: var(--text-secondary);
         padding: 0.55rem 0;
-        border-bottom: 1px solid var(--rule);
+        border-bottom: 1px solid var(--border-thin);
         gap: 1rem;
       }
-      .terms-card ul li:last-child {
-        border-bottom: none;
-      }
+      .terms-card ul li:last-child { border-bottom: none; }
       .terms-card ul li span {
-        color: var(--gold);
+        color: var(--text-primary);
         font-weight: 600;
         white-space: nowrap;
       }
@@ -459,59 +596,106 @@
         height: 2px;
         margin: 1.5rem 0 0.7rem;
       }
-      .milestone-bar .m1 {
-        background: var(--gold);
-      }
-      .milestone-bar .m2 {
-        background: var(--gold-2);
-        opacity: 0.6;
-      }
-      .milestone-bar .m3 {
-        background: var(--gold-2);
-        opacity: 0.3;
-      }
+      .milestone-bar .m1 { background: var(--accent); }
+      .milestone-bar .m2 { background: var(--accent); opacity: 0.6; }
+      .milestone-bar .m3 { background: var(--accent); opacity: 0.3; }
       .milestone-labels {
         display: flex;
         justify-content: space-between;
-        font-size: 10px;
-        color: var(--text-4);
-        letter-spacing: 0.1em;
+        font-size: 0.65rem;
+        color: var(--text-secondary);
+        letter-spacing: 0.06em;
+      }
+
+      /* Not included grid */
+      .not-included-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+      .ni-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.65rem;
+      }
+      .ni-desc {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
       }
 
       @media (max-width: 860px) {
-        .pricing-tier-grid {
-          grid-template-columns: 1fr;
-        }
-        .terms-grid {
-          grid-template-columns: 1fr;
-        }
-        .calc-estimator {
-          margin: 0 1.5rem;
-        }
-        .calc-actions {
-          padding: 1.5rem;
-        }
+        .pricing-tier-grid { grid-template-columns: 1fr; }
+        .terms-grid { grid-template-columns: 1fr; }
+        .not-included-grid { grid-template-columns: 1fr; }
+        .calc-form { padding: 1.5rem; }
+        .calc-estimator { margin: 0 1rem 1.5rem; padding: 1.25rem; }
+        .calc-actions { padding: 1rem 1.5rem; }
+        .feature-item { padding: 1.25rem 1.5rem; }
       }
       @media (max-width: 600px) {
-        .calc-estimator {
-          margin: 0 1rem;
-          padding: 1.25rem;
-        }
-        .calc-card-header {
-          padding: 1.25rem 1.5rem;
-        }
+        .calc-select-row { flex-direction: column; align-items: flex-start; }
+        .calc-select { min-width: 100%; }
       }
     </style>
   </head>
   <body>
-    <!-- ── NAV ─────────────────────────────────────────── -->
+
+    <svg style="width:0;height:0;position:absolute;visibility:hidden;" aria-hidden="true">
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="goo" />
+      </filter>
+    </svg>
+    <div class="liquid-bg" aria-hidden="true">
+      <canvas id="liquid-canvas"></canvas>
+    </div>
+    <div class="liquid-lighting" aria-hidden="true"></div>
+
+    <!-- "" NAV """"""""""""""""""""""""""""""""""""""""""" -->
     <nav class="nav">
       <div class="container">
         <a href="index.html" class="nav-logo">Akrasia<span>.</span></a>
         <div class="nav-links">
           <a href="index.html">Home</a>
-          <a href="services.html">Services</a>
-          <a href="pricing.html" class="active">Pricing</a>
+          <div class="nav-dropdown-group">
+            <a href="services.html">Services</a>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Static</span>
+                <a href="services.html#static">Overview</a>
+                <a href="pricing.html">Pricing</a>
+              </div>
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Semi-Dynamic</span>
+                <a href="services.html#semi">Overview</a>
+                <a href="pricing.html">Pricing</a>
+              </div>
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Dynamic</span>
+                <a href="services.html#dynamic">Overview</a>
+                <a href="pricing.html">Pricing</a>
+              </div>
+            </div>
+          </div>
+          <div class="nav-dropdown-group">
+            <a href="pricing.html">Pricing</a>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Calculator</span>
+                <a href="pricing.html#calculator">Live Estimate</a>
+              </div>
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Tiers</span>
+                <a href="pricing.html">Compare Prices</a>
+              </div>
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">FAQ</span>
+                <a href="start.html#faq">Common Questions</a>
+              </div>
+            </div>
+          </div>
           <a href="work.html">Our Work</a>
           <a href="contact.html">Contact</a>
           <a href="start.html" class="nav-cta">Start a Project</a>
@@ -521,46 +705,45 @@
         </button>
       </div>
     </nav>
+    <div class="nav-overlay"></div>
     <div class="nav-mobile">
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
-      <a href="pricing.html" class="active">Pricing</a>
+      <a href="pricing.html">Pricing</a>
       <a href="work.html">Our Work</a>
       <a href="contact.html">Contact</a>
       <a href="start.html" class="nav-cta">Start a Project</a>
     </div>
 
-    <!-- ── PAGE HERO ─────────────────────────────────────── -->
+    <!-- "" PAGE HERO """"""""""""""""""""""""""""""""""""""" -->
     <div class="page-hero">
       <div class="container">
         <p class="page-eyebrow">Pricing</p>
         <h1>Honest pricing.<br><em>Every line itemised.</em></h1>
         <p class="lead">
           Every feature has a fixed price. Use the calculator below to build
-          your own estimate, then request a formal written quote — usually
+          your own estimate, then request a formal written quote " usually
           returned within 24 hours.
         </p>
       </div>
     </div>
 
-    <!-- ═══ SECTION 01: TIER OVERVIEW ═══ -->
-    <section class="section">
+    <!-- --- SECTION 01: THREE PRICING TIERS --- -->
+    <section class="section reveal">
       <div class="container">
-        <p class="section-label">Section 01</p>
+        <p class="label">Section 01</p>
         <h2 class="section-heading">Three <em>Pricing Tiers</em></h2>
         <p class="section-sub">
           Every site starts from one of three tiers. The tier determines the
-          underlying technology and base price per page — add-ons are priced
+          underlying technology and base price per page " add-ons are priced
           separately on top.
         </p>
 
-        <div class="pricing-tier-grid reveal">
-          <div class="pricing-tier-card">
+        <div class="pricing-tier-grid">
+          <div class="bento-panel">
             <span class="pricing-tier-tag">Tier One</span>
             <p class="pricing-tier-name">Static</p>
-            <p class="pricing-tier-tagline">
-              Pure HTML, CSS &amp; JS — no server
-            </p>
+            <p class="pricing-tier-tagline">Pure HTML, CSS &amp; JS " no server</p>
             <p class="pricing-price-from">Homepage from</p>
             <p class="pricing-price-homepage">4,000 BDT</p>
             <p class="pricing-price-inner">Inner pages from 2,000 BDT each</p>
@@ -572,12 +755,10 @@
               <li>Contact forms via Formspree</li>
             </ul>
           </div>
-          <div class="pricing-tier-card">
+          <div class="bento-panel">
             <span class="pricing-tier-tag">Tier Two</span>
             <p class="pricing-tier-name">Semi-Dynamic</p>
-            <p class="pricing-tier-tagline">
-              Client-side APIs, no backend cost
-            </p>
+            <p class="pricing-tier-tagline">Client-side APIs, no backend cost</p>
             <p class="pricing-price-from">Homepage from</p>
             <p class="pricing-price-homepage">6,000 BDT</p>
             <p class="pricing-price-inner">Inner pages from 3,000 BDT each</p>
@@ -589,12 +770,10 @@
               <li>Still hostable on GitHub Pages</li>
             </ul>
           </div>
-          <div class="pricing-tier-card featured">
-            <span class="pricing-tier-tag">Tier Three — Full Power</span>
+          <div class="bento-panel bento-panel--accent">
+            <span class="pricing-tier-tag">Tier Three " Full Power</span>
             <p class="pricing-tier-name">Dynamic</p>
-            <p class="pricing-tier-tagline">
-              Real backend, database &amp; admin CMS
-            </p>
+            <p class="pricing-tier-tagline">Real backend, database &amp; admin CMS</p>
             <p class="pricing-price-from">Homepage from</p>
             <p class="pricing-price-homepage">8,000 BDT</p>
             <p class="pricing-price-inner">Inner pages from 4,000 BDT each</p>
@@ -611,22 +790,22 @@
         <div class="callout">
           <strong>Page prices cover structure and layout only.</strong>
           Components such as navigation, hero section, gallery, and contact form
-          are add-ons — priced individually so your quote reflects exactly what
+          are add-ons " priced individually so your quote reflects exactly what
           your site needs.
         </div>
       </div>
     </section>
 
-    <!-- ═══ SECTION 02: WHAT'S IN A PAGE ═══ -->
-    <section class="section section--alt">
+    <!-- --- SECTION 02: WHAT A PAGE PRICE INCLUDES --- -->
+    <section class="section section--bg-alt reveal">
       <div class="container">
-        <p class="section-label">Section 02</p>
+        <p class="label">Section 02</p>
         <h2 class="section-heading">What a <em>page price</em> includes</h2>
         <p class="section-sub">
           Page prices are the foundation cost. They cover the underlying layout
-          and structure — not the visual components you see on screen.
+          and structure " not the visual components you see on screen.
         </p>
-        <div class="data-table-wrap reveal">
+        <div class="data-table-wrap">
           <table class="data-table">
             <thead>
               <tr>
@@ -639,39 +818,39 @@
             <tbody>
               <tr>
                 <td>Responsive layout structure</td>
-                <td><span class="yes">✓</span></td>
-                <td><span class="yes">✓</span></td>
-                <td><span class="yes">✓</span></td>
+                <td><span class="yes">"</span></td>
+                <td><span class="yes">"</span></td>
+                <td><span class="yes">"</span></td>
               </tr>
               <tr>
                 <td>Mobile-first design</td>
-                <td><span class="yes">✓</span></td>
-                <td><span class="yes">✓</span></td>
-                <td><span class="yes">✓</span></td>
+                <td><span class="yes">"</span></td>
+                <td><span class="yes">"</span></td>
+                <td><span class="yes">"</span></td>
               </tr>
               <tr>
                 <td>Semantic HTML &amp; accessible markup</td>
-                <td><span class="yes">✓</span></td>
-                <td><span class="yes">✓</span></td>
-                <td><span class="yes">✓</span></td>
+                <td><span class="yes">"</span></td>
+                <td><span class="yes">"</span></td>
+                <td><span class="yes">"</span></td>
               </tr>
               <tr>
                 <td>Consistent integration with design system</td>
-                <td><span class="yes">✓</span></td>
-                <td><span class="yes">✓</span></td>
-                <td><span class="yes">✓</span></td>
+                <td><span class="yes">"</span></td>
+                <td><span class="yes">"</span></td>
+                <td><span class="yes">"</span></td>
               </tr>
               <tr>
                 <td>API / CMS data binding</td>
-                <td><span class="no">✗</span></td>
-                <td><span class="yes">✓ client-side</span></td>
-                <td><span class="yes">✓ server-side</span></td>
+                <td><span class="no">-</span></td>
+                <td><span class="yes">" client-side</span></td>
+                <td><span class="yes">" server-side</span></td>
               </tr>
               <tr>
                 <td>CMS edit panel for this page</td>
-                <td><span class="no">✗</span></td>
+                <td><span class="no">-</span></td>
                 <td><span class="note-cell">Headless CMS (add-on)</span></td>
-                <td><span class="yes">✓ included</span></td>
+                <td><span class="yes">" included</span></td>
               </tr>
             </tbody>
           </table>
@@ -679,22 +858,20 @@
       </div>
     </section>
 
-    <!-- ═══ SECTION 03: STANDARD FEATURES ═══ -->
-    <section class="section">
+    <!-- --- SECTION 03: STANDARD & ADD-ON FEATURES --- -->
+    <section class="section reveal">
       <div class="container">
-        <p class="section-label">Section 03</p>
+        <p class="label">Section 03</p>
         <h2 class="section-heading">Standard &amp; Add-on <em>Features</em></h2>
         <p class="section-sub">
           Page prices cover layout and structure. These add-on components are
           priced individually so your quote reflects exactly what you need.
         </p>
 
-        <div class="feature-item-list reveal">
+        <div class="feature-item-list">
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Responsive Header with Mega Menu</p>
-              <p class="feature-item-price">from 4,000 BDT</p>
-            </div>
+            <p class="feature-item-name">Responsive Header with Mega Menu</p>
+            <p class="feature-item-price">4,000 BDT</p>
             <p class="feature-item-desc">
               A full-width navigation bar that collapses into a hamburger menu
               on mobile. Mega menus expand on hover to show sub-pages or
@@ -708,10 +885,8 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Mobile Navigation Panel</p>
-              <p class="feature-item-price">from 3,000 BDT</p>
-            </div>
+            <p class="feature-item-name">Mobile Navigation Panel</p>
+            <p class="feature-item-price">3,000 BDT</p>
             <p class="feature-item-desc">
               A slide-in or drop-down panel for mobile users. Smooth animation,
               all nav links, and CTA. Priced separately from the desktop header
@@ -726,14 +901,12 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Hero Section with Lazy Background</p>
-              <p class="feature-item-price">from 1,800 BDT</p>
-            </div>
+            <p class="feature-item-name">Hero Section with Lazy Background</p>
+            <p class="feature-item-price">1,800 BDT</p>
             <p class="feature-item-desc">
               The large top section visitors see first: headline, subtext, CTA
               button, and a background image or gradient. "Lazy" means the
-              background loads only when it enters view — it never slows down
+              background loads only when it enters view " it never slows down
               the initial page render.
             </p>
             <div class="feature-item-avail">
@@ -744,10 +917,8 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Multi-column Footer</p>
-              <p class="feature-item-price">from 2,500 BDT</p>
-            </div>
+            <p class="feature-item-name">Multi-column Footer</p>
+            <p class="feature-item-price">2,500 BDT</p>
             <p class="feature-item-desc">
               A structured footer with columns for pages, services, contact
               details, and social links. Reinforces navigation and builds trust.
@@ -761,12 +932,8 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">
-                Contact Form with Email Notification
-              </p>
-              <p class="feature-item-price">from 1,500 BDT</p>
-            </div>
+            <p class="feature-item-name">Contact Form with Email Notification</p>
+            <p class="feature-item-price">1,500 BDT</p>
             <p class="feature-item-desc">
               An enquiry form that sends submissions directly to your email
               inbox. Removes the need for visitors to open their email app.
@@ -781,10 +948,8 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">YouTube Latest Video</p>
-              <p class="feature-item-price">from 3,000 BDT</p>
-            </div>
+            <p class="feature-item-name">YouTube Latest Video</p>
+            <p class="feature-item-price">3,000 BDT</p>
             <p class="feature-item-desc">
               Displays your most recent YouTube video automatically. Option A:
               thumbnail linking to YouTube. Option B: embedded player directly
@@ -799,13 +964,11 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Automated Social Feed</p>
-              <p class="feature-item-price">from 4,000 BDT</p>
-            </div>
+            <p class="feature-item-name">Automated Social Feed</p>
+            <p class="feature-item-price">4,000 BDT</p>
             <p class="feature-item-desc">
               Shows your latest Instagram or Twitter posts directly on your
-              website. Requires a Semi-Dynamic or Dynamic site — Static sites
+              website. Requires a Semi-Dynamic or Dynamic site " Static sites
               cannot pull live social content. Keeps your site current without
               any extra work.
             </p>
@@ -817,10 +980,8 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Image Gallery with Lightbox</p>
-              <p class="feature-item-price">from 1,800 BDT</p>
-            </div>
+            <p class="feature-item-name">Image Gallery with Lightbox</p>
+            <p class="feature-item-price">1,800 BDT</p>
             <p class="feature-item-desc">
               A clean photo gallery where clicking an image opens it in a
               full-screen overlay. Essential for photographers, designers,
@@ -835,13 +996,11 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Testimonials Slider</p>
-              <p class="feature-item-price">from 2,000 BDT</p>
-            </div>
+            <p class="feature-item-name">Testimonials Slider</p>
+            <p class="feature-item-price">2,000 BDT</p>
             <p class="feature-item-desc">
               A rotating carousel of customer reviews or quotes. Social proof is
-              one of the strongest conversion tools for any service business —
+              one of the strongest conversion tools for any service business "
               seeing what others say builds trust immediately.
             </p>
             <div class="feature-item-avail">
@@ -852,13 +1011,11 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Real-time Chat Widget</p>
-              <p class="feature-item-price">4,000 BDT</p>
-            </div>
+            <p class="feature-item-name">Real-time Chat Widget</p>
+            <p class="feature-item-price">4,000 BDT</p>
             <p class="feature-item-desc">
-              Integrates a live chat or messaging button — WhatsApp, Messenger,
-              or a dedicated chat service. Extremely popular in Bangladesh for
+              Integrates a live chat or messaging button " WhatsApp, Messenger,
+              or a dedicated chat service. Ideal for
               direct sales conversations. Flat fee across all three tiers.
             </p>
             <div class="feature-item-avail">
@@ -869,10 +1026,8 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Custom Design System &amp; Theme</p>
-              <p class="feature-item-price">from 3,500 BDT</p>
-            </div>
+            <p class="feature-item-name">Custom Design System &amp; Theme</p>
+            <p class="feature-item-price">3,500 BDT</p>
             <p class="feature-item-desc">
               Defines your brand's colours, fonts, buttons, and spacing
               consistently across every page. Without this, pages feel
@@ -887,14 +1042,12 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">SEO &amp; Performance Package</p>
-              <p class="feature-item-price">from 2,000 BDT</p>
-            </div>
+            <p class="feature-item-name">SEO &amp; Performance Package</p>
+            <p class="feature-item-price">2,000 BDT</p>
             <p class="feature-item-desc">
               Structured data markup, accessibility labels, optimised meta tags,
               and asset pre-loading. Directly affects how high your site ranks
-              in Google search results — measurable impact for any business.
+              in Google search results " measurable impact for any business.
             </p>
             <div class="feature-item-avail">
               <span class="avail-tag yes">Static</span>
@@ -904,13 +1057,11 @@
           </div>
 
           <div class="feature-item">
-            <div class="feature-item-top">
-              <p class="feature-item-name">Cookie Consent Banner</p>
-              <p class="feature-item-price">1,500 BDT</p>
-            </div>
+            <p class="feature-item-name">Cookie Consent Banner</p>
+            <p class="feature-item-price">1,500 BDT</p>
             <p class="feature-item-desc">
               A legally expected notice for sites using analytics or tracking.
-              Available at the same price across all tiers — it protects both
+              Available at the same price across all tiers " it protects both
               you and your visitors.
             </p>
             <div class="feature-item-avail">
@@ -923,18 +1074,16 @@
       </div>
     </section>
 
-    <!-- ═══ SECTION 04: ADVANCED FEATURES ═══ -->
-    <section class="section section--alt">
+    <!-- --- SECTION 04: ADVANCED FEATURES --- -->
+    <section class="section section--bg-alt reveal">
       <div class="container">
-        <p class="section-label">Section 04</p>
-        <h2 class="section-heading">
-          Advanced Features<br><em>(Dynamic only)</em>
-        </h2>
+        <p class="label">Section 04</p>
+        <h2 class="section-heading">Advanced Features<br><em>(Dynamic only)</em></h2>
         <p class="section-sub">
           Some capabilities are only technically possible with a backend and
           database. The table below shows availability and cost on each tier.
         </p>
-        <div class="data-table-wrap reveal">
+        <div class="data-table-wrap">
           <table class="data-table">
             <thead>
               <tr>
@@ -949,65 +1098,49 @@
                 <td>User Registration / Login</td>
                 <td><span class="no">Not possible</span></td>
                 <td><span class="no">Not possible</span></td>
-                <td><span class="yes">✓ 8,000 BDT</span></td>
+                <td><span class="yes">" 8,000 BDT</span></td>
               </tr>
               <tr>
                 <td>E-commerce Cart &amp; Checkout</td>
                 <td><span class="no">Not possible</span></td>
                 <td><span class="no">Not possible</span></td>
-                <td><span class="yes">✓ from 15,000 BDT</span></td>
+                <td><span class="yes">" from 15,000 BDT</span></td>
               </tr>
               <tr>
                 <td>Custom Admin Dashboard</td>
                 <td><span class="no">Not possible</span></td>
                 <td><span class="no">Not possible</span></td>
-                <td><span class="yes">✓ 10,000 BDT</span></td>
+                <td><span class="yes">" 10,000 BDT</span></td>
               </tr>
               <tr>
                 <td>Site-wide Search</td>
-                <td>
-                  <span class="note-cell">Basic client-side — 2,000 BDT</span>
-                </td>
-                <td>
-                  <span class="note-cell">Client-side index — 2,500 BDT</span>
-                </td>
-                <td>
-                  <span class="yes">✓ Full server search — 3,000 BDT</span>
-                </td>
+                <td><span class="note-cell">Basic client-side " 2,000 BDT</span></td>
+                <td><span class="note-cell">Client-side index " 2,500 BDT</span></td>
+                <td><span class="yes">" Full server search " 3,000 BDT</span></td>
               </tr>
               <tr>
                 <td>Multi-language / i18n Support</td>
                 <td><span class="no">Not possible</span></td>
                 <td><span class="no">Not practical</span></td>
-                <td><span class="yes">✓ 5,000 BDT</span></td>
+                <td><span class="yes">" 5,000 BDT</span></td>
               </tr>
               <tr>
                 <td>Scheduled Content Publishing</td>
                 <td><span class="no">Not possible</span></td>
                 <td><span class="no">Not possible</span></td>
-                <td><span class="yes">✓ Included with CMS</span></td>
+                <td><span class="yes">" Included with CMS</span></td>
               </tr>
               <tr>
                 <td>Blog / News Section</td>
-                <td>
-                  <span class="note-cell"
-                    >Static HTML — 1,500 BDT (dev edits required)</span
-                  >
-                </td>
-                <td>
-                  <span class="note-cell"
-                    >Headless CMS via API — add 3,000 BDT</span
-                  >
-                </td>
-                <td>
-                  <span class="yes">✓ Full CMS included in page price</span>
-                </td>
+                <td><span class="note-cell">Static HTML " 1,500 BDT (dev edits required)</span></td>
+                <td><span class="note-cell">Headless CMS via API " add 3,000 BDT</span></td>
+                <td><span class="yes">" Full CMS included in page price</span></td>
               </tr>
               <tr>
                 <td>Member-only Content</td>
                 <td><span class="no">Not possible</span></td>
                 <td><span class="no">Not possible</span></td>
-                <td><span class="yes">✓ Quoted per scope</span></td>
+                <td><span class="yes">" Quoted per scope</span></td>
               </tr>
             </tbody>
           </table>
@@ -1015,97 +1148,49 @@
       </div>
     </section>
 
-    <!-- ═══ SECTION 05: LIVE CALCULATOR ═══ -->
-    <section class="section" id="calculator">
+    <!-- --- SECTION 05: LIVE PROJECT CALCULATOR --- -->
+    <section class="section reveal" id="calculator">
       <div class="container">
-        <p class="section-label">Section 05</p>
+        <p class="label">Section 05</p>
         <h2 class="section-heading">Live Project <em>Calculator</em></h2>
         <p class="section-sub">
           Select your homepage tier, slide to the number of inner pages you
           need, then tick any add-ons. The Project Estimator below updates
-          instantly. This is a guide — your final written quote will be exact
+          instantly. This is a guide " your final written quote will be exact
           and itemised.
         </p>
 
-        <div class="calc-card reveal">
-          <!-- Header (title only — total is shown in the estimator below the form) -->
-          <div class="calc-card-header">
-            <h3>Project Estimator</h3>
-            <p>Select your tier and features — the total updates as you go.</p>
-          </div>
-
-          <!-- Form inputs -->
+        <div class="card">
           <div class="calc-form">
             <!-- Pages: homepage tier + inner pages slider -->
             <div class="calc-group">
               <span class="calc-group-label">Pages</span>
 
-              <!-- Homepage tier selector -->
               <div class="calc-select-row">
                 <label for="sel-home">Homepage</label>
                 <select id="sel-home" class="calc-select" data-type="homepage">
-                  <option value="0">Not included — 0 BDT</option>
-                  <option value="4000">Static homepage — 4,000 BDT</option>
-                  <option value="6000">
-                    Semi-Dynamic homepage — 6,000 BDT
-                  </option>
-                  <option value="8000">Dynamic homepage — 8,000 BDT</option>
+                  <option value="0">Not included " 0 BDT</option>
+                  <option value="4000">Static homepage " 4,000 BDT</option>
+                  <option value="6000">Semi-Dynamic homepage " 6,000 BDT</option>
+                  <option value="8000">Dynamic homepage " 8,000 BDT</option>
                 </select>
               </div>
 
-              <!-- Inner pages slider (0–10, price per page depends on tier) -->
-              <div
-                class="calc-select-row"
-                style="
-                  flex-direction: column;
-                  align-items: flex-start;
-                  gap: 0.9rem;
-                "
-              >
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    width: 100%;
-                    align-items: center;
-                  "
-                >
-                  <label
-                    for="slider-inner"
-                    style="font-size: 13.5px; color: var(--text-2); flex: 1"
-                    >Inner pages</label
-                  >
+              <div class="calc-select-row" style="flex-direction: column; align-items: flex-start; gap: 0.9rem;">
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                  <label for="slider-inner" style="font-size: 0.85rem; color: var(--text-secondary); flex: 1">Inner pages</label>
                   <div class="calc-slider-meta" style="gap: 1rem">
-                    <span class="calc-slider-count" id="slider-count"
-                      >0 pages</span
-                    >
-                    <span class="calc-slider-price" id="slider-price"
-                      >0 BDT</span
-                    >
+                    <span class="calc-slider-count" id="slider-count">0 pages</span>
+                    <span class="calc-slider-price" id="slider-price">0 BDT</span>
                   </div>
                 </div>
                 <div class="calc-slider-wrap">
-                  <input
-                    type="range"
-                    id="slider-inner"
-                    class="calc-slider"
-                    min="0"
-                    max="10"
-                    value="0"
-                    step="1"
-                  >
+                  <input type="range" id="slider-inner" class="calc-slider" min="0" max="10" value="0" step="1">
                   <div class="calc-slider-ticks" style="margin-top: 0.4rem">
-                    <span>0</span>
-                    <span>2</span>
-                    <span>4</span>
-                    <span>6</span>
-                    <span>8</span>
-                    <span>10</span>
+                    <span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span>
                   </div>
                 </div>
-                <p class="calc-tier-note" id="inner-tier-note">
-                  Select a homepage tier above to see inner-page pricing.
-                </p>
+                <p class="calc-tier-note" id="inner-tier-note">Select a homepage tier above to see inner-page pricing.</p>
               </div>
             </div>
 
@@ -1113,25 +1198,15 @@
             <div class="calc-group">
               <span class="calc-group-label">Navigation &amp; Layout</span>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="4000"
-                  data-name="Responsive Header with Mega Menu"
-                >
+                <input type="checkbox" data-price="4000" data-name="Responsive Header with Mega Menu">
                 <span class="calc-item-info">
                   <span class="calc-item-name">Responsive Header with Mega Menu</span>
-                  <span class="calc-item-note">
-                    Desktop nav with animated dropdowns
-                  </span>
+                  <span class="calc-item-note">Desktop nav with animated dropdowns</span>
                 </span>
                 <span class="calc-item-price">4,000 BDT</span>
               </label>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="3000"
-                  data-name="Mobile Navigation Panel"
-                >
+                <input type="checkbox" data-price="3000" data-name="Mobile Navigation Panel">
                 <span class="calc-item-info">
                   <span class="calc-item-name">Mobile Navigation Panel</span>
                   <span class="calc-item-note">Hamburger menu for small screens</span>
@@ -1139,25 +1214,15 @@
                 <span class="calc-item-price">3,000 BDT</span>
               </label>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="1800"
-                  data-name="Hero Section with Lazy Background"
-                >
+                <input type="checkbox" data-price="1800" data-name="Hero Section with Lazy Background">
                 <span class="calc-item-info">
-                  <span class="calc-item-name">
-                    Hero Section with Lazy Background
-                  </span>
+                  <span class="calc-item-name">Hero Section with Lazy Background</span>
                   <span class="calc-item-note">Full-width top section with CTA</span>
                 </span>
                 <span class="calc-item-price">1,800 BDT</span>
               </label>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="2500"
-                  data-name="Multi-column Footer"
-                >
+                <input type="checkbox" data-price="2500" data-name="Multi-column Footer">
                 <span class="calc-item-info">
                   <span class="calc-item-name">Multi-column Footer</span>
                   <span class="calc-item-note">Links, socials, copyright bar</span>
@@ -1170,44 +1235,12 @@
             <div class="calc-group">
               <span class="calc-group-label">Design &amp; UX</span>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="3500"
-                  data-name="Custom Design System &amp; Theme"
-                >
+                <input type="checkbox" data-price="3500" data-name="Custom Design System &amp; Theme">
                 <span class="calc-item-info">
                   <span class="calc-item-name">Custom Design System &amp; Theme</span>
-                  <span class="calc-item-note">
-                    Brand colours, fonts, and spacing
-                  </span>
+                  <span class="calc-item-note">Brand colours, fonts, and spacing</span>
                 </span>
                 <span class="calc-item-price">3,500 BDT</span>
-              </label>
-              <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="2500"
-                  data-name="Transitions &amp; Animations"
-                >
-                <span class="calc-item-info">
-                  <span class="calc-item-name">Transitions &amp; Animations</span>
-                  <span class="calc-item-note">Scroll reveals and hover effects</span>
-                </span>
-                <span class="calc-item-price">2,500 BDT</span>
-              </label>
-              <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="1200"
-                  data-name="Page Content Styling"
-                >
-                <span class="calc-item-info">
-                  <span class="calc-item-name">Page Content Styling</span>
-                  <span class="calc-item-note">
-                    Tables, lists, blockquotes styling
-                  </span>
-                </span>
-                <span class="calc-item-price">1,200 BDT</span>
               </label>
             </div>
 
@@ -1215,81 +1248,47 @@
             <div class="calc-group">
               <span class="calc-group-label">Content &amp; Communication</span>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="1500"
-                  data-name="Contact Form with Email Notification"
-                >
+                <input type="checkbox" data-price="1500" data-name="Contact Form with Email Notification">
                 <span class="calc-item-info">
-                  <span class="calc-item-name">
-                    Contact Form with Email Notification
-                  </span>
+                  <span class="calc-item-name">Contact Form with Email Notification</span>
                   <span class="calc-item-note">Enquiries direct to your inbox</span>
                 </span>
                 <span class="calc-item-price">1,500 BDT</span>
               </label>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="1800"
-                  data-name="Image Gallery with Lightbox"
-                >
+                <input type="checkbox" data-price="1800" data-name="Image Gallery with Lightbox">
                 <span class="calc-item-info">
                   <span class="calc-item-name">Image Gallery with Lightbox</span>
-                  <span class="calc-item-note">
-                    Clickable full-screen photo viewer
-                  </span>
+                  <span class="calc-item-note">Clickable full-screen photo viewer</span>
                 </span>
                 <span class="calc-item-price">1,800 BDT</span>
               </label>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="2000"
-                  data-name="Testimonials Slider"
-                >
+                <input type="checkbox" data-price="2000" data-name="Testimonials Slider">
                 <span class="calc-item-info">
                   <span class="calc-item-name">Testimonials Slider</span>
-                  <span class="calc-item-note">
-                    Rotating customer review carousel
-                  </span>
+                  <span class="calc-item-note">Rotating customer review carousel</span>
                 </span>
                 <span class="calc-item-price">2,000 BDT</span>
               </label>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="3000"
-                  data-name="YouTube Latest Video"
-                >
+                <input type="checkbox" data-price="3000" data-name="YouTube Latest Video">
                 <span class="calc-item-info">
                   <span class="calc-item-name">YouTube Latest Video</span>
-                  <span class="calc-item-note">
-                    Auto-displaying most recent upload
-                  </span>
+                  <span class="calc-item-note">Auto-displaying most recent upload</span>
                 </span>
                 <span class="calc-item-price">3,000 BDT</span>
               </label>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="4000"
-                  data-name="Automated Social Feed"
-                >
+                <input type="checkbox" data-price="4000" data-name="Automated Social Feed">
                 <span class="calc-item-info">
                   <span class="calc-item-name">Automated Social Feed</span>
-                  <span class="calc-item-note">
-                    Live Instagram / Twitter — Semi-Dynamic+
-                  </span>
+                  <span class="calc-item-note">Live Instagram / Twitter " Semi-Dynamic+</span>
                 </span>
                 <span class="calc-item-price">4,000 BDT</span>
               </label>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="4000"
-                  data-name="Real-time Chat Widget"
-                >
+                <input type="checkbox" data-price="4000" data-name="Real-time Chat Widget">
                 <span class="calc-item-info">
                   <span class="calc-item-name">Real-time Chat Widget</span>
                   <span class="calc-item-note">WhatsApp / Messenger button</span>
@@ -1302,111 +1301,71 @@
             <div class="calc-group">
               <span class="calc-group-label">Trust &amp; Performance</span>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="2000"
-                  data-name="SEO &amp; Performance Package"
-                >
+                <input type="checkbox" data-price="2000" data-name="SEO &amp; Performance Package">
                 <span class="calc-item-info">
                   <span class="calc-item-name">SEO &amp; Performance Package</span>
-                  <span class="calc-item-note">
-                    Structured data, meta tags, pre-loading
-                  </span>
+                  <span class="calc-item-note">Structured data, meta tags, pre-loading</span>
                 </span>
                 <span class="calc-item-price">2,000 BDT</span>
               </label>
               <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="1500"
-                  data-name="Cookie Consent Banner"
-                >
+                <input type="checkbox" data-price="1500" data-name="Cookie Consent Banner">
                 <span class="calc-item-info">
                   <span class="calc-item-name">Cookie Consent Banner</span>
                   <span class="calc-item-note">Analytics compliance notice</span>
                 </span>
                 <span class="calc-item-price">1,500 BDT</span>
               </label>
-              <label class="calc-item">
-                <input
-                  type="checkbox"
-                  data-price="1500"
-                  data-name="Analytics Integration"
-                >
-                <span class="calc-item-info">
-                  <span class="calc-item-name">Analytics Integration</span>
-                  <span class="calc-item-note">
-                    Google Analytics or Plausible setup
-                  </span>
-                </span>
-                <span class="calc-item-price">1,500 BDT</span>
-              </label>
             </div>
           </div>
-          <!-- /.calc-form -->
 
-          <!-- ── PROJECT ESTIMATOR — sits BETWEEN form and buttons ── -->
+          <!-- Estimator -->
           <div class="calc-estimator">
             <p class="calc-estimator-label">Project Estimator</p>
             <div class="calc-breakdown" id="calc-breakdown">
-              <!-- rows injected by JS -->
             </div>
             <div class="calc-total-row">
               <div>
                 <div class="calc-grand-total" id="calc-grand-total">0 BDT</div>
-                <div class="calc-grand-total-note">
-                  Indicative estimate · Final quote will be exact &amp; itemised
-                </div>
+                <div class="calc-grand-total-note">Indicative estimate - Final quote will be exact &amp; itemised</div>
               </div>
             </div>
           </div>
 
-          <!-- ── ACTION BUTTONS — below estimator ── -->
+          <!-- Actions -->
           <div class="calc-actions">
             <a href="#" id="generate-quote-mail" class="btn btn-primary">
               Request a Formal Quote
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-              >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
-            <button type="button" class="btn btn-outline calc-reset" id="calc-reset-btn">
+            <button type="button" class="btn btn-ghost calc-reset" id="calc-reset-btn">
               Reset Calculator
             </button>
           </div>
         </div>
-        <!-- /.calc-card -->
       </div>
     </section>
 
-    <!-- ═══ SECTION 06: EXAMPLE PROJECT ═══ -->
-    <section class="section section--alt">
+    <!-- --- SECTION 06: EXAMPLE PROJECT --- -->
+    <section class="section section--bg-alt reveal">
       <div class="container">
-        <p class="section-label">Section 06</p>
+        <p class="label">Section 06</p>
         <h2 class="section-heading">A Real Pricing <em>Example</em></h2>
         <p class="section-sub">
           To show how the pricing works in practice, here is a fully itemised
           estimate for a typical 5-page Static business website.
         </p>
 
-        <div class="estimate-block reveal">
+        <div class="estimate-block">
           <div class="estimate-header">
             <div>
               <p class="estimate-title">5-Page Static Business Website</p>
-              <p class="estimate-tier">
-                Static tier · standard professional feature pack
-              </p>
+              <p class="estimate-tier">Static tier - standard professional feature pack</p>
             </div>
-            <a
-              href="start.html"
-              class="btn btn-outline"
-              style="font-size: 13px; padding: 0.5rem 1rem"
-            >
-              Get your quote →
+            <a href="start.html" class="btn btn-ghost" style="font-size: 0.8rem; padding: 0.5rem 1rem">
+              Get your quote '
             </a>
           </div>
           <div class="estimate-rows">
@@ -1415,16 +1374,11 @@
               <span class="estimate-row-price">4,000 BDT</span>
             </div>
             <div class="estimate-row">
-              <span class="estimate-row-label"
-                >4 Inner pages (About, Services, Portfolio, Contact) @ 2,000 BDT
-                each</span
-              >
+              <span class="estimate-row-label">4 Inner pages (About, Services, Portfolio, Contact) @ 2,000 BDT each</span>
               <span class="estimate-row-price">8,000 BDT</span>
             </div>
             <div class="estimate-row">
-              <span class="estimate-row-label"
-                >Responsive Header with Mega Menu</span
-              >
+              <span class="estimate-row-label">Responsive Header with Mega Menu</span>
               <span class="estimate-row-price">4,000 BDT</span>
             </div>
             <div class="estimate-row">
@@ -1432,9 +1386,7 @@
               <span class="estimate-row-price">3,000 BDT</span>
             </div>
             <div class="estimate-row">
-              <span class="estimate-row-label"
-                >Hero Section with Lazy Background</span
-              >
+              <span class="estimate-row-label">Hero Section with Lazy Background</span>
               <span class="estimate-row-price">1,800 BDT</span>
             </div>
             <div class="estimate-row">
@@ -1446,9 +1398,7 @@
               <span class="estimate-row-price">1,500 BDT</span>
             </div>
             <div class="estimate-row">
-              <span class="estimate-row-label"
-                >Custom Design System &amp; Theme</span
-              >
+              <span class="estimate-row-label">Custom Design System &amp; Theme</span>
               <span class="estimate-row-price">3,500 BDT</span>
             </div>
           </div>
@@ -1460,29 +1410,29 @@
 
         <div class="callout" style="margin-top: 1.5rem">
           <strong>Market context:</strong> The equivalent Static website in
-          Bangladesh is typically priced between 15,000 and 35,000 BDT. This
-          quote sits in the centre of that range — a genuinely professional,
+          is typically priced between 15,000 and 35,000 BDT. This
+          quote sits in the centre of that range " a genuinely professional,
           hand-coded, custom website with no template shortcuts.
         </div>
       </div>
     </section>
 
-    <!-- ═══ SECTION 07: PAYMENT TERMS ═══ -->
-    <section class="section">
+    <!-- --- SECTION 07: PAYMENT TERMS --- -->
+    <section class="section reveal">
       <div class="container">
-        <p class="section-label">Section 07</p>
+        <p class="label">Section 07</p>
         <h2 class="section-heading">How Payments <em>Work</em></h2>
         <p class="section-sub">
           All projects follow a milestone-based payment structure. This protects
-          both parties — you only pay as work is completed and approved.
+          both parties " you only pay as work is completed and approved.
         </p>
-        <div class="terms-grid reveal">
-          <div class="terms-card">
+        <div class="terms-grid">
+          <div class="bento-panel terms-card">
             <h4>Payment Schedule</h4>
             <ul>
-              <li>To begin work (deposit) <span>40–50%</span></li>
+              <li>To begin work (deposit) <span>40"50%</span></li>
               <li>After design approved <span>30%</span></li>
-              <li>Before site goes live <span>20–30%</span></li>
+              <li>Before site goes live <span>20"30%</span></li>
             </ul>
             <div class="milestone-bar">
               <div class="m1"></div>
@@ -1493,19 +1443,19 @@
               <span>Start</span><span>Design</span><span>Launch</span>
             </div>
           </div>
-          <div class="terms-card">
+          <div class="bento-panel terms-card">
             <h4>Revisions Policy</h4>
             <p>
               Every project includes two to three rounds of revisions at no
               extra charge. A revision means changes to layout, colour, or
-              content — not a complete redesign. Additional revision rounds are
+              content " not a complete redesign. Additional revision rounds are
               billed at an agreed hourly rate.
             </p>
           </div>
-          <div class="terms-card">
+          <div class="bento-panel terms-card">
             <h4>Ongoing Maintenance</h4>
             <p>
-              Websites need occasional updates — security patches, text changes,
+              Websites need occasional updates " security patches, text changes,
               new photos. Two options are available:
             </p>
             <ul style="margin-top: 0.75rem">
@@ -1517,53 +1467,7 @@
       </div>
     </section>
 
-    <!-- ═══ SECTION 08: NOT INCLUDED ═══ -->
-    <section class="section section--alt">
-      <div class="container">
-        <p class="section-label">Section 08</p>
-        <h2 class="section-heading">What is <em>Not Included</em></h2>
-        <p class="section-sub">
-          To avoid any misunderstandings, these are external costs not covered
-          in any website price. These are industry-standard exclusions.
-        </p>
-        <div class="not-included-grid reveal">
-          <div class="not-included-item">
-            <p class="ni-title">Domain Name</p>
-            <p class="ni-desc">
-              Your web address (e.g. yourbusiness.com) is purchased separately
-              from a registrar like Namecheap or GoDaddy. Annual cost is
-              typically 1,000–1,500 BDT. We guide you through the purchase.
-            </p>
-          </div>
-          <div class="not-included-item">
-            <p class="ni-title">Web Hosting</p>
-            <p class="ni-desc">
-              The server where your site lives. You pay for hosting directly.
-              Static and Semi-Dynamic sites can use GitHub Pages for free.
-              Dynamic sites require a paid server — recommendations provided.
-            </p>
-          </div>
-          <div class="not-included-item">
-            <p class="ni-title">Content &amp; Copywriting</p>
-            <p class="ni-desc">
-              Text and images must be provided by you. If you need help writing
-              content professionally, this can be quoted as a separate service —
-              just ask when requesting your quote.
-            </p>
-          </div>
-          <div class="not-included-item">
-            <p class="ni-title">Third-party API Keys</p>
-            <p class="ni-desc">
-              Some features like Instagram feeds require you to register for
-              your own API key from the platform. Setup guidance is always
-              provided — the key itself belongs to your account, not ours.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ CTA ═══ -->
+    <!-- --- CTA --- -->
     <div class="cta-banner">
       <div class="container">
         <h2>Ready for an<br><em>exact quote?</em></h2>
@@ -1574,256 +1478,162 @@
         <div class="btn-row" style="justify-content: center">
           <a href="start.html" class="btn btn-primary">
             Request Your Quote
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-            >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
-          <a href="services.html" class="btn btn-outline">Explore Services</a>
+          <a href="services.html" class="btn btn-ghost">Explore Services</a>
         </div>
       </div>
     </div>
 
-    <!-- ═══ FOOTER ═══ -->
+    <!-- --- FOOTER --- -->
     <footer class="footer">
       <div class="container">
         <div class="footer-grid">
-          <div class="footer-brand">
-            <p class="footer-brand-name">Akrasia<span>.</span></p>
-            <p>
-              Custom web development for businesses across Bangladesh. Built
-              right, priced fairly.
-            </p>
-            <span class="footer-tag">Team Akrasia &ensp;·&ensp; BD</span>
+          <div>
+            <p class="footer-brand">Akrasia<span>.</span></p>
+            <p class="footer-tagline">Web development, delivered globally. Custom code, transparent pricing.</p>
           </div>
-          <div class="footer-col">
-            <h4>Pages</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="work.html">Our Work</a></li>
-              <li><a href="contact.html">Contact</a></li>
-            </ul>
+          <div>
+            <p class="footer-title">Navigation</p>
+            <div class="footer-links">
+              <a href="index.html">Home</a>
+              <a href="services.html">Services</a>
+              <a href="pricing.html">Pricing</a>
+              <a href="work.html">Our Work</a>
+              <a href="contact.html">Contact</a>
+            </div>
           </div>
-          <div class="footer-col">
-            <h4>Pricing</h4>
-            <ul>
-              <li><a href="pricing.html#calculator">Live Calculator</a></li>
-              <li><a href="services.html#static">Static Tier</a></li>
-              <li><a href="services.html#semi">Semi-Dynamic Tier</a></li>
-              <li><a href="services.html#dynamic">Dynamic Tier</a></li>
-            </ul>
+          <div>
+            <p class="footer-title">Services</p>
+            <div class="footer-links">
+              <a href="services.html#static">Static Websites</a>
+              <a href="services.html#semi">Semi-Dynamic</a>
+              <a href="services.html#dynamic">Dynamic + CMS</a>
+              <a href="services.html#ecommerce">E-commerce</a>
+            </div>
           </div>
-          <div class="footer-col">
-            <h4>Get in Touch</h4>
-            <ul>
-              <li><a href="start.html">Start a Project</a></li>
-              <li><a href="start.html#faq">FAQ</a></li>
-              <li><a href="contact.html#team">Meet the Team</a></li>
-              <li>
-                <a href="mailto:teamtheakrasia@gmail.com"
-                  >teamtheakrasia@gmail.com</a
-                >
-              </li>
-            </ul>
+          <div>
+            <p class="footer-title">Get in Touch</p>
+            <div class="footer-links">
+              <a href="start.html">Start a Project</a>
+              <a href="start.html#faq">FAQ</a>
+              <a href="contact.html#team">The Team</a>
+              <a href="mailto:teamtheakrasia@gmail.com">teamtheakrasia@gmail.com</a>
+            </div>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>© 2025 Akrasia. All prices in BDT.</p>
-          <p>Crafted in <a href="contact.html#team">Bangladesh</a>.</p>
-        </div>
+          <p> 2025 Akrasia. All prices in BDT.</p>
+</div>
       </div>
     </footer>
 
+    <!-- "" JS """"""""""""""""""""""""""""""""""""""""""""""" -->
     <script src="src/js/main.js"></script>
     <script>
-      /* ============================================================
-       Pricing Calculator — v4 (slider + tier-aware inner pages)
-       ============================================================ */
+      /* "" Pricing Calculator "" */
       (function () {
-        "use strict";
+        const innerPageRate = { 0: 0, 4000: 2000, 6000: 3000, 8000: 4000 };
+        const tierLabel = { 0: null, 4000: 'Static', 6000: 'Semi-Dynamic', 8000: 'Dynamic' };
 
-        /* ── Price per inner page by homepage tier ── */
-        const innerPageRate = {
-          0: 0, // no homepage selected
-          4000: 2000, // static
-          6000: 3000, // semi-dynamic
-          8000: 4000, // dynamic
-        };
+        const selHome = document.getElementById('sel-home');
+        const sliderInner = document.getElementById('slider-inner');
+        const sliderCount = document.getElementById('slider-count');
+        const sliderPrice = document.getElementById('slider-price');
+        const innerTierNote = document.getElementById('inner-tier-note');
+        const breakdown = document.getElementById('calc-breakdown');
+        const grandTotal = document.getElementById('calc-grand-total');
+        const quoteBtn = document.getElementById('generate-quote-mail');
+        const resetBtn = document.getElementById('calc-reset-btn');
 
-        const tierLabel = {
-          0: null,
-          4000: "Static",
-          6000: "Semi-Dynamic",
-          8000: "Dynamic",
-        };
+        function fmt(n) { return n.toLocaleString('en-US') + ' BDT'; }
 
-        /* ── DOM refs ── */
-        const selHome = document.getElementById("sel-home");
-        const sliderInner = document.getElementById("slider-inner");
-        const sliderCount = document.getElementById("slider-count");
-        const sliderPrice = document.getElementById("slider-price");
-        const innerTierNote = document.getElementById("inner-tier-note");
-        const breakdown = document.getElementById("calc-breakdown");
-        const grandTotal = document.getElementById("calc-grand-total");
-        const quoteBtn = document.getElementById("generate-quote-mail");
-        const resetBtn = document.getElementById("calc-reset-btn");
-
-        /* ── Helper: format number as BDT ── */
-        function fmt(n) {
-          return n.toLocaleString("en-BD") + " BDT";
-        }
-
-        /* ── Update slider display whenever homepage or slider changes ── */
         function updateSliderDisplay() {
           const tierPrice = selHome.value;
           const rate = innerPageRate[tierPrice] || 0;
           const count = parseInt(sliderInner.value, 10);
           const total = count * rate;
-
-          sliderCount.textContent =
-            count === 0
-              ? "0 pages"
-              : count + (count === 1 ? " page" : " pages");
+          sliderCount.textContent = count === 0 ? '0 pages' : count + (count === 1 ? ' page' : ' pages');
           sliderPrice.textContent = fmt(total);
-
-          if (tierPrice === "0") {
-            innerTierNote.textContent =
-              "Select a homepage tier above to see inner-page pricing.";
+          if (tierPrice === '0') {
+            innerTierNote.textContent = 'Select a homepage tier above to see inner-page pricing.';
           } else {
             const label = tierLabel[tierPrice];
-            innerTierNote.textContent =
-              label +
-              " inner pages — " +
-              fmt(rate) +
-              " each. Drag the slider to choose quantity.";
+            innerTierNote.textContent = label + ' inner pages " ' + fmt(rate) + ' each. Drag the slider to choose quantity.';
           }
         }
 
-        /* ── Recalculate everything and rebuild breakdown ── */
         function recalc() {
           updateSliderDisplay();
-
-          const lines = []; // { name, amount }
+          const lines = [];
           let total = 0;
-
-          /* Homepage */
           const homeVal = parseInt(selHome.value, 10) || 0;
           if (homeVal > 0) {
             const label = tierLabel[selHome.value];
-            lines.push({ name: "Homepage (" + label + ")", amount: homeVal });
+            lines.push({ name: 'Homepage (' + label + ')', amount: homeVal });
             total += homeVal;
           }
-
-          /* Inner pages */
           const rate = innerPageRate[selHome.value] || 0;
           const count = parseInt(sliderInner.value, 10);
           if (count > 0 && rate > 0) {
             const innerTotal = count * rate;
             const label = tierLabel[selHome.value];
-            lines.push({
-              name:
-                count +
-                " inner page" +
-                (count > 1 ? "s" : "") +
-                " (" +
-                label +
-                ")",
-              amount: innerTotal,
-            });
+            lines.push({ name: count + ' inner page' + (count > 1 ? 's' : '') + ' (' + label + ')', amount: innerTotal });
             total += innerTotal;
           }
-
-          /* Checked add-ons */
-          document
-            .querySelectorAll('.calc-form input[type="checkbox"]:checked')
-            .forEach(function (el) {
-              const price = parseInt(el.dataset.price, 10) || 0;
-              const name = el.dataset.name || "Add-on";
-              lines.push({ name: name, amount: price });
-              total += price;
-            });
-
-          /* Render breakdown rows */
-          breakdown.innerHTML = "";
+          document.querySelectorAll('.calc-form input[type="checkbox"]:checked').forEach(function (el) {
+            const price = parseInt(el.dataset.price, 10) || 0;
+            const name = el.dataset.name || 'Add-on';
+            lines.push({ name: name, amount: price });
+            total += price;
+          });
+          breakdown.innerHTML = '';
           if (lines.length === 0) {
-            breakdown.innerHTML =
-              '<p style="font-size:13px; color:var(--text-3); font-style:italic; padding:0.5rem 0;">No items selected yet.</p>';
+            breakdown.innerHTML = '<p style="font-size:0.8rem; color:var(--text-secondary); font-style:italic; padding:0.5rem 0;">No items selected yet.</p>';
           } else {
             lines.forEach(function (line) {
-              const row = document.createElement("div");
-              row.className = "calc-breakdown-row";
-              row.innerHTML =
-                "<span>" +
-                line.name +
-                "</span>" +
-                "<span>" +
-                fmt(line.amount) +
-                "</span>";
+              const row = document.createElement('div');
+              row.className = 'calc-breakdown-row';
+              row.innerHTML = '<span>' + line.name + '</span><span>' + fmt(line.amount) + '</span>';
               breakdown.appendChild(row);
             });
           }
-
-          /* Grand total */
           grandTotal.textContent = fmt(total);
-
-          /* Update quote mailto link */
           if (quoteBtn) {
-            const subject = encodeURIComponent(
-              "Project Quote Request — Akrasia",
-            );
+            const subject = encodeURIComponent('Project Quote Request " Akrasia');
             const body = encodeURIComponent(
-              "Hello Team Akrasia,\n\n" +
-                "I used the calculator on your pricing page and my estimated total is " +
-                total.toLocaleString("en-BD") +
-                " BDT.\n\n" +
-                "Selected items:\n" +
-                lines
-                  .map(function (l) {
-                    return "  · " + l.name + " — " + fmt(l.amount);
-                  })
-                  .join("\n") +
-                "\n\nPlease send me a formal, itemised quote.\n\nThank you.",
+              'Hello Team Akrasia,\n\nI used the calculator on your pricing page and my estimated total is ' +
+              total.toLocaleString('en-US') + ' BDT.\n\nSelected items:\n' +
+              lines.map(function (l) { return '  - ' + l.name + ' " ' + fmt(l.amount); }).join('\n') +
+              '\n\nPlease send me a formal, itemised quote.\n\nThank you.'
             );
-            quoteBtn.href =
-              "mailto:teamtheakrasia@gmail.com?subject=" +
-              subject +
-              "&body=" +
-              body;
+            quoteBtn.href = 'mailto:teamtheakrasia@gmail.com?subject=' + subject + '&body=' + body;
           }
         }
 
-        /* ── Event listeners ── */
-        if (selHome) selHome.addEventListener("change", recalc);
-        if (sliderInner) sliderInner.addEventListener("input", recalc);
-        document
-          .querySelectorAll('.calc-form input[type="checkbox"]')
-          .forEach(function (el) {
-            el.addEventListener("change", recalc);
-          });
-
-        /* ── Reset ── */
+        if (selHome) selHome.addEventListener('change', recalc);
+        if (sliderInner) sliderInner.addEventListener('input', recalc);
+        document.querySelectorAll('.calc-form input[type="checkbox"]').forEach(function (el) {
+          el.addEventListener('change', recalc);
+        });
         if (resetBtn) {
-          resetBtn.addEventListener("click", function () {
-            selHome.value = "0";
-            sliderInner.value = "0";
-            document
-              .querySelectorAll('.calc-form input[type="checkbox"]')
-              .forEach(function (el) {
-                el.checked = false;
-              });
+          resetBtn.addEventListener('click', function () {
+            selHome.value = '0';
+            sliderInner.value = '0';
+            document.querySelectorAll('.calc-form input[type="checkbox"]').forEach(function (el) { el.checked = false; });
             recalc();
           });
         }
-
-        /* ── Init ── */
         recalc();
       })();
     </script>
+    <script src="src/js/liquid-metal.js"></script>
   </body>
 </html>
+
+
+
+
+
