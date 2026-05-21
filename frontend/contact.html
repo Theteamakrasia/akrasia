@@ -352,7 +352,8 @@
 
         <div class="project-enquiry-form" style="max-width:640px;border-radius:var(--r-lg)">
 
-          <form id="enquiry-form">
+          <!-- ✅ FIX: added onsubmit="return false;" and changed button type to "submit" -->
+          <form id="enquiry-form" onsubmit="return false;">
 
             <div class="field">
               <label for="name">Full name</label>
@@ -392,7 +393,8 @@
               ></textarea>
             </div>
 
-            <button type="button" id="submit-btn" class="btn btn-primary" style="width:100%">
+            <!-- Changed type="button" → type="submit" -->
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%">
               Send Enquiry
             </button>
 
@@ -793,7 +795,3 @@
     <script src="src/js/liquid-metal.js"></script>
   </body>
 </html>
-
-
-
-
