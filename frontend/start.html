@@ -1,36 +1,36 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-    <title>Start a Project — Akrasia</title>
+    <title>Start a Project " Akrasia</title>
     <meta
       name="description"
       content="Tell us about your project and receive a formal, itemised proposal from Team Akrasia within one business day."
     >
     <link rel="stylesheet" href="src/css/main.css" >
     <style>
-      /* ── Quote form wrapper ── */
+      /* "" Quote form wrapper "" */
       .quote-form-wrap {
-        background: var(--surface);
-        border: 1px solid var(--rule-md);
+        background: var(--bg-surface);
+        border: 1px solid var(--border-thin);
       }
       .quote-form-header {
         padding: 2rem 2.5rem;
-        border-bottom: 1px solid var(--rule);
-        background: var(--bg-2);
+        border-bottom: 1px solid var(--border-thin);
+        background: var(--bg-ash-dark);
       }
       .quote-form-header h3 {
-        font-family: var(--serif);
+        font-family: var(--font-serif);
         font-size: 1.3rem;
         font-weight: 400;
-        color: var(--text);
+        color: var(--text-primary);
         margin-bottom: 0.3rem;
       }
-      .quote-form-header p {
+.quote-form-header p {
         font-size: 13px;
-        color: var(--text-3);
+        color: var(--text-secondary);
       }
       .quote-form-body {
         padding: 2.5rem;
@@ -39,7 +39,7 @@
       .qf-section {
         margin-bottom: 2.75rem;
         padding-bottom: 2.75rem;
-        border-bottom: 1px solid var(--rule);
+        border-bottom: 1px solid var(--border-thin);
       }
       .qf-section:last-of-type {
         border-bottom: none;
@@ -51,7 +51,7 @@
         font-weight: 700;
         letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: var(--gold);
+        color: var(--text-secondary);
         margin-bottom: 1.75rem;
         display: flex;
         align-items: center;
@@ -61,7 +61,7 @@
         content: "";
         flex: 1;
         height: 1px;
-        background: var(--rule);
+        background: var(--border-thin);
       }
 
       .form-row {
@@ -80,20 +80,20 @@
         display: block;
         font-size: 10px;
         font-weight: 700;
-        color: var(--text-3);
+        color: var(--text-secondary);
         letter-spacing: 0.16em;
         text-transform: uppercase;
         margin-bottom: 0.55rem;
       }
       .form-control {
         width: 100%;
-        background: var(--bg);
-        border: 1px solid var(--rule-md);
+        background: var(--bg-ash-light);
+        border: 1px solid var(--border-thin);
         border-radius: 0;
         padding: 0.82rem 1rem;
         font-size: 14px;
-        color: var(--text);
-        font-family: var(--sans);
+        color: var(--text-primary);
+        font-family: var(--font-sans);
         transition: border-color 0.2s;
         outline: none;
         resize: vertical;
@@ -101,11 +101,11 @@
         appearance: none;
       }
       .form-control:focus {
-        border-color: var(--rule-dark);
-        background: var(--surface);
+        border-color: var(--border-thin);
+        background: var(--bg-surface);
       }
       .form-control::placeholder {
-        color: var(--text-4);
+        color: var(--text-muted);
       }
       select.form-control {
         cursor: pointer;
@@ -115,8 +115,8 @@
         padding-right: 2.25rem;
       }
       select.form-control option {
-        background: var(--surface);
-        color: var(--text);
+        background: var(--bg-surface);
+        color: var(--text-primary);
       }
 
       .form-success {
@@ -127,8 +127,8 @@
       .form-success-mark {
         width: 50px;
         height: 50px;
-        border: 1px solid var(--gold-rule);
-        background: var(--gold-dim);
+        border: 1px solid var(--border-thin);
+        background: var(--accent-dim);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -136,82 +136,78 @@
         font-size: 1.3rem;
       }
       .form-success h4 {
-        font-family: var(--serif);
+        font-family: var(--font-serif);
         font-size: 1.5rem;
         font-weight: 400;
-        color: var(--text);
+        color: var(--text-primary);
         margin-bottom: 0.65rem;
       }
       .form-success p {
         font-size: 14px;
-        color: var(--text-2);
+        color: var(--text-secondary);
         max-width: 360px;
         margin: 0 auto;
       }
 
-      /* ── FAQ ── */
+      /* "" FAQ (extends global accordion) "" */
       .faq-list {
-        border: 1px solid var(--rule-md);
+        border: 1px solid var(--border-thin);
       }
-      .faq-item {
-        border-bottom: 1px solid var(--rule);
+      .accordion-item {
+        border-bottom: 1px solid var(--border-thin);
       }
-      .faq-item:last-child {
+      .accordion-item:last-child {
         border-bottom: none;
       }
-      .faq-q {
+      .accordion-trigger {
         width: 100%;
-        background: var(--surface);
+        background: var(--bg-surface);
         border: none;
         text-align: left;
         padding: 1.35rem 1.75rem;
         font-size: 14px;
         font-weight: 500;
-        color: var(--text);
+        color: var(--text-primary);
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 1.5rem;
         cursor: pointer;
         transition: background 0.2s;
-        font-family: var(--sans);
+        font-family: var(--font-sans);
       }
-      .faq-q:hover {
-        background: var(--bg-2);
+      .accordion-trigger:hover {
+        background: var(--bg-ash-dark);
       }
-      .faq-icon {
+      .accordion-icon {
         width: 22px;
         height: 22px;
-        border: 1px solid var(--rule-md);
+        border: 1px solid var(--border-thin);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 16px;
-        color: var(--gold);
+        color: var(--text-secondary);
         flex-shrink: 0;
         transition:
-          transform 0.3s var(--ease),
+          transform 0.3s var(--ease-out),
           background 0.2s;
         line-height: 1;
       }
-      .faq-item.open .faq-icon {
+      .accordion-item.is-open .accordion-icon {
         transform: rotate(45deg);
-        background: var(--gold-dim);
+        background: var(--accent-dim);
       }
-      .faq-item.open .faq-q {
-        background: var(--bg-2);
+      .accordion-item.is-open .accordion-trigger {
+        background: var(--bg-ash-dark);
       }
-      .faq-a {
-        display: none;
+      .accordion-content {
         padding: 0 1.75rem 1.35rem;
         font-size: 13.5px;
-        color: var(--text-2);
+        color: var(--text-secondary);
         line-height: 1.85;
-        border-top: 1px solid var(--rule);
-        background: var(--bg-2);
-      }
-      .faq-item.open .faq-a {
-        display: block;
+        border-top: 1px solid var(--border-thin);
+        background: var(--bg-ash-dark);
       }
 
       @media (max-width: 600px) {
@@ -228,33 +224,81 @@
     </style>
   </head>
   <body>
-    <!-- ── NAV ─────────────────────────────────────────── -->
+
+    <svg style="width:0;height:0;position:absolute;visibility:hidden;" aria-hidden="true">
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="goo" />
+      </filter>
+    </svg>
+    <div class="liquid-bg" aria-hidden="true">
+      <canvas id="liquid-canvas"></canvas>
+    </div>
+    <div class="liquid-lighting" aria-hidden="true"></div>
+
+    <!-- "" NAV """"""""""""""""""""""""""""""""""""""""""" -->
     <nav class="nav">
       <div class="container">
         <a href="index.html" class="nav-logo">Akrasia<span>.</span></a>
         <div class="nav-links">
           <a href="index.html">Home</a>
-          <a href="services.html">Services</a>
-          <a href="pricing.html">Pricing</a>
+          <div class="nav-dropdown-group">
+            <a href="services.html">Services</a>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Static</span>
+                <a href="services.html#static">Overview</a>
+                <a href="pricing.html">Pricing</a>
+              </div>
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Semi-Dynamic</span>
+                <a href="services.html#semi">Overview</a>
+                <a href="pricing.html">Pricing</a>
+              </div>
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Dynamic</span>
+                <a href="services.html#dynamic">Overview</a>
+                <a href="pricing.html">Pricing</a>
+              </div>
+            </div>
+          </div>
+          <div class="nav-dropdown-group">
+            <a href="pricing.html">Pricing</a>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Calculator</span>
+                <a href="pricing.html#calculator">Live Estimate</a>
+              </div>
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">Tiers</span>
+                <a href="pricing.html">Compare Prices</a>
+              </div>
+              <div class="nav-dropdown-col">
+                <span class="nav-dropdown-label">FAQ</span>
+                <a href="start.html#faq">Common Questions</a>
+              </div>
+            </div>
+          </div>
           <a href="work.html">Our Work</a>
           <a href="contact.html">Contact</a>
-          <a href="start.html" class="nav-cta active">Start a Project</a>
+          <a href="start.html" class="nav-cta">Start a Project</a>
         </div>
         <button type="button" class="nav-hamburger" aria-label="Open menu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
+    <div class="nav-overlay"></div>
     <div class="nav-mobile">
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
       <a href="pricing.html">Pricing</a>
       <a href="work.html">Our Work</a>
       <a href="contact.html">Contact</a>
-      <a href="start.html" class="nav-cta active">Start a Project</a>
+      <a href="start.html" class="nav-cta">Start a Project</a>
     </div>
 
-    <!-- ── PAGE HERO ─────────────────────────────────────── -->
+    <!-- "" PAGE HERO """"""""""""""""""""""""""""""""""""""" -->
     <div class="page-hero">
       <div class="container">
         <p class="page-eyebrow">Start a Project</p>
@@ -267,7 +311,7 @@
       </div>
     </div>
 
-    <!-- ── QUOTE FORM ────────────────────────────────────── -->
+    <!-- "" QUOTE FORM """""""""""""""""""""""""""""""""""""" -->
     <section class="section" id="quote">
       <div class="container">
         <p class="section-eyebrow">Project Enquiry</p>
@@ -289,10 +333,10 @@
           </div>
 
           <div class="quote-form-body">
-            <form class="quote-form contact-form">
+            <form class="quote-form" data-form data-endpoint="/api/orders" action="/api/orders" method="POST">
               <!-- 01 Contact Information -->
               <div class="qf-section">
-                <p class="qf-section-title">01 — Contact Information</p>
+                <p class="qf-section-title">01 " Contact Information</p>
                 <div class="form-row">
                   <div class="form-group">
                     <label class="form-label" for="q-name">Your Name *</label>
@@ -341,7 +385,7 @@
                       type="tel"
                       id="q-phone"
                       name="phone"
-                      placeholder="+880 …"
+                      placeholder="Phone"
                     >
                   </div>
                 </div>
@@ -349,7 +393,7 @@
 
               <!-- 02 Project Details -->
               <div class="qf-section">
-                <p class="qf-section-title">02 — Project Details</p>
+                <p class="qf-section-title">02 " Project Details</p>
                 <div class="form-row">
                   <div class="form-group">
                     <label class="form-label" for="q-service"
@@ -370,7 +414,7 @@
                       <option>E-commerce Website</option>
                       <option>Website Redesign</option>
                       <option>Landing Page / Microsite</option>
-                      <option>I'm not sure — please advise</option>
+                      <option>I'm not sure " please advise</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -396,11 +440,11 @@
                         Select budget range
                       </option>
                       <option>Under 15,000 BDT</option>
-                      <option>15,000 – 30,000 BDT</option>
-                      <option>30,000 – 60,000 BDT</option>
-                      <option>60,000 – 100,000 BDT</option>
+                      <option>15,000 " 30,000 BDT</option>
+                      <option>30,000 " 60,000 BDT</option>
+                      <option>60,000 " 100,000 BDT</option>
                       <option>100,000+ BDT</option>
-                      <option>Flexible — open to recommendation</option>
+                      <option>Flexible " open to recommendation</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -415,10 +459,10 @@
                       <option value="" disabled selected>
                         Select timeline
                       </option>
-                      <option>As soon as possible (1–2 weeks)</option>
+                      <option>As soon as possible (1"2 weeks)</option>
                       <option>Within 1 month</option>
-                      <option>Within 2–3 months</option>
-                      <option>No specific deadline — quality over speed</option>
+                      <option>Within 2"3 months</option>
+                      <option>No specific deadline " quality over speed</option>
                     </select>
                   </div>
                 </div>
@@ -439,7 +483,7 @@
 
               <!-- 03 Preferences & Context -->
               <div class="qf-section">
-                <p class="qf-section-title">03 — Preferences &amp; Context</p>
+                <p class="qf-section-title">03 " Preferences &amp; Context</p>
                 <div class="form-row">
                   <div class="form-group">
                     <label class="form-label" for="q-comm"
@@ -464,7 +508,7 @@
                       >How Did You Hear About Us?</label
                     >
                     <select class="form-control" id="q-source" name="referralSource">
-                      <option value="" disabled selected>Select…</option>
+                      <option value="" disabled selected>Select</option>
                       <option>Google Search</option>
                       <option>GitHub</option>
                       <option>Word of mouth / referral</option>
@@ -509,14 +553,14 @@
             </form>
 
             <div class="form-success">
-              <div class="form-success-mark">✓</div>
+              <div class="form-success-mark">"</div>
               <h4>Enquiry received.</h4>
               <p>
                 Thank you. We'll review your project details and return a
                 formal, itemised proposal within one business day at
                 <a
                   href="mailto:teamtheakrasia@gmail.com"
-                  style="color: var(--gold)"
+                  style="color: var(--text-secondary)"
                   >teamtheakrasia@gmail.com</a
                 >.
               </p>
@@ -526,40 +570,40 @@
       </div>
     </section>
 
-    <!-- ── FAQ ───────────────────────────────────────────── -->
-    <section class="section section--alt" id="faq">
+    <!-- "" FAQ """"""""""""""""""""""""""""""""""""""""""""" -->
+    <section class="section section--bg-alt" id="faq">
       <div class="container">
         <p class="section-eyebrow">FAQ</p>
         <h2 class="section-heading">Questions we get <em>asked most.</em></h2>
         <p class="section-sub" style="margin-bottom: 2.5rem">
-          If your question is not answered below, email us directly — we reply
+          If your question is not answered below, email us directly " we reply
           to every message personally.
         </p>
 
-        <div class="faq-list reveal">
-          <div class="faq-item">
-            <button type="button" class="faq-q">
+        <div class="faq-list reveal" data-accordion-single>
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false">
               How do I know which tier is right for my business?
-              <span class="faq-icon">+</span>
+              <span class="accordion-icon">+</span>
             </button>
-            <div class="faq-a">
+            <div class="accordion-content">
               Start by asking what your site needs to do. If it just needs to
               show information about your business, Static is likely right. If
               you post frequently on social media and want that reflected live
               on your site, Semi-Dynamic. If you need to update content
               yourself, manage users, or sell products, you need Dynamic. When
-              in doubt, tell us your goals — not the tier you think you need —
+              in doubt, tell us your goals " not the tier you think you need "
               and we'll recommend the most cost-effective option.
             </div>
           </div>
 
-          <div class="faq-item">
-            <button type="button" class="faq-q">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false">
               Can I upgrade from Static to Dynamic later?
-              <span class="faq-icon">+</span>
+              <span class="accordion-icon">+</span>
             </button>
-            <div class="faq-a">
-              Yes, but it requires a rebuild rather than a simple upgrade — the
+            <div class="accordion-content">
+              Yes, but it requires a rebuild rather than a simple upgrade " the
               underlying architecture is fundamentally different. Your design,
               content, and brand identity carry over completely. We plan this
               upgrade with you in advance when it makes sense, so you don't
@@ -567,56 +611,56 @@
             </div>
           </div>
 
-          <div class="faq-item">
-            <button type="button" class="faq-q">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false">
               What do I need to provide before work begins?
-              <span class="faq-icon">+</span>
+              <span class="accordion-icon">+</span>
             </button>
-            <div class="faq-a">
+            <div class="accordion-content">
               At minimum: your business name, preferred colour palette or brand
               guidelines, and the text content for each page. Photographs and
               logos should be provided in high resolution. If you don't have
-              these yet, let us know — we can discuss timelines accordingly, or
+              these yet, let us know " we can discuss timelines accordingly, or
               quote for basic copywriting assistance.
             </div>
           </div>
 
-          <div class="faq-item">
-            <button type="button" class="faq-q">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false">
               How long does a typical project take?
-              <span class="faq-icon">+</span>
+              <span class="accordion-icon">+</span>
             </button>
-            <div class="faq-a">
-              A 3–5 page Static site typically takes 7–14 days from deposit
+            <div class="accordion-content">
+              A 3"5 page Static site typically takes 7"14 days from deposit
               payment to delivery, assuming content is ready. Semi-Dynamic sites
-              with social integrations: 14–21 days. Dynamic sites with CMS: 3–6
+              with social integrations: 14"21 days. Dynamic sites with CMS: 3"6
               weeks depending on complexity. These timelines assume timely
               feedback from your side at each review stage.
             </div>
           </div>
 
-          <div class="faq-item">
-            <button type="button" class="faq-q">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false">
               What happens after the site is delivered?
-              <span class="faq-icon">+</span>
+              <span class="accordion-icon">+</span>
             </button>
-            <div class="faq-a">
+            <div class="accordion-content">
               You receive all source files and can host the site wherever you
               choose. We offer two ongoing maintenance options: a monthly
               retainer (approximately 2,000 BDT/month) covering minor text
               updates, security patches, and priority response; or per-update
               billing at approximately 1,000 BDT/hour for occasional changes.
-              Neither is required — you are free to manage the site yourself or
+              Neither is required " you are free to manage the site yourself or
               hand it to any other developer.
             </div>
           </div>
 
-          <div class="faq-item">
-            <button type="button" class="faq-q">
-              Do you work with clients outside Bangladesh?
-              <span class="faq-icon">+</span>
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false">
+              Do you work with international clients?
+              <span class="accordion-icon">+</span>
             </button>
-            <div class="faq-a">
+            <div class="accordion-content">
               Yes. We work remotely with clients in any country. All pricing is
               quoted in BDT for transparency; international payments can be
               discussed on a case-by-case basis. Communication is in English or
@@ -624,35 +668,35 @@
             </div>
           </div>
 
-          <div class="faq-item">
-            <button type="button" class="faq-q">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false">
               What is the refund policy if I am not satisfied?
-              <span class="faq-icon">+</span>
+              <span class="accordion-icon">+</span>
             </button>
-            <div class="faq-a">
+            <div class="accordion-content">
               The deposit is non-refundable once development begins, as it
               covers design and initial build time. If the delivered work does
               not meet the agreed specification after revisions, we will work to
               resolve it at no extra charge. We have never had a dispute that
-              required escalation — clear written quotes and regular check-ins
+              required escalation " clear written quotes and regular check-ins
               prevent the majority of misunderstandings before they occur.
             </div>
           </div>
 
-          <div class="faq-item">
-            <button type="button" class="faq-q">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false">
               Can I use the pricing calculator before submitting this form?
-              <span class="faq-icon">+</span>
+              <span class="accordion-icon">+</span>
             </button>
-            <div class="faq-a">
+            <div class="accordion-content">
               Absolutely. The live calculator on the
-              <a href="pricing.html#calculator" style="color: var(--gold)"
+              <a href="pricing.html#calculator" style="color: var(--text-secondary)"
                 >Pricing page</a
               >
               lets you build an estimate by selecting a tier and ticking
               add-ons. Your estimated total can then be referenced when you fill
               in the budget field above. The formal quote we return will be
-              exact and itemised — it may be higher or lower depending on
+              exact and itemised " it may be higher or lower depending on
               technical scope we identify after reviewing your goals.
             </div>
           </div>
@@ -660,7 +704,7 @@
       </div>
     </section>
 
-    <!-- ── CTA ───────────────────────────────────────────── -->
+    <!-- "" CTA """"""""""""""""""""""""""""""""""""""""""""" -->
     <div class="cta-banner">
       <div class="container">
         <h2>Questions answered.<br><em>Ready to start?</em></h2>
@@ -680,63 +724,59 @@
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
-          <a href="pricing.html" class="btn btn-outline">View Pricing</a>
+          <a href="pricing.html" class="btn btn-ghost">View Pricing</a>
         </div>
       </div>
     </div>
 
-    <!-- ── FOOTER ────────────────────────────────────────── -->
+    <!-- "" FOOTER """""""""""""""""""""""""""""""""""""""""" -->
     <footer class="footer">
       <div class="container">
         <div class="footer-grid">
-          <div class="footer-brand">
-            <p class="footer-brand-name">Akrasia<span>.</span></p>
-            <p>
-              Custom web development for businesses across Bangladesh. Built
-              with care, priced with integrity.
-            </p>
-            <span class="footer-tag">Team Akrasia &ensp;·&ensp; BD</span>
+          <div>
+            <p class="footer-brand">Akrasia<span>.</span></p>
+            <p class="footer-tagline">Web development, delivered globally. Custom code, transparent pricing.</p>
           </div>
-          <div class="footer-col">
-            <h4>Navigation</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="work.html">Our Work</a></li>
-              <li><a href="contact.html">Contact</a></li>
-            </ul>
+          <div>
+            <p class="footer-title">Navigation</p>
+            <div class="footer-links">
+              <a href="index.html">Home</a>
+              <a href="services.html">Services</a>
+              <a href="pricing.html">Pricing</a>
+              <a href="work.html">Our Work</a>
+              <a href="contact.html">Contact</a>
+            </div>
           </div>
-          <div class="footer-col">
-            <h4>Services</h4>
-            <ul>
-              <li><a href="services.html#static">Static Websites</a></li>
-              <li><a href="services.html#semi">Semi-Dynamic</a></li>
-              <li><a href="services.html#dynamic">Dynamic + CMS</a></li>
-              <li><a href="services.html#ecommerce">E-commerce</a></li>
-            </ul>
+          <div>
+            <p class="footer-title">Services</p>
+            <div class="footer-links">
+              <a href="services.html#static">Static Websites</a>
+              <a href="services.html#semi">Semi-Dynamic</a>
+              <a href="services.html#dynamic">Dynamic + CMS</a>
+              <a href="services.html#ecommerce">E-commerce</a>
+            </div>
           </div>
-          <div class="footer-col">
-            <h4>Get in Touch</h4>
-            <ul>
-              <li><a href="start.html">Start a Project</a></li>
-              <li><a href="start.html#faq">FAQ</a></li>
-              <li><a href="contact.html#team">The Team</a></li>
-              <li>
-                <a href="mailto:teamtheakrasia@gmail.com"
-                  >teamtheakrasia@gmail.com</a
-                >
-              </li>
-            </ul>
+          <div>
+            <p class="footer-title">Get in Touch</p>
+            <div class="footer-links">
+              <a href="start.html">Start a Project</a>
+              <a href="start.html#faq">FAQ</a>
+              <a href="contact.html#team">The Team</a>
+              <a href="mailto:teamtheakrasia@gmail.com">teamtheakrasia@gmail.com</a>
+            </div>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>© 2025 Akrasia. All prices in BDT.</p>
-          <p>Crafted in <a href="contact.html#team">Bangladesh</a>.</p>
-        </div>
+          <p> 2025 Akrasia. All prices in BDT.</p>
+</div>
       </div>
     </footer>
 
     <script src="src/js/main.js"></script>
+    <script src="src/js/liquid-metal.js"></script>
   </body>
 </html>
+
+
+
+
