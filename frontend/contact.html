@@ -340,6 +340,82 @@
       </div>
     </section>
 
+    <!-- "" ENQUIRY FORM """""""""""""""""""""""""""""""" -->
+    <section class="section" id="enquiry">
+      <div class="container">
+        <p class="section-eyebrow">Project Enquiry</p>
+        <h2 class="section-heading">Start a <em>conversation.</em></h2>
+        <p class="section-sub">
+          Fill in the form below and we'll reply within 24 hours with a
+          formal, itemised proposal — always in writing, never automated.
+        </p>
+
+        <div class="project-enquiry-form" style="max-width:640px;border-radius:var(--r-lg)">
+
+          <form id="enquiry-form">
+
+            <div class="field">
+              <label for="name">Full name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="input"
+                placeholder="Your name"
+                autocomplete="name"
+                required
+              >
+            </div>
+
+            <div class="field">
+              <label for="email">Email address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="input"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              >
+            </div>
+
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                class="textarea"
+                placeholder="Tell us about your project…"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+
+            <button type="button" id="submit-btn" class="btn btn-primary" style="width:100%">
+              Send Enquiry
+            </button>
+
+          </form>
+
+          <!-- Shown after successful submission -->
+          <div
+            id="form-status"
+            style="display:none;text-align:center;padding:2rem 0"
+            aria-live="polite"
+          >
+            <p style="font-size:1.25rem;font-weight:600;margin-bottom:0.5rem;color:var(--accent)">
+              Message sent!
+            </p>
+            <p style="color:var(--text-secondary);font-size:0.9rem">
+              We'll be in touch within 24 hours.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- "" TEAM """""""""""""""""""""""""""""""""""""""" -->
     <section class="section section--bg-alt" id="team">
       <div class="container">
@@ -713,6 +789,7 @@
 
     })();
     </script>
+    <script type="module" src="src/js/pages/contact.js"></script>
     <script src="src/js/liquid-metal.js"></script>
   </body>
 </html>
