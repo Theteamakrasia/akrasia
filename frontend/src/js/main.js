@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   'use strict';
 
   /* â”€â”€ NAV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -189,7 +189,8 @@
         clearErrors(form);
         if (btn) btn.textContent = 'Sendingâ€¦';
 
-        fetch(endpoint, {
+        var fullUrl = (window.__API_BASE__ || '') + endpoint;
+        fetch(fullUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(serialize(form))
