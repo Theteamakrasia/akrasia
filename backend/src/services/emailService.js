@@ -1,24 +1,122 @@
 /**
  * services/emailService.js
- * Handles all outgoing email via Resend API.
+ * Handles all outgoing email via Brevo (Sendinblue) API.
  *
  * Two emails are sent on every submission:
  *   1. Notification to teamtheakrasia@gmail.com
  *   2. Confirmation to the submitting client
+ *
+ * Built-in spam protection:
+ *   - HTML escaping of all user-provided content
+ *   - Local rate limiter (12 emails/minute)
+ *   - Exponential backoff retry on transient errors (429, 5xx)
+ *   - Brevo-side DKIM/SPF, bounce tracking, complaint monitoring
  */
 
-const { Resend } = require("resend");
-const config     = require("../config");
+const https = require("https");
+const config = require("../config");
 
-// ── Client (lazy-initialised) ────────────────────────────────
-let client;
+// ── Spam protection: HTML-escaping ───────────────────────────
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
 
-function getClient() {
-  if (!client) {
-    console.log("Initializing Resend client...");
-    client = new Resend(config.resendApiKey);
+function sanitizeSubject(str) {
+  return String(str).replace(/[\r\n]/g, "").trim();
+}
+
+// ── Spam protection: local rate limiter ───────────────────────
+const rateLimitState = { timestamps: [], maxPerMinute: 12 };
+
+function checkRateLimit() {
+  const now = Date.now();
+  rateLimitState.timestamps = rateLimitState.timestamps.filter(
+    (t) => now - t < 60000
+  );
+  if (rateLimitState.timestamps.length >= rateLimitState.maxPerMinute) {
+    return false;
   }
-  return client;
+  rateLimitState.timestamps.push(now);
+  return true;
+}
+
+// ── Brevo API call ───────────────────────────────────────────
+function sendViaBrevo({ to, subject, html }) {
+  if (!checkRateLimit()) {
+    const err = new Error("Local rate limit exceeded (12/min)");
+    err.statusCode = 429;
+    return Promise.reject(err);
+  }
+
+  const payload = JSON.stringify({
+    sender: {
+      name: config.brevoSenderName,
+      email: config.brevoSenderEmail,
+    },
+    to: [{ email: to }],
+    subject,
+    htmlContent: html,
+  });
+
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: "api.brevo.com",
+      path: "/v3/smtp/email",
+      method: "POST",
+      headers: {
+        "api-key": config.brevoApiKey,
+        "Content-Type": "application/json",
+        "Content-Length": Buffer.byteLength(payload),
+        Accept: "application/json",
+      },
+    };
+
+    const req = https.request(options, (res) => {
+      let body = "";
+      res.on("data", (chunk) => (body += chunk));
+      res.on("end", () => {
+        if (res.statusCode === 201) {
+          try {
+            resolve(JSON.parse(body));
+          } catch {
+            resolve({});
+          }
+        } else {
+          const err = new Error(
+            `Brevo API error: ${res.statusCode}`
+          );
+          err.statusCode = res.statusCode;
+          err.responseBody = body;
+          reject(err);
+        }
+      });
+    });
+
+    req.on("error", reject);
+    req.write(payload);
+    req.end();
+  });
+}
+
+// ── Spam protection: retry with backoff ───────────────────────
+async function sendWithRetry(options, maxRetries = 2) {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await sendViaBrevo(options);
+    } catch (err) {
+      const isRetryable = [429, 500, 502, 503, 504].includes(
+        err.statusCode
+      );
+      if (!isRetryable || attempt === maxRetries) throw err;
+      const delay = Math.pow(2, attempt) * 1000; // 1s, then 2s
+      await new Promise((r) => setTimeout(r, delay));
+    }
+  }
 }
 
 // ── Shared CSS for email templates ────────────────────────────
@@ -42,29 +140,31 @@ const emailBaseStyles = `
 
 // ── Template: notification to company ─────────────────────────
 function buildCompanyNotification(type, data) {
-  const isOrder   = type === "order";
-  const title     = isOrder ? "New Project Request" : "New Contact Enquiry";
-  const sourcePage = data.sourcePage || (isOrder ? "start.html" : "contact.html");
+  const isOrder = type === "order";
+  const title = isOrder ? "New Project Request" : "New Contact Enquiry";
+  const sourcePage = escapeHtml(
+    data.sourcePage || (isOrder ? "start.html" : "contact.html")
+  );
 
   const rows = isOrder
     ? [
-        ["Name",          data.name],
-        ["Email",         data.email],
-        ["Phone",         data.phone         || "—"],
-        ["Company",       data.company        || "—"],
-        ["Service",       data.service],
-        ["Project Type",  data.projectType    || "—"],
-        ["Budget",        data.budget         || "—"],
-        ["Timeline",      data.timeline       || "—"],
-        ["Communication", data.communication  || "—"],
-        ["Referral",      data.referralSource || "—"],
-        ["Goals",         data.goals,          true],
-        ["Notes",         data.notes          || "—", true],
+        ["Name", escapeHtml(data.name)],
+        ["Email", escapeHtml(data.email)],
+        ["Phone", escapeHtml(data.phone || "—")],
+        ["Company", escapeHtml(data.company || "—")],
+        ["Service", escapeHtml(data.service)],
+        ["Project Type", escapeHtml(data.projectType || "—")],
+        ["Budget", escapeHtml(data.budget || "—")],
+        ["Timeline", escapeHtml(data.timeline || "—")],
+        ["Communication", escapeHtml(data.communication || "—")],
+        ["Referral", escapeHtml(data.referralSource || "—")],
+        ["Goals", escapeHtml(data.goals), true],
+        ["Notes", escapeHtml(data.notes || "—"), true],
       ]
     : [
-        ["Name",    data.name],
-        ["Email",   data.email],
-        ["Message", data.message, true],
+        ["Name", escapeHtml(data.name)],
+        ["Email", escapeHtml(data.email)],
+        ["Message", escapeHtml(data.message), true],
       ];
 
   const rowsHtml = rows
@@ -76,7 +176,7 @@ function buildCompanyNotification(type, data) {
     .join("");
 
   return {
-    subject: `[Akrasia] ${title} — ${data.name}`,
+    subject: `[Akrasia] ${title} — ${sanitizeSubject(data.name)}`,
     html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
       <title>${title}</title><style>${emailBaseStyles}</style></head>
       <body><div class="wrapper">
@@ -99,8 +199,8 @@ function buildCompanyNotification(type, data) {
 
 // ── Template: confirmation to client ──────────────────────────
 function buildClientConfirmation(type, data) {
-  const isOrder   = type === "order";
-  const firstName = data.name.split(" ")[0];
+  const isOrder = type === "order";
+  const firstName = escapeHtml(data.name.split(" ")[0]);
 
   return {
     subject: `We received your ${isOrder ? "project request" : "message"} — Akrasia`,
@@ -130,9 +230,9 @@ function buildClientConfirmation(type, data) {
                 </p>`
           }
           <div class="field-label">What you submitted</div>
-          <div class="field-value">${isOrder ? data.service : "General enquiry"}</div>
+          <div class="field-value">${isOrder ? escapeHtml(data.service) : "General enquiry"}</div>
           <div class="field-label">Your reference</div>
-          <div class="field-value">${data.id || "—"}</div>
+          <div class="field-value">${escapeHtml(data.id || "—")}</div>
           <br>
           <p style="color:#5a5450; font-size:13px;">
             Team Akrasia · Bangladesh<br>
@@ -156,36 +256,29 @@ function buildClientConfirmation(type, data) {
  * @param {object} data  — validated form payload + { id, sourcePage }
  */
 async function sendSubmissionEmails(type, data) {
-  const resend = getClient();
-
   const company = buildCompanyNotification(type, data);
-  const client  = buildClientConfirmation(type, data);
+  const client = buildClientConfirmation(type, data);
 
   const results = {
     company: { sent: false, error: null },
-    client:  { sent: false, error: null },
+    client: { sent: false, error: null },
   };
 
   // Send team notification independently
   try {
-    const { data: emailData, error } = await resend.emails.send({
-      from:    config.emailFrom,
-      to:      [config.emailTo],
+    await sendWithRetry({
+      to: config.emailTo,
       subject: company.subject,
-      html:    company.html,
+      html: company.html,
     });
 
-    if (error) {
-      throw error;
-    }
-
     results.company.sent = true;
-    results.company.id   = emailData?.id;
     console.log(`✅ Team email sent to ${config.emailTo}`);
   } catch (err) {
     results.company.error = err;
-    // Log only the message and statusCode — never the full error object which could contain secrets
-    console.error(`❌ Team email failed to ${config.emailTo}: ${err.message}${err.statusCode ? ` (${err.statusCode})` : ""}`);
+    console.error(
+      `❌ Team email failed to ${config.emailTo}: ${err.message}${err.statusCode ? ` (${err.statusCode})` : ""}`
+    );
   }
 
   // Send client confirmation independently
@@ -194,26 +287,21 @@ async function sendSubmissionEmails(type, data) {
       throw new Error("Client email address is missing");
     }
 
-    const { data: emailData, error } = await resend.emails.send({
-      from:    config.emailFrom,
-      to:      [data.email],
+    await sendWithRetry({
+      to: data.email,
       subject: client.subject,
-      html:    client.html,
+      html: client.html,
     });
 
-    if (error) {
-      throw error;
-    }
-
     results.client.sent = true;
-    results.client.id   = emailData?.id;
     console.log(`✅ Client email sent to ${data.email}`);
   } catch (err) {
     results.client.error = err;
-    console.error(`❌ Client email failed to ${data.email}: ${err.message}${err.statusCode ? ` (${err.statusCode})` : ""}`);
+    console.error(
+      `❌ Client email failed to ${data.email}: ${err.message}${err.statusCode ? ` (${err.statusCode})` : ""}`
+    );
   }
 
-  // Always return results, never throw
   return results;
 }
 

@@ -4,10 +4,6 @@
  * Throws early if required variables are missing (fail-fast).
  */
 
-/*
-  * Does not work with resend api or other api
-*/
-
 require("dotenv").config();
 
 function required(key) {
@@ -35,10 +31,11 @@ const config = {
     .split(",")
     .map((o) => o.trim()),
 
-  // ── Email (Resend API)
-  resendApiKey: required("RESEND_API_KEY"),
-  emailFrom:    optional("EMAIL_FROM",    "Akrasia <onboarding@resend.dev>"),
-  emailTo:      optional("EMAIL_TO",      "teamtheakrasia@gmail.com"),
+  // ── Email (Brevo API)
+  brevoApiKey:      required("BREVO_API_KEY"),
+  brevoSenderName:  optional("BREVO_SENDER_NAME",  "Akrasia"),
+  brevoSenderEmail: optional("BREVO_SENDER_EMAIL", "teamtheakrasia@gmail.com"),
+  emailTo:          optional("EMAIL_TO",            "teamtheakrasia@gmail.com"),
 
   // ── JWT (reserved for future admin panel)
   jwt: {
