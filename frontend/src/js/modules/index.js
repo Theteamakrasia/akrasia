@@ -223,41 +223,39 @@ export function initForms() {
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!endpoint) return;
       clearErrors(form);
-      if (btn) btn.textContent = 'Sending…';
+      if (btn) btn.textContent = 'Sending\u2026';
 
       try {
-        const response = await fetch(endpoint, {
+        const response = await fetch('https://formsubmit.co/ajax/teamtheakrasia@gmail.com', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(serialize(form)),
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            ...serialize(form),
+            _subject: 'New project enquiry from ' + (serialize(form).name || 'website'),
+            _captcha: 'false',
+            _template: 'table',
+          }),
         });
 
-        const data = await response.json().catch(() => ({}));
-
-        if (!response.ok) {
-          if (data.errors) showFieldErrors(form, data.errors);
-          else showBannerError(form, data.message || 'Something went wrong. Please try again.');
-          return;
-        }
+        if (!response.ok) throw new Error('HTTP ' + response.status);
 
         // Success
         form.style.display = 'none';
         const success = document.createElement('div');
         success.innerHTML = `
           <div style="text-align:center; padding: 2rem 0;">
-            <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-primary);">
-              ${data.message || 'Thank you!'}
+            <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--accent);">
+              Enquiry sent!
             </p>
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-              ${data.detail || "We'll be in touch soon."}
+              We\u2019ll reply within 24 hours with a formal proposal.
             </p>
           </div>
         `;
         form.parentElement.appendChild(success);
       } catch (err) {
-        showBannerError(form, 'Network error. Please check your connection and try again.');
+        showBannerError(form, 'Failed to send. Please email us directly at teamtheakrasia@gmail.com');
       } finally {
         if (btn) btn.textContent = originalText;
       }
