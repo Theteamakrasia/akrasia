@@ -54,7 +54,7 @@ app.use(errorHandler);
 // ── Graceful shutdown ─────────────────────────────────────────
 async function shutdown(signal) {
   logger.info(`Received ${signal} — shutting down gracefully…`);
-  await prisma.$disconnect();
+  try { await prisma.$disconnect(); } catch { /* ignore */ }
   process.exit(0);
 }
 

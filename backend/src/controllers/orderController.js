@@ -39,10 +39,10 @@ async function submitOrder(req, res) {
   const ipHash    = hashIp(getClientIp(req));
   const userAgent = req.headers["user-agent"] || null;
 
-  // ── 3. Persist
-  let order;
+  // ── 3. Persist to database (best-effort — don't block the response)
+  let orderId = null;
   try {
-    order = await prisma.order.create({
+    const order = await prisma.order.create({
       data: {
         name:           data.name,
         email:          data.email,
@@ -62,22 +62,17 @@ async function submitOrder(req, res) {
         status:         "NEW",
       },
     });
+    orderId = order.id;
     logger.info("ORDER_SUBMITTED", { id: order.id, service: data.service });
   } catch (dbErr) {
     logger.error("DB error saving order", { message: dbErr.message });
-    return res.status(500).json({
-      success: false,
-      message: "Could not save your request. Please try again.",
-    });
   }
 
-  // ── 4. Emails
-  // Trigger emails asynchronously so we don't block the HTTP response
-  // The function always returns a results object, never throws
-  sendSubmissionEmails("order", { ...data, id: order.id, sourcePage: "start.html" })
+  // ── 4. Emails (independent of DB success — user always gets notified)
+  sendSubmissionEmails("order", { ...data, id: orderId, sourcePage: "start.html" })
     .then((results) => {
       logger.info("ORDER_EMAILS_PROCESSED", { 
-        id: order.id, 
+        id: orderId, 
         teamSent: results.company.sent,
         clientSent: results.client.sent,
         teamError: results.company.error?.message,
@@ -85,34 +80,33 @@ async function submitOrder(req, res) {
       });
     })
     .catch((emailErr) => {
-      // This catch block should theoretically not be reached now
       logger.error("Unexpected error in email processing", { 
-        id: order.id, 
+        id: orderId, 
         message: emailErr.message,
         stack: emailErr.stack
       });
     });
 
+  // ── 5. Log submission event (fire-and-forget, best-effort)
+  if (orderId) {
+    prisma.log.create({
+      data: {
+        level:   "INFO",
+        event:   "ORDER_SUBMITTED",
+        message: `New order from ${data.email} for ${data.service}`,
+        orderId: orderId,
+        ipHash,
+      },
+    }).catch((logErr) => {
+      logger.error("Failed to log order submission", { error: logErr.message, orderId });
+    });
+  }
 
-  // ── 5. Log submission event
-  // Fire-and-forget logging to avoid blocking the response
-  prisma.log.create({
-    data: {
-      level:   "INFO",
-      event:   "ORDER_SUBMITTED",
-      message: `New order from ${data.email} for ${data.service}`,
-      orderId: order.id,
-      ipHash,
-    },
-  }).catch((logErr) => {
-    logger.error("Failed to log order submission", { error: logErr.message, orderId: order.id });
-  });
-
-  return res.status(201).json({
+  return res.status(orderId ? 201 : 200).json({
     success: true,
     message:
       "Request received — we will send you a formal, itemised proposal within 24 hours.",
-    id: order.id,
+    id: orderId,
   });
 }
 
