@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "postinstall": "npx prisma generate --schema=prisma/schema.prisma",
-    "start": "npx prisma migrate deploy --schema=prisma/schema.prisma && node src/app.js",
+    "start": "npx prisma migrate deploy --schema=prisma/schema.prisma || true && node src/app.js",
     "dev": "nodemon src/app.js",
     "db:generate": "prisma generate --schema=prisma/schema.prisma",
     "db:migrate": "prisma migrate deploy --schema=prisma/schema.prisma",
