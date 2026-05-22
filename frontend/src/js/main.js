@@ -187,27 +187,25 @@
         e.preventDefault();
         if (!endpoint) return;
         clearErrors(form);
-        if (btn) btn.textContent = 'Sendingâ€¦';
+        if (btn) btn.textContent = 'Sending\u2026';
 
-        var fullUrl = (window.__API_BASE__ || '') + endpoint;
-        fetch(fullUrl, {
+        fetch('https://formsubmit.co/ajax/teamtheakrasia@gmail.com', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(serialize(form))
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(Object.assign({}, serialize(form), {
+            _subject: 'New project enquiry from ' + (serialize(form).name || 'website'),
+            _captcha: 'false',
+            _template: 'table',
+          }))
         })
-          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (data) { return { ok: r.ok, data: data }; }); })
-          .then(function (_a) {
-            if (!_a.ok) {
-              if (_a.data.errors) showFieldErrors(form, _a.data.errors);
-              else showBannerError(form, _a.data.message || 'Something went wrong.');
-              return;
-            }
+          .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+          .then(function () {
             form.style.display = 'none';
             var success = document.createElement('div');
-            success.innerHTML = '<div style="text-align:center;padding:2rem 0"><p style="font-size:1.25rem;font-weight:600;margin-bottom:0.5rem;color:var(--accent-primary)">' + (_a.data.message || 'Thank you!') + '</p><p style="color:var(--text-secondary);font-size:0.9rem">' + (_a.data.detail || "We'll be in touch soon.") + '</p></div>';
+            success.innerHTML = '<div style="text-align:center;padding:2rem 0"><p style="font-size:1.25rem;font-weight:600;margin-bottom:0.5rem;color:var(--accent)">Enquiry sent!</p><p style="color:var(--text-secondary);font-size:0.9rem">We\u2019ll reply within 24 hours with a formal proposal.</p></div>';
             form.parentElement.appendChild(success);
           })
-          .catch(function () { showBannerError(form, 'Network error. Please check your connection.'); })
+          .catch(function () { showBannerError(form, 'Failed to send. Please email us at teamtheakrasia@gmail.com'); })
           .finally(function () { if (btn) btn.textContent = originalText; });
       });
     });
@@ -366,4 +364,3 @@
     init();
   }
 })();
-
