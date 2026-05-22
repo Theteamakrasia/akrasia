@@ -39,7 +39,7 @@ const config = {
 
   // ── JWT (reserved for future admin panel)
   jwt: {
-    secret:    optional("JWT_SECRET", "change_this_in_production"),
+    secret:    optional("JWT_SECRET", "7b4f8a2c1d9e3f6b5a8d2c0e1f4b7a3d9e8f6c5b2a1d0e4f7b8c9a0d1e2f3b4a"),
     expiresIn: optional("JWT_EXPIRES_IN", "7d"),
   },
 
