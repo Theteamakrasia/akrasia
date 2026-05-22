@@ -33,10 +33,10 @@ async function submitContact(req, res) {
   const ipHash    = hashIp(getClientIp(req));
   const userAgent = req.headers["user-agent"] || null;
 
-  // ── 3. Persist to database
-  let contact;
+  // ── 3. Persist to database (best-effort — don't block the response)
+  let contactId = null;
   try {
-    contact = await prisma.contact.create({
+    const contact = await prisma.contact.create({
       data: {
         name:       data.name,
         email:      data.email,
@@ -47,29 +47,25 @@ async function submitContact(req, res) {
         status:     "PENDING",
       },
     });
+    contactId = contact.id;
     logger.info("CONTACT_SUBMITTED", { id: contact.id, email: data.email });
   } catch (dbErr) {
     logger.error("DB error saving contact", { message: dbErr.message });
-    return res.status(500).json({
-      success: false,
-      message: "Could not save your submission. Please try again.",
-    });
   }
 
-  // ── 4. Send emails (non-blocking — don't fail the response if email fails)
+  // ── 4. Send emails (independent of DB success — user always gets notified)
   try {
-    await sendSubmissionEmails("contact", { ...data, id: contact.id, sourcePage: "contact.html" });
-    logger.info("CONTACT_EMAILS_SENT", { id: contact.id });
+    await sendSubmissionEmails("contact", { ...data, id: contactId, sourcePage: "contact.html" });
+    logger.info("CONTACT_EMAILS_SENT", { id: contactId });
   } catch (emailErr) {
-    // Log but don't expose email failure to the user
-    logger.error("Email sending failed for contact", { id: contact.id, message: emailErr.message });
+    logger.error("Email sending failed for contact", { id: contactId, message: emailErr.message });
   }
 
-  // ── 5. Respond
-  return res.status(201).json({
+  // ── 5. Respond (always success — email is the critical path)
+  return res.status(contactId ? 201 : 200).json({
     success: true,
     message: "Thank you — we will be in touch within 24 hours.",
-    id:      contact.id,
+    id:      contactId,
   });
 }
 
