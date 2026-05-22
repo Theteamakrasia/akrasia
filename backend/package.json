@@ -4,7 +4,8 @@
   "description": "Akrasia — production backend API (Node.js / Express / Prisma / PostgreSQL)",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
+    "postinstall": "npx prisma generate --schema=prisma/schema.prisma",
+    "start": "npx prisma migrate deploy --schema=prisma/schema.prisma && node src/app.js",
     "dev": "nodemon src/app.js",
     "db:generate": "prisma generate --schema=prisma/schema.prisma",
     "db:migrate": "prisma migrate deploy --schema=prisma/schema.prisma",

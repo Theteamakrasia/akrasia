@@ -141,6 +141,8 @@
 
   /* â”€â”€ FORMS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function initForms() {
+    var apiBase = window.__API_BASE__ || 'http://localhost:8000/api';
+
     function serialize(form) {
       var data = {};
       var fd = new FormData(form);
@@ -174,6 +176,8 @@
       b.style.marginBottom = '1.5rem';
       b.style.padding = '0.75rem 1rem';
       b.style.borderRadius = 'var(--r-md)';
+      b.style.background = 'rgba(229, 115, 115, 0.1)';
+      b.style.border = '1px solid rgba(229, 115, 115, 0.2)';
       b.textContent = msg;
       form.insertBefore(b, form.firstChild);
     }
@@ -189,23 +193,36 @@
         clearErrors(form);
         if (btn) btn.textContent = 'Sending\u2026';
 
-        fetch('https://formsubmit.co/ajax/teamtheakrasia@gmail.com', {
+        fetch(apiBase + endpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(Object.assign({}, serialize(form), {
-            _subject: 'New project enquiry from ' + (serialize(form).name || 'website'),
-            _captcha: 'false',
-            _template: 'table',
-          }))
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(serialize(form))
         })
-          .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+          .then(async function (r) {
+            var data = await r.json();
+            if (!r.ok) {
+              var err = new Error(data.message || 'Something went wrong. Please try again.');
+              err.status = r.status;
+              err.data = data;
+              throw err;
+            }
+            return data;
+          })
           .then(function () {
             form.style.display = 'none';
             var success = document.createElement('div');
             success.innerHTML = '<div style="text-align:center;padding:2rem 0"><p style="font-size:1.25rem;font-weight:600;margin-bottom:0.5rem;color:var(--accent)">Enquiry sent!</p><p style="color:var(--text-secondary);font-size:0.9rem">We\u2019ll reply within 24 hours with a formal proposal.</p></div>';
             form.parentElement.appendChild(success);
           })
-          .catch(function () { showBannerError(form, 'Failed to send. Please email us at teamtheakrasia@gmail.com'); })
+          .catch(function (err) {
+            if (err.status === 422 && err.data && err.data.errors) {
+              var fieldErrors = {};
+              err.data.errors.forEach(function (e) { fieldErrors[e.field] = e.message; });
+              showFieldErrors(form, fieldErrors);
+            } else {
+              showBannerError(form, err.message || 'Failed to send. Please email us at teamtheakrasia@gmail.com');
+            }
+          })
           .finally(function () { if (btn) btn.textContent = originalText; });
       });
     });

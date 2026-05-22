@@ -165,8 +165,9 @@ export async function initSmoothScroll() {
 
 // Module: Forms
 // --------------------------------------------------
+import ENV from "../config/env.js";
+
 export function initForms() {
-  // Serialize form data
   function serialize(form) {
     const data = {};
     const formData = new FormData(form);
@@ -181,7 +182,6 @@ export function initForms() {
     return data;
   }
 
-  // Show field errors
   function showFieldErrors(form, errors) {
     clearErrors(form);
     Object.entries(errors).forEach(([key, msg]) => {
@@ -196,7 +196,6 @@ export function initForms() {
     });
   }
 
-  // Show banner error
   function showBannerError(form, message) {
     clearErrors(form);
     const errorBanner = document.createElement('div');
@@ -215,7 +214,6 @@ export function initForms() {
     form.querySelectorAll('.has-error').forEach((el) => el.classList.remove('has-error'));
   }
 
-  // Bind all forms
   document.querySelectorAll('form[data-form]').forEach((form) => {
     const endpoint = form.dataset.endpoint;
     const btn = form.querySelector('[type="submit"]');
@@ -223,24 +221,29 @@ export function initForms() {
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!endpoint) return;
       clearErrors(form);
       if (btn) btn.textContent = 'Sending\u2026';
 
       try {
-        const response = await fetch('https://formsubmit.co/ajax/teamtheakrasia@gmail.com', {
+        const response = await fetch(`${ENV.API_BASE_URL}${endpoint}`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            ...serialize(form),
-            _subject: 'New project enquiry from ' + (serialize(form).name || 'website'),
-            _captcha: 'false',
-            _template: 'table',
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(serialize(form)),
         });
 
-        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const data = await response.json();
 
-        // Success
+        if (!response.ok) {
+          if (response.status === 422 && data.errors) {
+            const fieldErrors = {};
+            data.errors.forEach((e) => { fieldErrors[e.field] = e.message; });
+            showFieldErrors(form, fieldErrors);
+            return;
+          }
+          throw new Error(data.message || 'Something went wrong. Please try again.');
+        }
+
         form.style.display = 'none';
         const success = document.createElement('div');
         success.innerHTML = `
@@ -255,7 +258,7 @@ export function initForms() {
         `;
         form.parentElement.appendChild(success);
       } catch (err) {
-        showBannerError(form, 'Failed to send. Please email us directly at teamtheakrasia@gmail.com');
+        showBannerError(form, err.message || 'Failed to send. Please email us directly at teamtheakrasia@gmail.com');
       } finally {
         if (btn) btn.textContent = originalText;
       }
