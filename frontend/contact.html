@@ -1,679 +1,763 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact " Akrasia</title>
-    <meta name="description" content="Contact Team Akrasia - six developers, remote-first. Reach us by email or start a project enquiry.">
-    <link rel="stylesheet" href="src/css/main.css">
-    <style>
-      /* "" Team grid """"""""""""""""""""""""""""""""""""""" */
-      .team-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        border: 1px solid var(--border-thin);
-        background: var(--border-thin);
-        gap: 1px;
-      }
-      .team-card {
-        background: var(--bg-surface);
-        padding: 2.25rem;
-        display: flex;
-        flex-direction: column;
-        cursor: pointer;
-        position: relative;
-        transition: background 0.2s;
-      }
-      .team-card:hover { background: var(--bg-ash-dark); }
-      .team-card.active { background: var(--bg-ash-dark); }
+<head>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact · Akrasia</title>
+  <meta name="description" content="Contact Team Akrasia - six developers, remote-first. Reach us by email or start a project enquiry.">
+  <link rel="stylesheet" href="src/css/main.css">
+  <style>
+    /* ─── Team grid ──────────────────────────────────────── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border-thin);
+      background: var(--border-thin);
+      gap: 1px;
+    }
+    .team-card {
+      background: var(--bg-surface);
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .team-card:hover { background: var(--bg-ash-dark); }
+    .team-card.active { background: var(--bg-ash-dark); }
 
-      /* "" Avatar """""""""""""""""""""""""""""""""""""""" */
-      .team-avatar-wrap {
-        width: 64px; height: 64px;
-        margin-bottom: 1.25rem;
-        position: relative; flex-shrink: 0;
-      }
-      .team-avatar {
-        width: 64px; height: 64px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 1px solid var(--border-thin);
-        display: block;
-        background: var(--accent-dim);
-        transition: border-color 0.2s;
-      }
-      .team-card.active .team-avatar { border-color: var(--accent); }
-      .team-initial-fallback {
-        width: 64px; height: 64px;
-        border-radius: 50%;
-        border: 1px solid var(--border-thin);
-        background: var(--accent-dim);
-        display: flex; align-items: center; justify-content: center;
-        font-family: var(--font-serif);
-        font-size: 1.4rem; font-style: italic; color: var(--text-secondary);
-        position: absolute; top: 0; left: 0;
-      }
-      .team-avatar-wrap .team-initial-fallback { display: none; }
-      .team-avatar-wrap .team-avatar.errored { display: none; }
-      .team-avatar-wrap .team-avatar.errored + .team-initial-fallback { display: flex; }
+    /* ─── Avatar ─────────────────────────────────────────── */
+    .team-avatar-wrap {
+      width: 64px; height: 64px;
+      margin-bottom: 1.25rem;
+      position: relative; flex-shrink: 0;
+    }
+    .team-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border-thin);
+      display: block;
+      background: var(--accent-dim);
+      transition: border-color 0.2s;
+    }
+    .team-card.active .team-avatar { border-color: var(--accent); }
+    .team-initial-fallback {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      border: 1px solid var(--border-thin);
+      background: var(--accent-dim);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.4rem; font-style: italic; color: var(--text-secondary);
+      position: absolute; top: 0; left: 0;
+    }
+    .team-avatar-wrap .team-initial-fallback { display: none; }
+    .team-avatar-wrap .team-avatar.errored { display: none; }
+    .team-avatar-wrap .team-avatar.errored + .team-initial-fallback { display: flex; }
 
-      .team-name {
-        font-family: var(--font-serif);
-        font-size: 1.1rem; font-weight: 400;
-        color: var(--text-primary); margin-bottom: 0.15rem;
-      }
-      .team-role {
-        font-size: 10px; text-transform: uppercase;
-        letter-spacing: 0.16em; color: var(--text-secondary); font-weight: 700;
-        margin-bottom: 0;
-      }
-      .team-links {
-        display: flex; flex-direction: column; gap: 0;
-        margin-top: auto; padding-top: 1.25rem;
-        border-top: 1px solid var(--border-thin);
-      }
-.team-link {
-        display: flex; align-items: center; gap: 9px;
-        font-size: 12.5px; color: var(--text-secondary);
-        padding: 0.45rem 0; border-bottom: 1px solid var(--border-thin);
-        transition: color 0.2s; word-break: break-all; text-decoration: none;
-      }
-      .team-link:last-child { border-bottom: none; }
-      .team-link:hover { color: var(--text-primary); }
-      .team-link-icon { flex-shrink: 0; font-size: 13px; color: var(--text-ghost); }
+    .team-name {
+      font-family: var(--font-serif);
+      font-size: 1.1rem; font-weight: 400;
+      color: var(--text-primary); margin-bottom: 0.15rem;
+    }
+    .team-role {
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 0.16em; color: var(--text-secondary); font-weight: 700;
+      margin-bottom: 0;
+    }
+    .team-links {
+      display: flex; flex-direction: column; gap: 0;
+      margin-top: auto; padding-top: 1.25rem;
+      border-top: 1px solid var(--border-thin);
+    }
+    .team-link {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12.5px; color: var(--text-secondary);
+      padding: 0.45rem 0; border-bottom: 1px solid var(--border-thin);
+      transition: color 0.2s; word-break: break-all; text-decoration: none;
+    }
+    .team-link:last-child { border-bottom: none; }
+    .team-link:hover { color: var(--text-primary); }
+    .team-link-icon { flex-shrink: 0; font-size: 13px; color: var(--text-ghost); }
 
-      /* "" "View repos" expand indicator """""""""""""""""" */
-      .team-repos-btn {
-        display: flex; align-items: center; gap: 6px;
-        margin-top: 1rem; padding: 0.5rem 0.75rem;
-        background: var(--accent-dim);
-        border: 1px solid var(--border-thin);
-        font-size: 11px; text-transform: uppercase;
-        letter-spacing: 0.12em; color: var(--text-secondary);
-        cursor: pointer; width: 100%;
-        transition: background 0.2s, border-color 0.2s;
-        font-family: inherit;
-      }
-      .team-repos-btn:hover { background: var(--accent-dim); border-color: var(--accent); }
-      .team-repos-btn .repos-btn-arrow {
-        margin-left: auto; display: inline-block;
-        transition: transform 0.25s;
-      }
-      .team-card.repos-open .repos-btn-arrow { transform: rotate(180deg); }
+    /* ─── "View repos" button ────────────────────────────── */
+    .team-repos-btn {
+      display: flex; align-items: center; gap: 6px;
+      margin-top: 1rem; padding: 0.5rem 0.75rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-thin);
+      font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--text-secondary);
+      cursor: pointer; width: 100%;
+      transition: background 0.2s, border-color 0.2s;
+      font-family: inherit;
+    }
+    .team-repos-btn:hover { background: var(--accent-dim); border-color: var(--accent); }
+    .team-repos-btn .repos-btn-arrow {
+      margin-left: auto; display: inline-block;
+      transition: transform 0.25s;
+    }
+    .team-card.repos-open .repos-btn-arrow { transform: rotate(180deg); }
 
-      /* "" Repos drawer """""""""""""""""""""""""""""""""""" */
-      .repos-drawer {
-        display: none;
-        grid-column: 1 / -1;
-        background: var(--bg-ash-dark);
-        border-top: 1px solid var(--border-thin);
-        border-bottom: 1px solid var(--border-thin);
-        padding: 2rem 2.25rem 2.5rem;
-        animation: drawerIn 0.3s ease-out;
-      }
-      .repos-drawer.visible { display: block; }
-      @keyframes drawerIn {
-        from { opacity: 0; transform: translateY(-6px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-      .repos-drawer-header {
-        display: flex; align-items: center; gap: 1rem;
-        margin-bottom: 1.5rem;
-      }
-      .repos-drawer-avatar {
-        width: 40px; height: 40px; border-radius: 50%;
-        border: 1px solid var(--border-thin);
-        object-fit: cover; flex-shrink: 0;
-      }
-      .repos-drawer-name {
-        font-family: var(--font-serif); font-size: 1.05rem; color: var(--text-primary);
-      }
-.repos-drawer-sub {
-        font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;
-      }
-      .repos-drawer-sub a { color: var(--text-secondary); text-decoration: none; }
-      .repos-drawer-sub a:hover { text-decoration: underline; }
+    /* ─── Repos drawer ───────────────────────────────────── */
+    .repos-drawer {
+      display: none;
+      grid-column: 1 / -1;
+      background: var(--bg-ash-dark);
+      border-top: 1px solid var(--border-thin);
+      border-bottom: 1px solid var(--border-thin);
+      padding: 2rem 2.25rem 2.5rem;
+      animation: drawerIn 0.3s ease-out;
+    }
+    .repos-drawer.visible { display: block; }
+    @keyframes drawerIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .repos-drawer-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .repos-drawer-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border-thin);
+      object-fit: cover; flex-shrink: 0;
+    }
+    .repos-drawer-name {
+      font-family: var(--font-serif); font-size: 1.05rem; color: var(--text-primary);
+    }
+    .repos-drawer-sub {
+      font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;
+    }
+    .repos-drawer-sub a { color: var(--text-secondary); text-decoration: none; }
+    .repos-drawer-sub a:hover { text-decoration: underline; }
 
-      /* "" Repo cards grid """"""""""""""""""""""""""""""""" */
-      .repos-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 1px;
-        background: var(--border-thin);
-        border: 1px solid var(--border-thin);
-      }
-      .repo-card {
-        background: var(--bg-surface);
-        padding: 1.25rem 1.5rem;
-        display: flex; flex-direction: column; gap: 0.5rem;
-        transition: background 0.2s;
-        text-decoration: none; color: inherit;
-      }
-      .repo-card:hover { background: var(--bg-elevated); }
-      .repo-card-name {
-        font-family: var(--font-serif); font-size: 0.95rem; color: var(--text-primary);
-        display: flex; align-items: center; gap: 6px;
-      }
-      .repo-card-name svg { color: var(--text-muted); flex-shrink: 0; }
-      .repo-card-desc {
-        font-size: 12.5px; color: var(--text-muted); line-height: 1.55;
-        flex: 1;
-      }
-.repo-card-meta {
-        display: flex; gap: 1rem; flex-wrap: wrap;
-        font-size: 11px; color: var(--text-secondary); margin-top: auto; padding-top: 0.5rem;
-        border-top: 1px solid var(--border-thin);
-      }
-      .repo-card-lang { display: flex; align-items: center; gap: 4px; }
-      .lang-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-      .repo-card-stars { display: flex; align-items: center; gap: 3px; }
-.repos-loading {
-        grid-column: 1 / -1;
-        padding: 2rem; text-align: center;
-        font-size: 13px; color: var(--text-secondary);
-        font-style: italic;
-      }
-      .repos-error {
-        grid-column: 1 / -1; padding: 1.25rem;
-        font-size: 13px; color: var(--text-muted);
-        background: var(--bg-elevated); border-left: 2px solid var(--border-thin);
-      }
-      .repos-empty {
-        grid-column: 1 / -1; padding: 1.5rem;
-        font-size: 13px; color: var(--text-secondary); font-style: italic;
-      }
+    /* ─── Repo cards grid ────────────────────────────────── */
+    .repos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--border-thin);
+      border: 1px solid var(--border-thin);
+    }
+    .repo-card {
+      background: var(--bg-surface);
+      padding: 1.25rem 1.5rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      transition: background 0.2s;
+      text-decoration: none; color: inherit;
+    }
+    .repo-card:hover { background: var(--bg-elevated); }
+    .repo-card-name {
+      font-family: var(--font-serif); font-size: 0.95rem; color: var(--text-primary);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .repo-card-name svg { color: var(--text-muted); flex-shrink: 0; }
+    .repo-card-desc {
+      font-size: 12.5px; color: var(--text-muted); line-height: 1.55;
+      flex: 1;
+    }
+    .repo-card-meta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      font-size: 11px; color: var(--text-secondary); margin-top: auto; padding-top: 0.5rem;
+      border-top: 1px solid var(--border-thin);
+    }
+    .repo-card-lang { display: flex; align-items: center; gap: 4px; }
+    .lang-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .repos-empty {
+      grid-column: 1 / -1; padding: 1.5rem;
+      font-size: 13px; color: var(--text-secondary); font-style: italic;
+    }
 
-      @media (max-width: 860px) { .team-grid { grid-template-columns: repeat(2,1fr); } }
-      @media (max-width: 600px) { .team-grid { grid-template-columns: 1fr; } }
-    </style>
-  </head>
-  <body>
+    @media (max-width: 860px) { .team-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 600px) { .team-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
 
-    <svg style="width:0;height:0;position:absolute;visibility:hidden;" aria-hidden="true">
-      <filter id="goo">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="goo" />
-      </filter>
-    </svg>
-    <div class="liquid-bg" aria-hidden="true">
-      <canvas id="liquid-canvas"></canvas>
-    </div>
-    <div class="liquid-lighting" aria-hidden="true"></div>
+<svg style="width:0;height:0;position:absolute;visibility:hidden;" aria-hidden="true">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="goo" />
+  </filter>
+</svg>
+<div class="liquid-bg" aria-hidden="true">
+  <canvas id="liquid-canvas"></canvas>
+</div>
+<div class="liquid-lighting" aria-hidden="true"></div>
 
-    <!-- "" NAV """"""""""""""""""""""""""""""""""""""""""" -->
-    <nav class="nav">
-      <div class="container">
-        <a href="index.html" class="nav-logo">Akrasia<span>.</span></a>
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <div class="nav-dropdown-group">
-            <a href="services.html">Services</a>
-            <div class="nav-dropdown">
-              <div class="nav-dropdown-col">
-                <span class="nav-dropdown-label">Static</span>
-                <a href="services.html#static">Overview</a>
-                <a href="pricing.html">Pricing</a>
-              </div>
-              <div class="nav-dropdown-col">
-                <span class="nav-dropdown-label">Semi-Dynamic</span>
-                <a href="services.html#semi">Overview</a>
-                <a href="pricing.html">Pricing</a>
-              </div>
-              <div class="nav-dropdown-col">
-                <span class="nav-dropdown-label">Dynamic</span>
-                <a href="services.html#dynamic">Overview</a>
-                <a href="pricing.html">Pricing</a>
-              </div>
-            </div>
-          </div>
-          <div class="nav-dropdown-group">
-            <a href="pricing.html">Pricing</a>
-            <div class="nav-dropdown">
-              <div class="nav-dropdown-col">
-                <span class="nav-dropdown-label">Calculator</span>
-                <a href="pricing.html#calculator">Live Estimate</a>
-              </div>
-              <div class="nav-dropdown-col">
-                <span class="nav-dropdown-label">Tiers</span>
-                <a href="pricing.html">Compare Prices</a>
-              </div>
-              <div class="nav-dropdown-col">
-                <span class="nav-dropdown-label">FAQ</span>
-                <a href="start.html#faq">Common Questions</a>
-              </div>
-            </div>
-          </div>
-          <a href="work.html">Our Work</a>
-          <a href="contact.html">Contact</a>
-          <a href="start.html" class="nav-cta">Start a Project</a>
-        </div>
-        <button type="button" class="nav-hamburger" aria-label="Open menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </nav>
-    <div class="nav-overlay"></div>
-    <div class="nav-mobile">
+<!-- ─── NAV ──────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">Akrasia<span>.</span></a>
+    <div class="nav-links">
       <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="pricing.html">Pricing</a>
+      <div class="nav-dropdown-group">
+        <a href="services.html">Services</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-label">Static</span>
+            <a href="services.html#static">Overview</a>
+            <a href="pricing.html">Pricing</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-label">Semi-Dynamic</span>
+            <a href="services.html#semi">Overview</a>
+            <a href="pricing.html">Pricing</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-label">Dynamic</span>
+            <a href="services.html#dynamic">Overview</a>
+            <a href="pricing.html">Pricing</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown-group">
+        <a href="pricing.html">Pricing</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-label">Calculator</span>
+            <a href="pricing.html#calculator">Live Estimate</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-label">Tiers</span>
+            <a href="pricing.html">Compare Prices</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-label">FAQ</span>
+            <a href="start.html#faq">Common Questions</a>
+          </div>
+        </div>
+      </div>
       <a href="work.html">Our Work</a>
       <a href="contact.html">Contact</a>
       <a href="start.html" class="nav-cta">Start a Project</a>
     </div>
+    <button type="button" class="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-overlay"></div>
+<div class="nav-mobile">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="work.html">Our Work</a>
+  <a href="contact.html">Contact</a>
+  <a href="start.html" class="nav-cta">Start a Project</a>
+</div>
 
-    <!-- "" PAGE HERO """"""""""""""""""""""""""""""""""" -->
-    <div class="page-hero">
-      <div class="container">
-        <p class="page-eyebrow">Contact</p>
-        <h1>Simple ways to<br><em>reach us.</em></h1>
-        <p class="lead">
-          We're one email away. Reach us directly at
-          <a href="mailto:teamtheakrasia@gmail.com" style="color:var(--accent)">teamtheakrasia@gmail.com</a>
-          or use the project form to get a formal itemised proposal within 24
-          hours. Every message is answered personally " never by automation.
+<!-- ─── PAGE HERO ─────────────────────────────────────────── -->
+<div class="page-hero">
+  <div class="container">
+    <p class="page-eyebrow">Contact</p>
+    <h1>Simple ways to<br><em>reach us.</em></h1>
+    <p class="lead">
+      We're one email away. Reach us directly at
+      <a href="mailto:teamtheakrasia@gmail.com" style="color:var(--accent)">teamtheakrasia@gmail.com</a>
+      or use the project form to get a formal itemised proposal within 24
+      hours. Every message is answered personally — never by automation.
+    </p>
+  </div>
+</div>
+
+<!-- ─── CONTACT INFO ──────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <p class="section-eyebrow">Get in Touch</p>
+    <h2 class="section-heading">We're one email <em>away.</em></h2>
+
+    <div class="contact-split">
+      <div class="contact-intro">
+        <h3>A six-person team remote-first.</h3>
+        <p>
+          We work with clients across all industries — from solo founders
+          building their first site to established businesses needing a
+          complete digital overhaul. Every enquiry is answered personally,
+          not by automation.
         </p>
-      </div>
-    </div>
-
-    <!-- "" CONTACT INFO """""""""""""""""""""""""""""""" -->
-    <section class="section">
-      <div class="container">
-        <p class="section-eyebrow">Get in Touch</p>
-        <h2 class="section-heading">We're one email <em>away.</em></h2>
-
-        <div class="contact-split">
-          <div class="contact-intro">
-            <h3>A six-person team remote-first.</h3>
-            <p>
-              We work with clients across all industries " from solo founders
-              building their first site to established businesses needing a
-              complete digital overhaul. Every enquiry is answered personally,
-              not by automation.
-            </p>
-            <div class="availability">
-              <span class="availability-dot"></span>
-              Available for new projects
-            </div>
-            <div style="margin-top: 2rem">
-              <a href="start.html" class="btn btn-primary" style="display:inline-flex">
-                Start a Project
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-info-segment">
-            <div class="contact-row">
-              <span class="contact-row-label">Email</span>
-              <span class="contact-row-value">
-                <a href="mailto:teamtheakrasia@gmail.com">teamtheakrasia@gmail.com</a>
-              </span>
-            </div>
-            <div class="contact-row">
-              <span class="contact-row-label">Response</span>
-              <span class="contact-row-value">Within 24 hours on business days</span>
-            </div>
-            <div class="contact-row">
-              <span class="contact-row-label">Location</span>
-              <span class="contact-row-value">Remote-first, available globally</span>
-            </div>
-            <div class="contact-row">
-              <span class="contact-row-label">GitHub</span>
-              <span class="contact-row-value">
-                <a href="https://github.com/teamakrasia" target="_blank" rel="noopener">github.com/teamakrasia</a>
-              </span>
-            </div>
-            <div class="contact-row">
-              <span class="contact-row-label">Quotes</span>
-              <span class="contact-row-value">Formal, itemised, in BDT " always in writing</span>
-            </div>
-            <div class="contact-row">
-              <span class="contact-row-label">Languages</span>
-              <span class="contact-row-value">Bengali &amp; English</span>
-            </div>
-          </div>
+        <div class="availability">
+          <span class="availability-dot"></span>
+          Available for new projects
         </div>
-      </div>
-    </section>
-
-    <!-- "" ENQUIRY FORM """""""""""""""""""""""""""""""" -->
-    <section class="section" id="enquiry">
-      <div class="container">
-        <p class="section-eyebrow">Project Enquiry</p>
-        <h2 class="section-heading">Start a <em>conversation.</em></h2>
-        <p class="section-sub">
-          Fill in the form below and we'll reply within 24 hours with a
-          formal, itemised proposal — always in writing, never automated.
-        </p>
-
-        <div class="project-enquiry-form" style="max-width:640px;border-radius:var(--r-lg)">
-
-          <!-- ✅ FIX: added onsubmit="return false;" and changed button type to "submit" -->
-          <form id="enquiry-form" onsubmit="return false;">
-
-            <div class="field">
-              <label for="name">Full name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                class="input"
-                placeholder="Your name"
-                autocomplete="name"
-                required
-              >
-            </div>
-
-            <div class="field">
-              <label for="email">Email address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="input"
-                placeholder="you@example.com"
-                autocomplete="email"
-                required
-              >
-            </div>
-
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                class="textarea"
-                placeholder="Tell us about your project…"
-                rows="5"
-                required
-              ></textarea>
-            </div>
-
-            <!-- Changed type="button" → type="submit" -->
-            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%">
-              Send Enquiry
-            </button>
-
-          </form>
-
-          <!-- Shown after successful submission -->
-          <div
-            id="form-status"
-            style="display:none;text-align:center;padding:2rem 0"
-            aria-live="polite"
-          >
-            <p style="font-size:1.25rem;font-weight:600;margin-bottom:0.5rem;color:var(--accent)">
-              Message sent!
-            </p>
-            <p style="color:var(--text-secondary);font-size:0.9rem">
-              We'll be in touch within 24 hours.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- "" TEAM """""""""""""""""""""""""""""""""""""""" -->
-    <section class="section section--bg-alt" id="team">
-      <div class="container">
-        <p class="section-eyebrow">The Team</p>
-        <h2 class="section-heading">Team <em>Akrasia.</em></h2>
-        <p class="section-sub">
-          Six developers. One shared standard: write clean code, give honest
-          advice, and deliver work that performs. Click any profile to explore
-          their personal GitHub repositories using the "View GitHub repos" button.
-        </p>
-
-        <!--
-          TEAM GRID
-          Each .team-card has data-github="username" " the JS reads this
-          and fetches repos from the GitHub API when the card is clicked.
-        -->
-        <div class="team-grid reveal" id="teamGrid">
-
-          <!-- Hisham -->
-          <div class="team-card" data-github="Hishamwalid">
-            <div class="team-avatar-wrap">
-              <img class="team-avatar" src="https://github.com/Hishamwalid.png?size=128" alt="Hisham" loading="lazy" onerror="this.classList.add('errored')">
-              <div class="team-initial-fallback">H</div>
-            </div>
-            <p class="team-name">Hisham</p>
-            <p class="team-role">Developer</p>
-            <div class="team-links">
-              <a href="mailto:hishamwalid666555@gmail.com" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>hishamwalid666555@gmail.com
-              </a>
-              <a href="https://github.com/Hishamwalid" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>github.com/Hishamwalid
-              </a>
-            </div>
-            <button type="button" class="team-repos-btn" aria-expanded="false" aria-controls="reposDrawer" onclick="event.stopPropagation();toggleRepos(this.closest('.team-card'))">
-              View GitHub repos <span class="repos-btn-arrow">-</span>
-            </button>
-          </div>
-
-          <!-- Apurbo -->
-          <div class="team-card" data-github="ApurboAbir17">
-            <div class="team-avatar-wrap">
-              <img class="team-avatar" src="https://github.com/ApurboAbir17.png?size=128" alt="Apurbo" loading="lazy" onerror="this.classList.add('errored')">
-              <div class="team-initial-fallback">A</div>
-            </div>
-            <p class="team-name">Apurbo</p>
-            <p class="team-role">Developer</p>
-            <div class="team-links">
-              <a href="mailto:abirulalamapurbo@gmail.com" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>abirulalamapurbo@gmail.com
-              </a>
-              <a href="https://github.com/ApurboAbir17" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>github.com/ApurboAbir17
-              </a>
-            </div>
-            <button type="button" class="team-repos-btn" aria-expanded="false" aria-controls="reposDrawer" onclick="event.stopPropagation();toggleRepos(this.closest('.team-card'))">
-              View GitHub repos <span class="repos-btn-arrow">-</span>
-            </button>
-          </div>
-
-          <!-- Jim -->
-          <div class="team-card" data-github="aa-jim">
-            <div class="team-avatar-wrap">
-              <img class="team-avatar" src="https://github.com/aa-jim.png?size=128" alt="Jim" loading="lazy" onerror="this.classList.add('errored')">
-              <div class="team-initial-fallback">J</div>
-            </div>
-            <p class="team-name">Jim</p>
-            <p class="team-role">Developer</p>
-            <div class="team-links">
-              <a href="mailto:abdullahaljim2@gmail.com" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>abdullahaljim2@gmail.com
-              </a>
-              <a href="https://github.com/aa-jim" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>github.com/aa-jim
-              </a>
-            </div>
-            <button type="button" class="team-repos-btn" aria-expanded="false" aria-controls="reposDrawer" onclick="event.stopPropagation();toggleRepos(this.closest('.team-card'))">
-              View GitHub repos <span class="repos-btn-arrow">-</span>
-            </button>
-          </div>
-
-          <!-- Shabab -->
-          <div class="team-card" data-github="Shabab47">
-            <div class="team-avatar-wrap">
-              <img class="team-avatar" src="https://github.com/Shabab47.png?size=128" alt="Shabab" loading="lazy" onerror="this.classList.add('errored')">
-              <div class="team-initial-fallback">S</div>
-            </div>
-            <p class="team-name">Shabab</p>
-            <p class="team-role">Developer</p>
-            <div class="team-links">
-              <a href="mailto:shababnandigram28@gmail.com" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>shababnandigram28@gmail.com
-              </a>
-              <a href="https://github.com/Shabab47" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>github.com/Shabab47
-              </a>
-            </div>
-            <button type="button" class="team-repos-btn" aria-expanded="false" aria-controls="reposDrawer" onclick="event.stopPropagation();toggleRepos(this.closest('.team-card'))">
-              View GitHub repos <span class="repos-btn-arrow">-</span>
-            </button>
-          </div>
-
-          <!-- Labib -->
-          <div class="team-card" data-github="L-hsn103">
-            <div class="team-avatar-wrap">
-              <img class="team-avatar" src="https://github.com/L-hsn103.png?size=128" alt="Labib" loading="lazy" onerror="this.classList.add('errored')">
-              <div class="team-initial-fallback">L</div>
-            </div>
-            <p class="team-name">Labib</p>
-            <p class="team-role">Developer</p>
-            <div class="team-links">
-              <a href="mailto:labibh048@gmail.com" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>labibh048@gmail.com
-              </a>
-              <a href="https://github.com/L-hsn103" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>github.com/L-hsn103
-              </a>
-            </div>
-            <button type="button" class="team-repos-btn" aria-expanded="false" aria-controls="reposDrawer" onclick="event.stopPropagation();toggleRepos(this.closest('.team-card'))">
-              View GitHub repos <span class="repos-btn-arrow">-</span>
-            </button>
-          </div>
-
-          <!-- Rasek -->
-          <div class="team-card" data-github="MdRasB">
-            <div class="team-avatar-wrap">
-              <img class="team-avatar" src="https://github.com/MdRasB.png?size=128" alt="Rasek" loading="lazy" onerror="this.classList.add('errored')">
-              <div class="team-initial-fallback">R</div>
-            </div>
-            <p class="team-name">Rasek</p>
-            <p class="team-role">Developer</p>
-            <div class="team-links">
-              <a href="mailto:Muhammadrasekb@gmail.com" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>Muhammadrasekb@gmail.com
-              </a>
-              <a href="https://github.com/MdRasB" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
-                <span class="team-link-icon"></span>github.com/MdRasB
-              </a>
-            </div>
-            <button type="button" class="team-repos-btn" aria-expanded="false" aria-controls="reposDrawer" onclick="event.stopPropagation();toggleRepos(this.closest('.team-card'))">
-              View GitHub repos <span class="repos-btn-arrow">-</span>
-            </button>
-          </div>
-
-        </div><!-- /team-grid -->
-
-        <div class="callout" style="margin-top:2rem">
-          <strong>Reach the whole team:</strong> For general enquiries, use
-          <a href="mailto:teamtheakrasia@gmail.com" style="color:var(--accent)">teamtheakrasia@gmail.com</a>
-          " it reaches everyone and guarantees the fastest response.
-        </div>
-      </div>
-    </section>
-
-    <!-- "" CTA """"""""""""""""""""""""""""""""""""""""""" -->
-    <div class="cta-banner">
-      <div class="container">
-        <h2>Ready to start?<br><em>Tell us about your project.</em></h2>
-        <p>Use the project form to get a formal, itemised proposal within 24 hours.</p>
-        <div class="btn-row" style="justify-content:center">
-          <a href="start.html" class="btn btn-primary">
+        <div style="margin-top: 2rem">
+          <a href="start.html" class="btn btn-primary" style="display:inline-flex">
             Start a Project
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <a href="pricing.html" class="btn btn-ghost">View Pricing</a>
+        </div>
+      </div>
+
+      <div class="contact-info-segment">
+        <div class="contact-row">
+          <span class="contact-row-label">Email</span>
+          <span class="contact-row-value">
+                <a href="mailto:teamtheakrasia@gmail.com">teamtheakrasia@gmail.com</a>
+              </span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Response</span>
+          <span class="contact-row-value">Within 24 hours on business days</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Location</span>
+          <span class="contact-row-value">Remote-first, available globally</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">GitHub</span>
+          <span class="contact-row-value">
+                <a href="https://github.com/teamakrasia" target="_blank" rel="noopener">github.com/teamakrasia</a>
+              </span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Quotes</span>
+          <span class="contact-row-value">Formal, itemised, in BDT — always in writing</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Languages</span>
+          <span class="contact-row-value">Bengali &amp; English</span>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- "" FOOTER """"""""""""""""""""""""""""""""""""""" -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div>
-            <p class="footer-brand">Akrasia<span>.</span></p>
-            <p class="footer-tagline">Web development, delivered globally. Custom code, transparent pricing.</p>
-          </div>
-          <div>
-            <p class="footer-title">Navigation</p>
-            <div class="footer-links">
-              <a href="index.html">Home</a>
-              <a href="services.html">Services</a>
-              <a href="pricing.html">Pricing</a>
-              <a href="work.html">Our Work</a>
-              <a href="contact.html">Contact</a>
-            </div>
-          </div>
-          <div>
-            <p class="footer-title">Services</p>
-            <div class="footer-links">
-              <a href="services.html#static">Static Websites</a>
-              <a href="services.html#semi">Semi-Dynamic</a>
-              <a href="services.html#dynamic">Dynamic + CMS</a>
-              <a href="services.html#ecommerce">E-commerce</a>
-            </div>
-          </div>
-          <div>
-            <p class="footer-title">Get in Touch</p>
-            <div class="footer-links">
-              <a href="start.html">Start a Project</a>
-              <a href="start.html#faq">FAQ</a>
-              <a href="contact.html#team">The Team</a>
-              <a href="mailto:teamtheakrasia@gmail.com">teamtheakrasia@gmail.com</a>
-            </div>
-          </div>
+<!-- ─── ENQUIRY FORM ──────────────────────────────────────── -->
+<section class="section" id="enquiry">
+  <div class="container">
+    <p class="section-eyebrow">Project Enquiry</p>
+    <h2 class="section-heading">Start a <em>conversation.</em></h2>
+    <p class="section-sub">
+      Fill in the form below and we'll reply within 24 hours with a
+      formal, itemised proposal — always in writing, never automated.
+    </p>
+
+    <div class="project-enquiry-form" style="max-width:640px;border-radius:var(--r-lg)">
+      <form id="enquiry-form" onsubmit="return false;">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" class="input" placeholder="Your name" autocomplete="name" required>
         </div>
-        <div class="footer-bottom">
-          <p> 2025 Akrasia. All prices in BDT.</p>
-</div>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" class="input" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" class="textarea" placeholder="Tell us about your project…" rows="5" required></textarea>
+        </div>
+        <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%">
+          Send Enquiry
+        </button>
+      </form>
+
+      <div id="form-status" style="display:none;text-align:center;padding:2rem 0" aria-live="polite">
+        <p style="font-size:1.25rem;font-weight:600;margin-bottom:0.5rem;color:var(--accent)">Message sent!</p>
+        <p style="color:var(--text-secondary);font-size:0.9rem">We'll be in touch within 24 hours.</p>
       </div>
-    </footer>
+    </div>
+  </div>
+</section>
 
-    <script src="src/js/main.js"></script>
-    <script>
-    /**
-     * GitHub Repos Drawer
-     * " Clicking a team card expands a drawer below the row showing their repos.
-     * " Uses the public GitHub REST API (no auth, 60 req/hr per IP).
-     * " Repos are cached in memory to avoid re-fetching on re-open.
-     */
-    (function () {
-      'use strict';
 
-      const LANG_COLOURS = {
-        JavaScript:'#f1e05a', TypeScript:'#3178c6', Python:'#3572A5',
-        HTML:'#e34c26', CSS:'#563d7c', SCSS:'#c6538c',
-        'C++':'#f34b7d', C:'#555555', Java:'#b07219', Go:'#00ADD8',
-        Rust:'#dea584', PHP:'#4F5D95', Ruby:'#701516', Shell:'#89e051',
-        Vue:'#41b883', Svelte:'#ff3e00', Dart:'#00B4AB',
-      };
+<!-- ═══════════════════════════════════════════════════════════
+     TEAM SECTION
+     ═══════════════════════════════════════════════════════════ -->
+<section class="section section--bg-alt" id="team">
+  <div class="container">
+    <p class="section-eyebrow">The Team</p>
+    <h2 class="section-heading">Team <em>Akrasia.</em></h2>
+    <p class="section-sub">
+      Six developers. One shared standard: write clean code, give honest
+      advice, and deliver work that performs. Click any profile to explore
+      their personal GitHub repositories using the "View GitHub repos" button.
+    </p>
 
-      /* Cache: username ' array of repo objects */
-      const repoCache = {};
+    <!-- ─────────────────────────────────────────────────────────
+         TEAM GRID
+         Each developer has their own card below.
+         The only thing each developer needs to edit is the
+         data-repos='[...]' list on their own card.
+         ───────────────────────────────────────────────────────── -->
+    <div class="team-grid reveal" id="teamGrid">
 
-      /* Currently open drawer element */
-      let openDrawer   = null;
-      let openCard     = null;
 
-      /* "" Build drawer HTML from GitHub API repos """"""" */
-      function buildReposHTML(username, repos) {
-        if (!repos.length) {
-          return `<div class="repos-empty">No public repositories yet.</div>`;
-        }
+      <!-- ╔══════════════════════════════════════════════════════╗
+           ║  HISHAM — edit the data-repos list below            ║
+           ╚══════════════════════════════════════════════════════╝
 
-        return repos.map(repo => {
-          const lang    = repo.language || '';
-          const colour  = LANG_COLOURS[lang] || '#8a837b';
-          const desc    = repo.description
-            ? `<p class="repo-card-desc">${repo.description}</p>`
-            : `<p class="repo-card-desc" style="font-style:italic;color:var(--text-secondary)">No description provided.</p>`;
-          const stars   = repo.stargazers_count;
-          const forks   = repo.forks_count;
+           HOW TO ADD A REPO:
+           Copy one { } block, paste it after the last one
+           (remember the comma between blocks), and fill in:
 
-          return `<a class="repo-card" href="${repo.html_url}" target="_blank" rel="noopener">
+             "name" — the repository name shown on the card
+             "url"  — the full link, e.g. https://github.com/Hishamwalid/my-repo
+             "desc" — one sentence about what it does
+             "lang" — main language, e.g. JavaScript, Python, HTML, Java, C++
+
+           EXAMPLE — two repos:
+           data-repos='[
+             {
+               "name": "First Repo",
+               "url":  "https://github.com/Hishamwalid/first-repo",
+               "desc": "What this project does.",
+               "lang": "JavaScript"
+             },
+             {
+               "name": "Second Repo",
+               "url":  "https://github.com/Hishamwalid/second-repo",
+               "desc": "What this project does.",
+               "lang": "TypeScript"
+             }
+           ]'
+      -->
+      <div class="team-card"
+           data-github="Hishamwalid"
+           data-repos='[
+                 {
+                   "name": "EmergencyShake",
+                   "url":  "https://github.com/Hishamwalid/EmergencyShake",
+                   "desc": "Emergency contact shake app. First java project created by Hisham, Apurbo, Afif",
+                   "lang": "Java"
+                 }
+               ]'>
+        <div class="team-avatar-wrap">
+          <img class="team-avatar" src="https://github.com/Hishamwalid.png?size=128" alt="Hisham" loading="lazy" onerror="this.classList.add('errored')">
+          <div class="team-initial-fallback">H</div>
+        </div>
+        <p class="team-name">Hisham</p>
+        <p class="team-role">Developer</p>
+        <div class="team-links">
+          <a href="mailto:hishamwalid666555@gmail.com" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>hishamwalid666555@gmail.com
+          </a>
+          <a href="https://github.com/Hishamwalid" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>github.com/Hishamwalid
+          </a>
+        </div>
+        <button type="button" class="team-repos-btn" aria-expanded="false"
+                onclick="event.stopPropagation(); toggleRepos(this.closest('.team-card'))">
+          View GitHub repos <span class="repos-btn-arrow">↓</span>
+        </button>
+      </div>
+      <!-- END HISHAM -->
+
+
+      <!-- ╔══════════════════════════════════════════════════════╗
+           ║  APURBO — edit the data-repos list below            ║
+           ╚══════════════════════════════════════════════════════╝ -->
+      <div class="team-card"
+           data-github="ApurboAbir17"
+           data-repos='[
+                 {
+                   "name": "My Project",
+                   "url":  "https://github.com/ApurboAbir17/my-project",
+                   "desc": "Replace this with a real repo description.",
+                   "lang": "C++"
+                 }
+               ]'>
+        <div class="team-avatar-wrap">
+          <img class="team-avatar" src="https://github.com/ApurboAbir17.png?size=128" alt="Apurbo" loading="lazy" onerror="this.classList.add('errored')">
+          <div class="team-initial-fallback">A</div>
+        </div>
+        <p class="team-name">Apurbo</p>
+        <p class="team-role">Developer</p>
+        <div class="team-links">
+          <a href="mailto:abirulalamapurbo@gmail.com" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>abirulalamapurbo@gmail.com
+          </a>
+          <a href="https://github.com/ApurboAbir17" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>github.com/ApurboAbir17
+          </a>
+        </div>
+        <button type="button" class="team-repos-btn" aria-expanded="false"
+                onclick="event.stopPropagation(); toggleRepos(this.closest('.team-card'))">
+          View GitHub repos <span class="repos-btn-arrow">↓</span>
+        </button>
+      </div>
+      <!-- END APURBO -->
+
+
+      <!-- ╔══════════════════════════════════════════════════════╗
+           ║  JIM — edit the data-repos list below               ║
+           ╚══════════════════════════════════════════════════════╝ -->
+      <div class="team-card"
+           data-github="aa-jim"
+           data-repos='[
+                 {
+                   "name": "Duck Dash",
+                   "url":  "https://github.com/MdRasB/Duck_Dash",
+                   "desc": "Contributed Java game project.(Made by Shabab47, MdRasB, and aa-jim)",
+                   "lang": "Java"
+                 }
+               ]'>
+        <div class="team-avatar-wrap">
+          <img class="team-avatar" src="https://github.com/aa-jim.png?size=128" alt="Jim" loading="lazy" onerror="this.classList.add('errored')">
+          <div class="team-initial-fallback">J</div>
+        </div>
+        <p class="team-name">Jim</p>
+        <p class="team-role">Developer</p>
+        <div class="team-links">
+          <a href="mailto:abdullahaljim2@gmail.com" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>abdullahaljim2@gmail.com
+          </a>
+          <a href="https://github.com/aa-jim" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>github.com/aa-jim
+          </a>
+        </div>
+        <button type="button" class="team-repos-btn" aria-expanded="false"
+                onclick="event.stopPropagation(); toggleRepos(this.closest('.team-card'))">
+          View GitHub repos <span class="repos-btn-arrow">↓</span>
+        </button>
+      </div>
+      <!-- END JIM -->
+
+
+      <!-- ╔══════════════════════════════════════════════════════╗
+           ║  SHABAB — edit the data-repos list below            ║
+           ╚══════════════════════════════════════════════════════╝ -->
+      <div class="team-card"
+           data-github="Shabab47"
+           data-repos='[
+                 {
+                   "name": "Duck Dash",
+                   "url":  "https://github.com/MdRasB/Duck_Dash",
+                   "desc": "Contributed Java game project.(Made by Shabab47, MdRasB, and aa-jim)",
+                   "lang": "Java"
+                 },
+                 {
+                   "name": "Akrasia",
+                   "url":  "https://github.com/Theteamakrasia/akrasia",
+                   "desc": "Official Akrasia team website.",
+                   "lang": "HTML"
+                 }
+               ]'>
+        <div class="team-avatar-wrap">
+          <img class="team-avatar" src="https://github.com/Shabab47.png?size=128" alt="Shabab" loading="lazy" onerror="this.classList.add('errored')">
+          <div class="team-initial-fallback">S</div>
+        </div>
+        <p class="team-name">Shabab</p>
+        <p class="team-role">Developer</p>
+        <div class="team-links">
+          <a href="mailto:shababnandigram28@gmail.com" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>shababnandigram28@gmail.com
+          </a>
+          <a href="https://github.com/Shabab47" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>github.com/Shabab47
+          </a>
+        </div>
+        <button type="button" class="team-repos-btn" aria-expanded="false"
+                onclick="event.stopPropagation(); toggleRepos(this.closest('.team-card'))">
+          View GitHub repos <span class="repos-btn-arrow">↓</span>
+        </button>
+      </div>
+      <!-- END SHABAB -->
+
+
+      <!-- ╔══════════════════════════════════════════════════════╗
+           ║  LABIB — edit the data-repos list below             ║
+           ╚══════════════════════════════════════════════════════╝ -->
+      <div class="team-card"
+           data-github="L-hsn103"
+           data-repos='[
+                 {
+                   "name": "My Project",
+                   "url":  "https://github.com/L-hsn103/my-project",
+                   "desc": "Replace this with a real repo description.",
+                   "lang": "HTML"
+                 }
+               ]'>
+        <div class="team-avatar-wrap">
+          <img class="team-avatar" src="https://github.com/L-hsn103.png?size=128" alt="Labib" loading="lazy" onerror="this.classList.add('errored')">
+          <div class="team-initial-fallback">L</div>
+        </div>
+        <p class="team-name">Labib</p>
+        <p class="team-role">Developer</p>
+        <div class="team-links">
+          <a href="mailto:labibh048@gmail.com" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>labibh048@gmail.com
+          </a>
+          <a href="https://github.com/L-hsn103" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>github.com/L-hsn103
+          </a>
+        </div>
+        <button type="button" class="team-repos-btn" aria-expanded="false"
+                onclick="event.stopPropagation(); toggleRepos(this.closest('.team-card'))">
+          View GitHub repos <span class="repos-btn-arrow">↓</span>
+        </button>
+      </div>
+      <!-- END LABIB -->
+
+
+      <!-- ╔══════════════════════════════════════════════════════╗
+           ║  RASEK — edit the data-repos list below             ║
+           ╚══════════════════════════════════════════════════════╝ -->
+      <div class="team-card"
+           data-github="MdRasB"
+           data-repos='[
+                 {
+                   "name": "Duck Dash",
+                   "url":  "https://github.com/MdRasB/Duck_Dash",
+                   "desc": "Contributed Java game project.(Made by Shabab47, MdRasB, and aa-jim)",
+                   "lang": "Java"
+                 }
+               ]'>
+        <div class="team-avatar-wrap">
+          <img class="team-avatar" src="https://github.com/MdRasB.png?size=128" alt="Rasek" loading="lazy" onerror="this.classList.add('errored')">
+          <div class="team-initial-fallback">R</div>
+        </div>
+        <p class="team-name">Rasek</p>
+        <p class="team-role">Developer</p>
+        <div class="team-links">
+          <a href="mailto:Muhammadrasekb@gmail.com" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>Muhammadrasekb@gmail.com
+          </a>
+          <a href="https://github.com/MdRasB" target="_blank" rel="noopener" class="team-link" onclick="event.stopPropagation()">
+            <span class="team-link-icon"></span>github.com/MdRasB
+          </a>
+        </div>
+        <button type="button" class="team-repos-btn" aria-expanded="false"
+                onclick="event.stopPropagation(); toggleRepos(this.closest('.team-card'))">
+          View GitHub repos <span class="repos-btn-arrow">↓</span>
+        </button>
+      </div>
+      <!-- END RASEK -->
+
+
+    </div><!-- /team-grid -->
+
+    <div class="callout" style="margin-top:2rem">
+      <strong>Reach the whole team:</strong> For general enquiries, use
+      <a href="mailto:teamtheakrasia@gmail.com" style="color:var(--accent)">teamtheakrasia@gmail.com</a>
+      — it reaches everyone and guarantees the fastest response.
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── CTA ───────────────────────────────────────────────── -->
+<div class="cta-banner">
+  <div class="container">
+    <h2>Ready to start?<br><em>Tell us about your project.</em></h2>
+    <p>Use the project form to get a formal, itemised proposal within 24 hours.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a href="start.html" class="btn btn-primary">
+        Start a Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="pricing.html" class="btn btn-ghost">View Pricing</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-brand">Akrasia<span>.</span></p>
+        <p class="footer-tagline">Web development, delivered globally. Custom code, transparent pricing.</p>
+      </div>
+      <div>
+        <p class="footer-title">Navigation</p>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="work.html">Our Work</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-title">Services</p>
+        <div class="footer-links">
+          <a href="services.html#static">Static Websites</a>
+          <a href="services.html#semi">Semi-Dynamic</a>
+          <a href="services.html#dynamic">Dynamic + CMS</a>
+          <a href="services.html#ecommerce">E-commerce</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-title">Get in Touch</p>
+        <div class="footer-links">
+          <a href="start.html">Start a Project</a>
+          <a href="start.html#faq">FAQ</a>
+          <a href="contact.html#team">The Team</a>
+          <a href="mailto:teamtheakrasia@gmail.com">teamtheakrasia@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Akrasia. All prices in BDT.</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCRIPTS — don't touch anything below unless you know JS
+     ═══════════════════════════════════════════════════════════ -->
+<script src="src/js/main.js"></script>
+
+<script>
+  /* ─────────────────────────────────────────────────────────────
+     REPO DRAWER SYSTEM
+     What it does:
+       When a developer clicks "View GitHub repos" on a team card,
+       this code reads that card's data-repos list and displays
+       the repos in a drawer below the grid.
+
+     Developers don't need to touch this script at all.
+     All editing is done in the data-repos='[...]' list
+     on each team card in the HTML above.
+     ───────────────────────────────────────────────────────────── */
+
+  /* Language colour map — dot shown next to each repo's language */
+  const LANG_COLOURS = {
+    JavaScript : '#f1e05a',
+    TypeScript : '#3178c6',
+    Python     : '#3572A5',
+    HTML       : '#e34c26',
+    CSS        : '#563d7c',
+    SCSS       : '#c6538c',
+    'C++'      : '#f34b7d',
+    C          : '#555555',
+    Java       : '#b07219',
+    Go         : '#00ADD8',
+    Rust       : '#dea584',
+    PHP        : '#4F5D95',
+    Ruby       : '#701516',
+    Shell      : '#89e051',
+    Vue        : '#41b883',
+    Svelte     : '#ff3e00',
+    Dart       : '#00B4AB',
+  };
+
+  /* Tracks which card is currently open */
+  let openCard = null;
+
+  /* Turns the data-repos array into HTML repo cards */
+  function buildReposHTML(repos) {
+    if (!repos.length) {
+      return `<div class="repos-empty">No repositories added yet.</div>`;
+    }
+
+    return repos.map(repo => {
+      const colour = LANG_COLOURS[repo.lang] || '#8a837b';
+      const desc   = repo.desc
+        ? `<p class="repo-card-desc">${repo.desc}</p>`
+        : `<p class="repo-card-desc" style="font-style:italic;color:var(--text-secondary)">No description provided.</p>`;
+
+      return `
+          <a class="repo-card" href="${repo.url}" target="_blank" rel="noopener">
             <span class="repo-card-name">
               <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8Z"/>
@@ -682,116 +766,84 @@
             </span>
             ${desc}
             <div class="repo-card-meta">
-              ${lang ? `<span class="repo-card-lang"><span class="lang-dot" style="background:${colour}"></span>${lang}</span>` : ''}
-              ${stars ? `<span class="repo-card-stars"> ${stars}</span>` : ''}
-              ${forks ? `<span>' ${forks}</span>` : ''}
-              <span style="margin-left:auto;color:var(--accent);font-size:10px">- view</span>
+              ${repo.lang
+        ? `<span class="repo-card-lang">
+                     <span class="lang-dot" style="background:${colour}"></span>
+                     ${repo.lang}
+                   </span>`
+        : ''}
+              <span style="margin-left:auto;color:var(--accent);font-size:10px">→ view</span>
             </div>
           </a>`;
-        }).join('');
-      }
+    }).join('');
+  }
 
-      /* "" Fetch repos for a username """""""""""""""""""" */
-      async function fetchRepos(username) {
-        if (repoCache[username]) return repoCache[username];
+  /* Creates the single shared drawer element (runs once, reused for all cards) */
+  function getOrCreateDrawer() {
+    let drawer = document.getElementById('reposDrawer');
+    if (!drawer) {
+      drawer = document.createElement('div');
+      drawer.id        = 'reposDrawer';
+      drawer.className = 'repos-drawer';
+      const grid = document.getElementById('teamGrid');
+      grid.parentNode.insertBefore(drawer, grid.nextSibling);
+    }
+    return drawer;
+  }
 
-        const res = await fetch(
-          `https://api.github.com/users/${username}/repos?sort=pushed&per_page=12`,
-          { headers: { Accept: 'application/vnd.github.v3+json' } }
-        );
+  /* Called by the "View GitHub repos" button on each card */
+  function toggleRepos(card) {
+    const drawer         = getOrCreateDrawer();
+    const isAlreadyOpen  = openCard === card && drawer.classList.contains('visible');
 
-        if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-        const data = await res.json();
+    /* Close whatever is currently open */
+    if (openCard) {
+      openCard.classList.remove('repos-open', 'active');
+      const prevBtn = openCard.querySelector('.team-repos-btn');
+      if (prevBtn) prevBtn.setAttribute('aria-expanded', 'false');
+    }
+    drawer.classList.remove('visible');
+    openCard = null;
 
-        /* Filter out forks, sort by stars desc */
-        const repos = data
-          .filter(r => !r.fork)
-          .sort((a, b) => b.stargazers_count - a.stargazers_count);
+    /* If the same card was clicked again, just close and stop */
+    if (isAlreadyOpen) return;
 
-        repoCache[username] = repos;
-        return repos;
-      }
+    /* Open drawer for the clicked card */
+    openCard = card;
+    card.classList.add('repos-open', 'active');
+    const btn = card.querySelector('.team-repos-btn');
+    if (btn) btn.setAttribute('aria-expanded', 'true');
 
-      /* "" Create or return drawer element """"""""""""""" */
-      function getOrCreateDrawer() {
-        let drawer = document.getElementById('reposDrawer');
-        if (!drawer) {
-          drawer = document.createElement('div');
-          drawer.id = 'reposDrawer';
-          drawer.className = 'repos-drawer';
-          /* Insert after the team grid */
-          const grid = document.getElementById('teamGrid');
-          grid.parentNode.insertBefore(drawer, grid.nextSibling);
-        }
-        return drawer;
-      }
+    /* Read the repo list from the card's data-repos attribute */
+    const repos    = JSON.parse(card.dataset.repos || '[]');
+    const name     = card.querySelector('.team-name').textContent.trim();
+    const avatar   = card.querySelector('.team-avatar').src;
+    const username = card.dataset.github;
+    const ghUrl    = `https://github.com/${username}`;
 
-      /* "" Main toggle function """"""""""""""""""""""""""" */
-      window.toggleRepos = async function (card) {
-        const username = card.dataset.github;
-        const drawer   = getOrCreateDrawer();
-        const isAlreadyOpen = openCard === card && drawer.classList.contains('visible');
-
-        /* Close currently open drawer */
-        if (openCard) {
-          openCard.classList.remove('repos-open', 'active');
-          const prevBtn = openCard.querySelector('.team-repos-btn');
-          if (prevBtn) prevBtn.setAttribute('aria-expanded', 'false');
-        }
-        drawer.classList.remove('visible');
-        openCard = null;
-
-        /* If we clicked the already-open card, just close */
-        if (isAlreadyOpen) return;
-
-        /* Otherwise open for this card */
-        openCard = card;
-        card.classList.add('repos-open', 'active');
-        const btn = card.querySelector('.team-repos-btn');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-
-        /* Scroll drawer into view */
-        const name   = card.querySelector('.team-name').textContent.trim();
-        const avatar = card.querySelector('.team-avatar').src;
-        const ghUrl  = `https://github.com/${username}`;
-
-        drawer.innerHTML = `
-          <div class="repos-drawer-header">
-            <img class="repos-drawer-avatar" src="${avatar}" alt="${name}">
-            <div>
-              <p class="repos-drawer-name">${name}'s GitHub Repositories</p>
-              <p class="repos-drawer-sub">
-                Public repos from
-                <a href="${ghUrl}" target="_blank" rel="noopener">${ghUrl}</a>
-                " click any card to open on GitHub.
-              </p>
-            </div>
+    /* Build and show the drawer */
+    drawer.innerHTML = `
+        <div class="repos-drawer-header">
+          <img class="repos-drawer-avatar" src="${avatar}" alt="${name}">
+          <div>
+            <p class="repos-drawer-name">${name}'s GitHub Repositories</p>
+            <p class="repos-drawer-sub">
+              Selected repos from
+              <a href="${ghUrl}" target="_blank" rel="noopener">${ghUrl}</a>
+              — click any card to open on GitHub.
+            </p>
           </div>
-          <div class="repos-grid" id="reposGrid">
-            <div class="repos-loading">Loading repositories</div>
-          </div>`;
+        </div>
+        <div class="repos-grid">
+          ${buildReposHTML(repos)}
+        </div>`;
 
-        drawer.classList.add('visible');
-        drawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    drawer.classList.add('visible');
+    drawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
 
-        /* Fetch and render */
-        try {
-          const repos  = await fetchRepos(username);
-          const grid   = document.getElementById('reposGrid');
-          if (grid) grid.innerHTML = buildReposHTML(username, repos);
-        } catch (err) {
-          const grid = document.getElementById('reposGrid');
-          if (grid) grid.innerHTML = `<div class="repos-error">
-            Could not load repositories " the GitHub API may be rate-limited.
-            <a href="https://github.com/${username}" target="_blank" rel="noopener"
-               style="color:var(--accent);margin-left:6px">View on GitHub -</a>
-          </div>`;
-        }
-      };
-
-    })();
-    </script>
-    <script type="module" src="src/js/pages/contact.js"></script>
-    <script src="src/js/liquid-metal.js"></script>
-  </body>
+<script type="module" src="src/js/pages/contact.js"></script>
+<script src="src/js/liquid-metal.js"></script>
+</body>
 </html>
